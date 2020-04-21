@@ -10,8 +10,10 @@ batalion -> VARCHAR(25) nazwa podpod kategorii (w przykładzie Bananas)
 quantity -> INT 
 unit -> VARCHAR(5) tutaj przy bananach item
 status -> VARCHAR(1) tutaj A jak Available
+price -> FLOAT(2) cena
 
-Jeżeli każdy z nas wprowadzi wg tej semantyki 100 produktów to chyba wystarczy. 
+Jeżeli każdy z nas wprowadzi wg tej semantyki 20+ produktów to chyba wystarczy. 
+Kamilowi chodzi o zmienne wartości unit (kg, battle, litr, item)
 Wyełnione zbiory możecie przysyłać pod zmienionymi nazwami poza githubem
 Wprowadzę je do bazy.
 Pushuje powyższe na origin develop!!!
