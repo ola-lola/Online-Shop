@@ -1,0 +1,18 @@
+Wprowadziłem do programu file: "product_insert.sql" z dwima liniami insertów.
+PLik ten będzie potrzebny do stworzenia pierwszej tabeli produktów do testowania programu.
+Jak sie domyslacie utworzyłem na lokalnym serwerze bazę "fmcgshop" a w niej tabelę "products"
+Kolejne kolumny tabeli to;
+product_uid  -> globalny generator unikalnych id (wgrałem do bazy extension do takiej generacji)
+name -> VARCHAR(25)
+division -> VARCHAR(25) nazwa ogólnej kategorii (w przykładzie Fresh Food)
+brigade -> VARCHAR(25) nazwa podkategorii (w przykładzie Fruits)
+batalion -> VARCHAR(25) nazwa podpod kategorii (w przykładzie Bananas)
+quantity -> INT 
+unit -> VARCHAR(5) tutaj przy bananach item
+status -> VARCHAR(1) tutaj A jak Available
+
+Jeżeli każdy z nas wprowadzi wg tej semantyki 100 produktów to chyba wystarczy. 
+Wyełnione zbiory możecie przysyłać pod zmienionymi nazwami poza githubem
+Wprowadzę je do bazy.
+Pushuje powyższe na origin develop!!!
+
