@@ -11,13 +11,14 @@ namespace Shop
     {
         string connString = new DbSettings().connString;
 
-       public void Add_new_record(string n,string div, string bry, string bat, int qua,string un,string st,float pr)
+       public void Add_new_record(string t_name,string n,string div, string bry, string bat, int qua,string un,string st,float pr)
         {
             using (var conn = new NpgsqlConnection(connString))
             {
+                string s = String.Format("INSERT INTO {0}(product_uid,name,division,brigade,battalion,quantity,unit,status, price) VALUES (uuid_generate_v4(),@n,@div,@bry,@bat,@qua,@un,@st,@pr)", t_name);
                 Console.Out.WriteLine("Opening connection");
                 conn.Open();
-                using (var command = new NpgsqlCommand("INSERT INTO products(product_uid,name,division,brigade,battalion,quantity,unit,status, price) VALUES (uuid_generate_v4(),@n,@div,@bry,@bat,@qua,@un,@st,@pr)", conn))
+                using (var command = new NpgsqlCommand(s, conn))
                 {
                     command.Parameters.AddWithValue("@n", n);
                     command.Parameters.AddWithValue("@div", div);
@@ -30,7 +31,6 @@ namespace Shop
                     int nRows = command.ExecuteNonQuery();
                     Console.Out.WriteLine(String.Format("Inserted {0} row",nRows));
                 }
-                
             }
         }
 
