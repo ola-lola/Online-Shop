@@ -1,8 +1,13 @@
 using System;
 using Npgsql;
+using System.Collections.Generic;
+
 namespace Shop
 {
-    class Connect_DB
+    ///
+    // Class Conncect_DB - is IDAO implementation class
+    ///
+    class Connect_DB : IDAO
     {
         string connString = new DbSettings().connString;
 
@@ -28,6 +33,47 @@ namespace Shop
                 
             }
         }
+
+        public void ReadRecord()
+        {
+            //TODO - Agnieszka
+        }
+
+        public void UpdateRecord() {}
+        public void DeleteRecord() {}
+        public List<Product> ReadTable(string tableName , List<string> requiredColumns)
+        {
+            // Create SQL query string
+            var columns = String.Join(", ", requiredColumns);
+            // TODO: think about LIMIT added here (what if very large table?) -Agnieszka
+            string SQLquery = $"SELECT {columns} FROM {tableName}";
+
+            // Execute query to DB
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                conn.Open();
+                using (var command = new NpgsqlCommand(SQLquery, conn))
+                {
+                    NpgsqlDataReader reader = null;
+                    try {reader = command.ExecuteReader();}
+                    catch (Npgsql.PostgresException e) { System.Console.WriteLine(e.Message); }
+
+                    if (reader != null) {
+                        while (reader.Read()) {
+                            // TODO: change display or add writing data to List<Products>
+                            Console.Write("{0}\t{1} \n", reader[0], reader[1]);
+                        }
+                    }
+                }
+                conn.Close();
+                
+                // TODO: update method - Agnieszka 
+                return new List<Product>();
+            }
+        }
+
+
+
         public void Display_Table(string n, string fr)
         {
             using (var conn = new NpgsqlConnection(connString))
