@@ -37,7 +37,29 @@ namespace Shop
                 
             }
         }
-
+        public void Display_Table(string n, string fr)
+        {
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                string s = String.Format("SELECT name, quantity, unit, price FROM {0} WHERE name LIKE '{1}'", n, fr);
+                Console.Out.WriteLine("Opening connection");
+                conn.Open();
+                using (var command = new NpgsqlCommand(s, conn))
+                {
+                    var reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Console.WriteLine(
+                            string.Format("{0} - {1} {2}, price = {3}",
+                            reader.GetString(0),
+                            reader.GetInt16(1).ToString(),
+                            reader.GetString(2),
+                            reader.GetDouble(3).ToString()));
+                    }
+                }
+                
+            }
+        }
     }
     
 }

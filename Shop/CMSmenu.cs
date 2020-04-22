@@ -12,7 +12,8 @@ namespace Shop
             Console.WriteLine("2) Find the record in the table: products");
             Console.WriteLine("3) Update the record in the table: products");
             Console.WriteLine("4) Delete the record from the table: products");
-            Console.WriteLine("5) Exit");
+            Console.WriteLine("5) Display the table: products");
+            Console.WriteLine("6) Exit");
             Console.Write("\r\nSelect an option: ");
         
             switch (Console.ReadLine())
@@ -54,6 +55,16 @@ namespace Shop
                     Console.ReadKey();
                     return true;
                 case "5":
+                    Console.WriteLine("Displaying the table: products");
+                    Console.Write("Enter the name of the table: ");
+                    string table_name = Console.ReadLine();
+                    Console.Write("Enter name SQL LIKE condition (ex.%ban%): ");
+                    string frag_cond = Console.ReadLine();
+                    Connect_DB conection_DB5 = new Connect_DB();
+                    conection_DB5.Display_Table(table_name, frag_cond);
+                    Console.ReadKey();
+                    return true;
+                case "6":
                     return false;
                 default:
                     return true;
