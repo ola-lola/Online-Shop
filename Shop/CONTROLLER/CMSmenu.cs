@@ -19,7 +19,7 @@ namespace Shop
             switch (Console.ReadLine())
             {
                 case "1":
-                    Console.WriteLine("Adding new record");
+                    Console.WriteLine("Adding new record to particular table");
                     Console.Write("Enter the name of the table: ");
                     string table_name1 = Console.ReadLine();
                     Console.Write("Enter the name of new product: ");
@@ -57,7 +57,7 @@ namespace Shop
                     Console.ReadKey();
                     return true;
                 case "5":
-                    Console.WriteLine("Displaying the table: products");
+                    Console.WriteLine("Displaying the particular table");
                     Console.Write("Enter the name of the table: ");
                     string table_name5 = Console.ReadLine();
                     Console.Write("Enter name SQL LIKE condition (ex.%ban%): ");
