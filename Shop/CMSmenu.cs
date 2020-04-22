@@ -18,9 +18,27 @@ namespace Shop
             switch (Console.ReadLine())
             {
                 case "1":
-                    Console.WriteLine("Add");
+                    Console.WriteLine("Adding new record");
+                    Console.Write("Enter the name of new product: ");
+                    string name_new = Console.ReadLine();
+                    Console.Write("Enter the division of new product: ");
+                    string div_new = Console.ReadLine();
+                    Console.Write("Enter the brygade of new product: ");
+                    string bryg_new = Console.ReadLine();
+                    Console.Write("Enter the battalion of new product: ");
+                    string bat_new = Console.ReadLine();
+                    Console.Write("Enter the quantity of new product: ");
+                    string qua_new_str = Console.ReadLine();
+                    int qua_new = Int16.Parse(qua_new_str);
+                    Console.Write("Enter the unit of new product: ");
+                    string unit_new = Console.ReadLine();
+                    Console.Write("Enter the status of new product: ");
+                    string status_new = Console.ReadLine().ToUpper();
+                    Console.Write("Enter the price of new product: ");
+                    string price_new_str = Console.ReadLine();
+                    float price_new = float.Parse(price_new_str);
                     Connect_DB conection_DB = new Connect_DB();
-                    conection_DB.Add_new_record("Sweet Bananas","Fresh Food", "Fruits","Bananas",999,"kg","A", (float)2.5);
+                    conection_DB.Add_new_record(name_new,div_new, bryg_new,bat_new,qua_new,unit_new,status_new, price_new);
                     Console.ReadKey();
                     return true;
                 case "2":

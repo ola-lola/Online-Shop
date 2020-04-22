@@ -15,24 +15,23 @@ namespace Shop
             Host,User,DBname,Port,Password
         );
 
-        public void Add_new_record(string n,string div, string bry, string bat, int qua,string un,string st,float pr)
+       public void Add_new_record(string n,string div, string bry, string bat, int qua,string un,string st,float pr)
         {
             using (var conn = new NpgsqlConnection(connString))
             {
                 Console.Out.WriteLine("Opening connection");
                 conn.Open();
-                using (var command = new NpgsqlCommand("INSERT INTO products(product_uid,name,division,brigade,battalion,quantity,unit,status, price) VALUES (@uid,@n,@div,@bry,@bat,@qua,@un,@st,@pr)", conn))
+                using (var command = new NpgsqlCommand("INSERT INTO products(product_uid,name,division,brigade,battalion,quantity,unit,status, price) VALUES (uuid_generate_v4(),@n,@div,@bry,@bat,@qua,@un,@st,@pr)", conn))
                 {
-                    command.Parameters.AddWithValue("@uid", "uuid_generate_v4()");
-                    command.Parameters.AddWithValue("@n", "n");
-                    command.Parameters.AddWithValue("@div", "div");
-                    command.Parameters.AddWithValue("@bry", "bry");
-                    command.Parameters.AddWithValue("@bat", "bat");
+                    command.Parameters.AddWithValue("@n", n);
+                    command.Parameters.AddWithValue("@div", div);
+                    command.Parameters.AddWithValue("@bry", bry);
+                    command.Parameters.AddWithValue("@bat", bat);
                     command.Parameters.AddWithValue("@qua", qua);
-                    command.Parameters.AddWithValue("@un", "un");
-                    command.Parameters.AddWithValue("@st", "st");
+                    command.Parameters.AddWithValue("@un", un);
+                    command.Parameters.AddWithValue("@st", st);
                     command.Parameters.AddWithValue("@pr", pr);
-
+                    Console.WriteLine(command);
                     int nRows = command.ExecuteNonQuery();
                     Console.Out.WriteLine(String.Format("Inserted {0} row",nRows));
                 }
