@@ -4,16 +4,7 @@ namespace Shop
 {
     class Connect_DB
     {
-        private static string Host = "127.0.0.1";
-        private static string User = "postgres";
-        private static string DBname = "fmcgshop";
-        private static string Password = "trenchnap2019";
-        private static string Port = "5432";
-        
-        string connString = String.Format(
-            "Server={0};Username={1};Database={2};Port={3};Password={4}",
-            Host,User,DBname,Port,Password
-        );
+        string connString = new DbSettings().connString;
 
        public void Add_new_record(string n,string div, string bry, string bat, int qua,string un,string st,float pr)
         {
