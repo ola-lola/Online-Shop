@@ -31,7 +31,6 @@ namespace Shop
                     command.Parameters.AddWithValue("@un", un);
                     command.Parameters.AddWithValue("@st", st);
                     command.Parameters.AddWithValue("@pr", pr);
-                    Console.WriteLine(command);
                     int nRows = command.ExecuteNonQuery();
                     Console.Out.WriteLine(String.Format("Inserted {0} row",nRows));
                 }
