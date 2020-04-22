@@ -20,6 +20,8 @@ namespace Shop
             {
                 case "1":
                     Console.WriteLine("Adding new record");
+                    Console.Write("Enter the name of the table: ");
+                    string table_name1 = Console.ReadLine();
                     Console.Write("Enter the name of new product: ");
                     string name_new = Console.ReadLine();
                     Console.Write("Enter the division of new product: ");
@@ -39,7 +41,7 @@ namespace Shop
                     string price_new_str = Console.ReadLine();
                     float price_new = float.Parse(price_new_str);
                     Connect_DB conection_DB = new Connect_DB();
-                    conection_DB.Add_new_record(name_new,div_new, bryg_new,bat_new,qua_new,unit_new,status_new, price_new);
+                    conection_DB.Add_new_record(table_name1,name_new,div_new, bryg_new,bat_new,qua_new,unit_new,status_new, price_new);
                     Console.ReadKey();
                     return true;
                 case "2":
@@ -57,11 +59,11 @@ namespace Shop
                 case "5":
                     Console.WriteLine("Displaying the table: products");
                     Console.Write("Enter the name of the table: ");
-                    string table_name = Console.ReadLine();
+                    string table_name5 = Console.ReadLine();
                     Console.Write("Enter name SQL LIKE condition (ex.%ban%): ");
                     string frag_cond = Console.ReadLine();
                     Connect_DB conection_DB5 = new Connect_DB();
-                    conection_DB5.Display_Table(table_name, frag_cond);
+                    conection_DB5.Display_Table(table_name5, frag_cond);
                     Console.ReadKey();
                     return true;
                 case "6":
