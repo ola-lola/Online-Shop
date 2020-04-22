@@ -47,7 +47,7 @@ namespace Shop
                     Console.WriteLine("Find");
                     // TODO - update UI (for Agnieszka, current is for dry runs only)
                     // Connect_DB conection_DB2 = new Connect_DB();
-                    // conection_DB2.ReadTable("products", new List<string>{"name", "division" );
+                    // conection_DB2.ReadTable("products", new List<string>{"name", "division"} );
                     Console.ReadKey();
                     return true;
                 case "3":
