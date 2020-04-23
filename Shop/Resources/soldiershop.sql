@@ -79,7 +79,6 @@ a0827175-16ab-4da2-ad60-93d4d75e9406	Green grapes	Fresh Food	Fruits	Grapes	100	k
 57ee6d00-96a1-4cfc-b8c0-f352f8ba404d	Walnuts 100G	Fresh Food	Fruits	Dried Fruit	100	item	A	2.5
 d1556ba7-ea09-4709-9f65-c6fac6e640e7	Pitted Dates	Fresh Food	Fruits	Dried Fruit	100	kg	A	8.5
 ced9b0eb-761b-4dbe-8eec-ce8ddcc1d64b	Cashew 150G	Fresh Food	Fruits	Dried Fruit	100	item	A	9.5
-
 bf29b7f8-221c-4537-acbd-2a0f67f12e5a	Fruit&Nuts Mix	Fresh Food	Fruits	Dried Fruit	100	kg	A	11.5
 d7e4f339-95af-4ee4-9728-885ae2a0529b	Sweet Bananas	Fresh Food	Fruits	Bananas	999	kg	A	2.5
 c37ac885-44ee-4238-bd15-dcf427bd6af0	WhiteFarmhouseBread	Bakery	Bread	WhiteBread	1	item	A	3.5

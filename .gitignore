@@ -358,3 +358,6 @@ MigrationBackup/
 
 Shop/bin/
 Shop.Test/bin/
+
+Shop/.vscode/
+Shop/DBlocalSettings/

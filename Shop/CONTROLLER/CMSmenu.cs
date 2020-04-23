@@ -46,6 +46,7 @@ namespace Shop
                     Console.ReadKey();
                     return true;
                 case "2":
+<<<<<<< HEAD
                     Console.WriteLine("Find product using the category search machine");
                     Console.WriteLine("===============================================");
                     List<string> div_out = new List<string>();
@@ -119,6 +120,12 @@ namespace Shop
                     
                     
                     
+=======
+                    Console.WriteLine("Find");
+                    // TODO - update UI (for Agnieszka, current is for dry runs only)
+                    // Connect_DB conection_DB2 = new Connect_DB();
+                    // conection_DB2.ReadTable("products", new List<string>{"name", "division"} );
+>>>>>>> 0c56a6529d7756a940243b5ca8740811d56a8d1e
                     Console.ReadKey();
                     return true;
                 

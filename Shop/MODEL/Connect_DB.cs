@@ -1,20 +1,18 @@
 using System;
 using Npgsql;
 using System.Collections.Generic;
+<<<<<<< HEAD:Shop/MODEL/Connection_DB.cs
+=======
+
+>>>>>>> 0c56a6529d7756a940243b5ca8740811d56a8d1e:Shop/MODEL/Connect_DB.cs
 namespace Shop
 {
-    class Connect_DB
+    ///
+    // Class Conncect_DB - is IDAO implementation class
+    ///
+    class Connect_DB : IDAO
     {
-        private static string Host = "127.0.0.1";
-        private static string User = "postgres";
-        private static string DBname = "fmcgshop";
-        private static string Password = "trenchnap2019";
-        private static string Port = "5432";
-        
-        string connString = String.Format(
-            "Server={0};Username={1};Database={2};Port={3};Password={4}",
-            Host,User,DBname,Port,Password
-        );
+        string connString = new DbSettings().connString;
 
        public void Add_new_record(string t_name,string n,string div, string bry, string bat, int qua,string un,string st,float pr)
         {
@@ -38,6 +36,47 @@ namespace Shop
                 }
             }
         }
+
+        public void ReadRecord()
+        {
+            //TODO - Agnieszka
+        }
+
+        public void UpdateRecord() {}
+        public void DeleteRecord() {}
+        public List<Product> ReadTable(string tableName , List<string> requiredColumns)
+        {
+            // Create SQL query string
+            var columns = String.Join(", ", requiredColumns);
+            // TODO: think about LIMIT added here (what if very large table?) -Agnieszka
+            string SQLquery = $"SELECT {columns} FROM {tableName}";
+
+            // Execute query to DB
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                conn.Open();
+                using (var command = new NpgsqlCommand(SQLquery, conn))
+                {
+                    NpgsqlDataReader reader = null;
+                    try {reader = command.ExecuteReader();}
+                    catch (Npgsql.PostgresException e) { System.Console.WriteLine(e.Message); }
+
+                    if (reader != null) {
+                        while (reader.Read()) {
+                            // TODO: change display or add writing data to List<Products>
+                            Console.Write("{0}\t{1} \n", reader[0], reader[1]);
+                        }
+                    }
+                }
+                conn.Close();
+                
+                // TODO: update method - Agnieszka 
+                return new List<Product>();
+            }
+        }
+
+
+
         public void Display_Table(string n, string fr)
         {
             using (var conn = new NpgsqlConnection(connString))
