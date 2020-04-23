@@ -1,5 +1,6 @@
 using System;
 using Npgsql;
+using System.Collections.Generic;
 namespace Shop
 {
     class Connect_DB
@@ -57,8 +58,103 @@ namespace Shop
                             reader.GetDouble(3).ToString()));
                     }
                 }
-                
             }
+        }
+        public List<string> Find_Division()
+        {
+            List<string> div_list = new List<string>();
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                Console.Out.WriteLine("List of available divisions");
+                conn.Open();
+                using (var command = new NpgsqlCommand("SELECT DISTINCT division FROM products",conn))
+                {
+                    var reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        div_list.Add(reader.GetString(0));
+                    }
+                }
+            }
+            return div_list;
+        }
+        public List<string> Find_Brigade(string div)
+        {
+            List<string> bryg_list = new List<string>();
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                string s = String.Format("SELECT DISTINCT brigade FROM products WHERE division = '{0}'",div);
+                conn.Open();
+                using (var command = new NpgsqlCommand(s,conn))
+                {
+                    var reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        bryg_list.Add(reader.GetString(0));
+                    }
+                }
+            }
+            return bryg_list;
+        }
+        public List<string> Find_Battalion(string div, string bry)
+        {
+            List<string> batt_list = new List<string>();
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                string s = String.Format("SELECT DISTINCT battalion FROM products WHERE division = '{0}' AND brigade = '{1}'",div,bry);
+                conn.Open();
+                using (var command = new NpgsqlCommand(s,conn))
+                {
+                    var reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        batt_list.Add(reader.GetString(0));
+                    }
+                }
+            }
+            return batt_list;
+        }
+        public List<string> Find_Product(string div, string bry, string bat)
+        {
+            List<string> prod_list = new List<string>();
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                string s = String.Format("SELECT DISTINCT name FROM products WHERE division = '{0}' AND brigade = '{1}' AND battalion = '{2}'",div,bry, bat);
+                conn.Open();
+                using (var command = new NpgsqlCommand(s,conn))
+                {
+                    var reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        prod_list.Add(reader.GetString(0));
+                    }
+                }
+            }
+            return prod_list;
+        }
+        public string Find_Selected_Product(string div, string bry, string bat, string name)
+        {
+            string prod_uuid = "";
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                string s = String.Format("SELECT DISTINCT name, quantity, unit, price, product_uid FROM products WHERE division = '{0}' AND brigade = '{1}' AND battalion = '{2}' AND name = '{3}'",div,bry, bat,name);
+                conn.Open();
+                using (var command = new NpgsqlCommand(s,conn))
+                {
+                    var reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Console.WriteLine(
+                            string.Format("{0} - {1} {2}, price = {3}",
+                            reader.GetString(0),
+                            reader.GetInt16(1).ToString(),
+                            reader.GetString(2),
+                            reader.GetFloat(3).ToString()));
+                        prod_uuid = reader.GetGuid(4).ToString();
+                    }
+                }
+            }
+            return prod_uuid;
         }
     }
     
