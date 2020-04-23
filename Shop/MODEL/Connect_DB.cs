@@ -1,10 +1,6 @@
 using System;
 using Npgsql;
 using System.Collections.Generic;
-<<<<<<< HEAD:Shop/MODEL/Connection_DB.cs
-=======
-
->>>>>>> 0c56a6529d7756a940243b5ca8740811d56a8d1e:Shop/MODEL/Connect_DB.cs
 namespace Shop
 {
     ///
