@@ -15,9 +15,12 @@ namespace Shop {
         }
 
         public void PrintCMSmenu_v2() {
+            LogoScreen();
             foreach (Menu item in this.menuItems) {
-                System.Console.WriteLine(item);
+                // Console.SetCursorPosition((Console.WindowWidth - item.Content.Length) / 2, Console.CursorTop);
+                Console.WriteLine(item);
             }
+
             int i = 0;
 
             while (true) {   
@@ -70,9 +73,45 @@ namespace Shop {
         {
             Console.Clear();
             Console.ResetColor();
+            LogoScreen();
             foreach (Menu item in menuIt) {
-                System.Console.WriteLine(item);
+                // Console.SetCursorPosition((Console.WindowWidth - item.Content.Length) / 2, Console.CursorTop);
+                Console.WriteLine(item);
             }
+        }
+        public static void LogoScreen()
+        {
+            // maximize_terminal_window()
+            Console.Clear();
+            string separator = new String('*', Console.LargestWindowWidth);
+            Console.WriteLine(separator);
+            // string[] logoHangman = AsciiArts.HangmanLogo();
+            foreach (string line in ShopLogo())
+            {
+                // Console.SetCursorPosition((Console.WindowWidth - line.Length) / 2, Console.CursorTop);
+                Console.WriteLine(line);
+            }
+            Console.WriteLine();
+            // print_center_aligned("Hello and welcome to the best Hangman game you have ever played!")
+            Console.WriteLine(separator);
+        }
+        public static string[] ShopLogo()
+        {
+            string[] logo = new string[12] {
+            " ██████╗███╗   ███╗███████╗    ███╗   ███╗ ██████╗ ██████╗ ███████╗",
+            "██╔════╝████╗ ████║██╔════╝    ████╗ ████║██╔═══██╗██╔══██╗██╔════╝",
+            "██║     ██╔████╔██║███████╗    ██╔████╔██║██║   ██║██║  ██║█████╗  ",
+            "██║     ██║╚██╔╝██║╚════██║    ██║╚██╔╝██║██║   ██║██║  ██║██╔══╝  ",
+            "╚██████╗██║ ╚═╝ ██║███████║    ██║ ╚═╝ ██║╚██████╔╝██████╔╝███████╗",
+            " ╚═════╝╚═╝     ╚═╝╚══════╝    ╚═╝     ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝",
+            "",
+            "                           \\________",
+            "                        ~   \\######/",     
+            "                         ~   |####/ ",
+            "                        ~    |____. ",
+            "                       ______o____o_________",
+            };
+            return logo;
         }
     }
     class Menu {
