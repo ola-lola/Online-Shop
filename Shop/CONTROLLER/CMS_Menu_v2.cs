@@ -7,26 +7,28 @@ namespace Shop {
 
         private List<Menu> menuItems = new List<Menu>();
 
-        public CMS_Menu_v2()
-        {
+        ///
+        // CMS_Menu_v2 constructor creates a list of menu items from Enum CMSmenuOptions_lvl1
+        ///
+        public CMS_Menu_v2() {
             foreach(string item in Enum.GetNames(typeof(CMSmenuOptions_lvl1))){
                 menuItems.Add(new Menu(item));
             }
         }
 
         public void PrintCMSmenu_v2() {
-            LogoScreen();
-            foreach (Menu item in this.menuItems) {
-                // Console.SetCursorPosition((Console.WindowWidth - item.Content.Length) / 2, Console.CursorTop);
-                Console.WriteLine(item);
-            }
-
             int i = 0;
-
-            while (true) {   
+            
+            bool menuDisplayed = true;
+            while (menuDisplayed) {   
+                CMSmenuView.LogoScreen();
+                foreach (Menu item in this.menuItems) {
+                    // Console.SetCursorPosition((Console.WindowWidth - item.Content.Length) / 2, Console.CursorTop);
+                    Console.WriteLine(item);
+                }
                 var current = menuItems[i];
                 current.isChecked = true;
-                HighlightCurrent(menuItems);
+                MenuViewFormatting.HighlightCurrent(menuItems);
 
                 var pressedKey = Console.ReadKey(false).Key;
                 current.isChecked = false;
@@ -35,23 +37,31 @@ namespace Shop {
                     CMSmenuOptions_lvl1 temp;
                     Enum.TryParse(current.Content, out temp);
                     switch ((int) temp) {
-                        case 0: System.Console.WriteLine("add"); break;
-                        case 1: System.Console.WriteLine("find"); break;
-                        case 2: System.Console.WriteLine("update"); break;
-                        case 3: System.Console.WriteLine("delete"); break;
-                        case 4: System.Console.WriteLine("search"); break;
-                        case 5: System.Console.WriteLine("preview all"); break;
-                        case 6: System.Console.WriteLine("exit"); break;
-                        default: System.Console.WriteLine("default"); break;
+                        case 0: // ADD_NEW_DATA
+                            CMSmenuView.AddNewData();
+                            break;
+                        case 1: // FIND_ITEMS
+                            CMSmenuView.FindByCategory();
+                            break;
+                        case 2: // UPDATE_ITEMS
+                            Console.WriteLine("Update");
+                            Console.ReadKey();
+                            break;
+                        case 3: // DELETE_ITEMS
+                            Console.WriteLine("Delete");
+                            Console.ReadKey();
+                            break;
+                        case 4: // SEARCH_IN_STOCK
+                            CMSmenuView.SearchInStock();
+                            break;
+                        case 5: // PREVIEW_ALL_ITEMS_IN_STOCK
+                            break;
+                        case 6: // EXIT_CMS
+                            menuDisplayed = false;
+                            break;
+                        default:
+                            break;
                     }
-                    // RUN: current.Content
-                    System.Console.WriteLine("clicked");
-                    Thread.Sleep(5000);
-                    // TODO
-                    // var method = Type.GetType(Main).GetMethod(current.Content);
-
-                    // if (method != null)
-                    // { method.Invoke(null, null); }
                 }
                     
                 switch (pressedKey)
@@ -69,69 +79,6 @@ namespace Shop {
             }
         }
         
-        static void HighlightCurrent(List<Menu> menuIt)
-        {
-            Console.Clear();
-            Console.ResetColor();
-            LogoScreen();
-            foreach (Menu item in menuIt) {
-                // Console.SetCursorPosition((Console.WindowWidth - item.Content.Length) / 2, Console.CursorTop);
-                Console.WriteLine(item);
-            }
-        }
-        public static void LogoScreen()
-        {
-            // maximize_terminal_window()
-            Console.Clear();
-            string separator = new String('*', Console.LargestWindowWidth);
-            Console.WriteLine(separator);
-            // string[] logoHangman = AsciiArts.HangmanLogo();
-            foreach (string line in ShopLogo())
-            {
-                // Console.SetCursorPosition((Console.WindowWidth - line.Length) / 2, Console.CursorTop);
-                Console.WriteLine(line);
-            }
-            Console.WriteLine();
-            // print_center_aligned("Hello and welcome to the best Hangman game you have ever played!")
-            Console.WriteLine(separator);
-        }
-        public static string[] ShopLogo()
-        {
-            string[] logo = new string[12] {
-            " ██████╗███╗   ███╗███████╗    ███╗   ███╗ ██████╗ ██████╗ ███████╗",
-            "██╔════╝████╗ ████║██╔════╝    ████╗ ████║██╔═══██╗██╔══██╗██╔════╝",
-            "██║     ██╔████╔██║███████╗    ██╔████╔██║██║   ██║██║  ██║█████╗  ",
-            "██║     ██║╚██╔╝██║╚════██║    ██║╚██╔╝██║██║   ██║██║  ██║██╔══╝  ",
-            "╚██████╗██║ ╚═╝ ██║███████║    ██║ ╚═╝ ██║╚██████╔╝██████╔╝███████╗",
-            " ╚═════╝╚═╝     ╚═╝╚══════╝    ╚═╝     ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝",
-            "",
-            "                           \\________",
-            "                        ~   \\######/",     
-            "                         ~   |####/ ",
-            "                        ~    |____. ",
-            "                       ______o____o_________",
-            };
-            return logo;
-        }
-    }
-    class Menu {
-        public string Content { get; private set; }
-        public bool isChecked = false;
 
-
-        public Menu(string Content) {
-            this.Content = Content;
-        }
-        public void CheckCondition()
-        {
-            if (isChecked) {
-                Console.BackgroundColor = ConsoleColor.White;
-                Console.ForegroundColor = ConsoleColor.Black;
-            } else { Console.ResetColor(); }
-        }
-        public override string ToString() {
-            this.CheckCondition();
-            return this.Content;
-        }
     }
 }
