@@ -9,18 +9,18 @@ namespace Shop
         {
             Console.Clear();
             Console.WriteLine("Admin Staff -> Choose an option:");
-            Console.WriteLine("1) Add a new record to the table: products");
-            Console.WriteLine("2) Find the record in the table: products");
-            Console.WriteLine("3) Update the record in the table: products");
-            Console.WriteLine("4) Delete the record from the table: products");
-            Console.WriteLine("5) Display the table: products");
+            Console.WriteLine("1) Add a new record to the table");
+            Console.WriteLine("2) Find the record in the table");
+            Console.WriteLine("3) Update the record in the table");
+            Console.WriteLine("4) Delete the record from the table");
+            Console.WriteLine("5) Display the table");
             Console.WriteLine("6) Exit");
             Console.Write("\r\nSelect an option: ");
         
             switch (Console.ReadLine())
             {
                 case "1":
-                    Console.WriteLine("Adding new record to particular table");
+                    Console.WriteLine("Adding new record to the particular table");
                     Console.Write("Enter the name of the table: ");
                     string table_name1 = Console.ReadLine();
                     Console.Write("Enter the name of new product: ");
@@ -46,12 +46,86 @@ namespace Shop
                     Console.ReadKey();
                     return true;
                 case "2":
-                    Console.WriteLine("Find");
-                    // TODO - update UI (for Agnieszka, current is for dry runs only)
-                    // Connect_DB conection_DB2 = new Connect_DB();
-                    // conection_DB2.ReadTable("products", new List<string>{"name", "division"} );
+                    Console.WriteLine("Find product using the category search machine");
+                    Console.WriteLine("===============================================");
+                    List<string> div_out = new List<string>();
+                    List<string> bry_out = new List<string>();
+                    List<string> bat_out = new List<string>();
+                    List<string> pro_out = new List<string>();
+                    string pro_discription;
+                    string outcomeDiv;
+                    string outcomeBry;
+                    string outcomeBat;
+                    string outName;
+                    string result;
+                    int wsk;
+                    Connect_DB conection_DB2 = new Connect_DB();
+                    div_out = conection_DB2.Find_Division();
+                    for (int i = 1; i <= div_out.Count; i++)
+                    {
+                        Console.WriteLine("{0}. {1}", i, div_out[i-1]);
+                    }
+                    
+                    Console.Write("Enter division number: ");
+                    result = Console.ReadLine();
+                    wsk = Int16.Parse(result);
+                    outcomeDiv = div_out[wsk-1];
+                    Console.WriteLine("--------------------------");
+                    Console.WriteLine("DIVISION: " + outcomeDiv);
+                    Connect_DB conection_DB21 = new Connect_DB();
+                    bry_out = conection_DB21.Find_Brigade(outcomeDiv);
+                    for (int i = 1; i <= bry_out.Count; i++)
+                    {
+                        Console.WriteLine("{0}. {1}", i, bry_out[i-1]);
+                    }
+                    
+                    Console.Write("Enter brigade number: ");
+                    result = Console.ReadLine();
+                    wsk = Int16.Parse(result);
+                    outcomeBry = bry_out[wsk-1];
+                    Console.WriteLine("----------------------------");
+                    Console.WriteLine("DIVISION: " + outcomeDiv + ", BRIGADE: " + outcomeBry);
+                    Connect_DB conection_DB22 = new Connect_DB();
+                    bat_out = conection_DB22.Find_Battalion(outcomeDiv, outcomeBry);
+                    for (int i = 1; i <= bat_out.Count; i++)
+                    {
+                        Console.WriteLine("{0}. {1}", i, bat_out[i-1]);
+                    }
+                    
+                    Console.Write("Enter battalion number: ");
+                    result = Console.ReadLine();
+                    wsk = Int16.Parse(result);
+                    outcomeBat = bat_out[wsk-1];
+                    Console.WriteLine("----------------------------");
+                    Console.WriteLine("DIVISION: "+ outcomeDiv + ", BRIGADE: " + outcomeBry + ", BATTALION: " + outcomeBat);
+                    Connect_DB conection_DB23 = new Connect_DB();
+                    pro_out = conection_DB23.Find_Product(outcomeDiv, outcomeBry, outcomeBat);
+                    for (int i = 1; i <= pro_out.Count; i++)
+                    {
+                        Console.WriteLine("{0}. {1}", i, pro_out[i-1]);
+                    }
+                    
+                    Console.Write("Enter product number: ");
+                    result = Console.ReadLine();
+                    wsk = Int16.Parse(result);
+                    
+                    outName = pro_out[wsk-1];
+                    Console.WriteLine("-----------------------------");
+                    Console.WriteLine("DIVISION: "+ outcomeDiv + ", BRIGADE: " + outcomeBry + ", BATTALION: " + outcomeBat);
+                    Connect_DB conection_DB24 = new Connect_DB();
+                    //zwraca uuid
+                    pro_discription = conection_DB24.Find_Selected_Product(outcomeDiv, outcomeBry, outcomeBat, outName);
+                    Console.WriteLine("UUID: " + pro_discription);
+                    
+                    
+                    
                     Console.ReadKey();
                     return true;
+                
+                
+                
+                
+                
                 case "3":
                     Console.WriteLine("Update");
                     Console.ReadKey();
