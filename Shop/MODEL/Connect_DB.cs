@@ -38,7 +38,26 @@ namespace Shop
             //TODO - Agnieszka
         }
 
-        public void UpdateRecord() {}
+
+        public void UpdateRecord(int qua,float pr, string product_uid)
+        {
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                string toUpdate = String.Format("UPDATE products SET quantity = @qua, price = @pr WHERE product_uid = '{0}'", product_uid);
+                Console.Out.WriteLine(toUpdate);
+                conn.Open();
+                using (var command = new NpgsqlCommand(toUpdate, conn))
+                {
+                    command.Parameters.AddWithValue("@qua", qua);
+                    command.Parameters.AddWithValue("@pr", pr);
+
+                    int nRows = command.ExecuteNonQuery();
+                    Console.Out.WriteLine(String.Format("Product info updated",nRows));
+                }
+            }
+        }
+        
+
         public void DeleteRecord() {}
         public List<Product> ReadTable(string tableName , List<string> requiredColumns)
         {
@@ -71,8 +90,7 @@ namespace Shop
             }
         }
 
-
-
+    
         public void Display_Table(string n, string fr)
         {
             using (var conn = new NpgsqlConnection(connString))
