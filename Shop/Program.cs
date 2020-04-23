@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+// using System.Reflection;
+using System.Threading;
+
 namespace Shop
 {
     class Program
@@ -19,7 +23,8 @@ namespace Shop
                }
            }
            Console.WriteLine("Hello Team");
+           System.Console.WriteLine(CMSmenuOptions_lvl1.ADD_NEW_DATA.ToString());
         }
-        
     }
 }
+
