@@ -78,46 +78,46 @@ namespace Shop
                     
 
                     //test
-//                     Console.Write("Enter division number: ");
-//                     result = Console.ReadLine();
-//                     wsk = Int16.Parse(result);
-//                     outcomeDiv = div_out[wsk-1];
-//                     Console.WriteLine("--------------------------");
-//                     Console.WriteLine("DIVISION: " + outcomeDiv);
-//                     Connect_DB conection_DB21 = new Connect_DB();
-//                     bry_out = conection_DB21.Find_Brigade(outcomeDiv);
-//                     for (int i = 1; i <= bry_out.Count; i++)
-//                     {
-//                         Console.WriteLine("{0}. {1}", i, bry_out[i-1]);
-//                     }
+                    Console.Write("Enter division number: ");
+                     result = Console.ReadLine();
+                    wsk = Int16.Parse(result);
+                    outcomeDiv = div_out[wsk-1];
+                    Console.WriteLine("--------------------------");
+                    Console.WriteLine("DIVISION: " + outcomeDiv);
+                    Connect_DB conection_DB21 = new Connect_DB();
+                    bry_out = conection_DB21.Find_Brigade(outcomeDiv);
+                    for (int i = 1; i <= bry_out.Count; i++)
+                    {
+                        Console.WriteLine("{0}. {1}", i, bry_out[i-1]);
+                    }
                     
-//                     Console.Write("Enter brigade number: ");
-//                     result = Console.ReadLine();
-//                     wsk = Int16.Parse(result);
-//                     outcomeBry = bry_out[wsk-1];
-//                     Console.WriteLine("----------------------------");
-//                     Console.WriteLine("DIVISION: " + outcomeDiv + ", BRIGADE: " + outcomeBry);
-//                     Connect_DB conection_DB22 = new Connect_DB();
-//                     bat_out = conection_DB22.Find_Battalion(outcomeDiv, outcomeBry);
-//                     for (int i = 1; i <= bat_out.Count; i++)
-//                     {
-//                         Console.WriteLine("{0}. {1}", i, bat_out[i-1]);
-//                     }
+                    Console.Write("Enter brigade number: ");
+                    result = Console.ReadLine();
+                    wsk = Int16.Parse(result);
+                    outcomeBry = bry_out[wsk-1];
+                    Console.WriteLine("----------------------------");
+                    Console.WriteLine("DIVISION: " + outcomeDiv + ", BRIGADE: " + outcomeBry);
+                    Connect_DB conection_DB22 = new Connect_DB();
+                    bat_out = conection_DB22.Find_Battalion(outcomeDiv, outcomeBry);
+                    for (int i = 1; i <= bat_out.Count; i++)
+                    {
+                        Console.WriteLine("{0}. {1}", i, bat_out[i-1]);
+                    }
                     
-//                     Console.Write("Enter battalion number: ");
-//                     result = Console.ReadLine();
-//                     wsk = Int16.Parse(result);
-//                     outcomeBat = bat_out[wsk-1];
-//                     Console.WriteLine("----------------------------");
-//                     Console.WriteLine("DIVISION: "+ outcomeDiv + ", BRIGADE: " + outcomeBry + ", BATTALION: " + outcomeBat);
-//                     Connect_DB conection_DB23 = new Connect_DB();
-//                     pro_out = conection_DB23.Find_Product(outcomeDiv, outcomeBry, outcomeBat);
-//                     for (int i = 1; i <= pro_out.Count; i++)
-//                     {
-//                         Console.WriteLine("{0}. {1}", i, pro_out[i-1]);
-//                     }
+                    Console.Write("Enter battalion number: ");
+                    result = Console.ReadLine();
+                    wsk = Int16.Parse(result);
+                    outcomeBat = bat_out[wsk-1];
+                    Console.WriteLine("----------------------------");
+                    Console.WriteLine("DIVISION: "+ outcomeDiv + ", BRIGADE: " + outcomeBry + ", BATTALION: " + outcomeBat);
+                    Connect_DB conection_DB23 = new Connect_DB();
+                    pro_out = conection_DB23.Find_Product(outcomeDiv, outcomeBry, outcomeBat);
+                    for (int i = 1; i <= pro_out.Count; i++)
+                    {
+                        Console.WriteLine("{0}. {1}", i, pro_out[i-1]);
+                    }
                     
-<<<<<<< HEAD
+
                     Console.Write("Enter product number: ");
                     result = Console.ReadLine();
                     wsk = Int16.Parse(result);
