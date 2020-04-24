@@ -39,26 +39,73 @@ namespace Shop
         }
 
 
-        public void UpdateRecord(int qua,float pr, string product_uid)
+        public void UpdateQuantity(string product_uid, int quantity)
         {
             using (var conn = new NpgsqlConnection(connString))
             {
-                string toUpdate = String.Format("UPDATE products SET quantity = @qua, price = @pr WHERE product_uid = '{0}'", product_uid);
+                string toUpdate = String.Format("UPDATE products SET quantity = @quantity WHERE product_uid = '{0}'", product_uid);
                 Console.Out.WriteLine(toUpdate);
                 conn.Open();
                 using (var command = new NpgsqlCommand(toUpdate, conn))
                 {
-                    command.Parameters.AddWithValue("@qua", qua);
-                    command.Parameters.AddWithValue("@pr", pr);
+                    command.Parameters.AddWithValue("@quantity", quantity);
 
                     int nRows = command.ExecuteNonQuery();
                     Console.Out.WriteLine(String.Format("Product info updated",nRows));
                 }
             }
         }
+
+        public void UpdateName(string product_uid, string name)
+        {
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                string toUpdate = String.Format("UPDATE products SET name = @name WHERE product_uid = '{0}'", product_uid);
+                Console.Out.WriteLine(toUpdate);
+                conn.Open();
+                using (var command = new NpgsqlCommand(toUpdate, conn))
+                {
+                    command.Parameters.AddWithValue("@name", name);
+
+                    int nRows = command.ExecuteNonQuery();
+                    Console.Out.WriteLine(String.Format("Product info updated",nRows));
+                }
+            }
+        }
+
+        public void UpdatePrice(string product_uid, float price)
+        {
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                string toUpdate = String.Format("UPDATE products SET price = @price WHERE product_uid = '{0}'", product_uid);
+                Console.Out.WriteLine(toUpdate);
+                conn.Open();
+                using (var command = new NpgsqlCommand(toUpdate, conn))
+                {
+                    command.Parameters.AddWithValue("@price", price);
+
+                    int nRows = command.ExecuteNonQuery();
+                    Console.Out.WriteLine(String.Format("Product info updated",nRows));
+                }
+            }
+        }
+
+        public void DeleteRecord(string product_uid)
+        {
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                string toDelete = String.Format("DELETE FROM products WHERE product_uid = '{0}'", product_uid);
+                conn.Open();
+                using (var command = new NpgsqlCommand(toDelete, conn))
+                {
+                    int nRows = command.ExecuteNonQuery();
+                    Console.Out.WriteLine(String.Format("Numbers of deleted rows = {0}", nRows));
+                }
+            }
+        }
+
         
 
-        public void DeleteRecord() {}
         public List<Product> ReadTable(string tableName , List<string> requiredColumns)
         {
             // Create SQL query string
