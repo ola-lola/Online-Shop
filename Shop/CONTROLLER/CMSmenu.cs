@@ -8,19 +8,18 @@ namespace Shop
         public static bool CMSMenu_display()
         {
             Console.Clear();
-            Console.WriteLine("Admin Staff -> Choose an option:");
-            Console.WriteLine("1) Add a new record to the table");
-            Console.WriteLine("2) Find the record in the table");
-            Console.WriteLine("3) Update the record in the table");
-            Console.WriteLine("4) Delete the record from the table");
-            Console.WriteLine("5) Display the table");
-            Console.WriteLine("6) Exit");
+            Console.WriteLine("CSM CRUD -> Choose an option:");
+            Console.WriteLine("1) CREATE a new record");
+            Console.WriteLine("2) READ records");
+            Console.WriteLine("3) UPDATE the record");
+            Console.WriteLine("4) DELETE the record");
+            Console.WriteLine("5) Exit");
             Console.Write("\r\nSelect an option: ");
         
             switch (Console.ReadLine())
             {
                 case "1":
-                    Console.WriteLine("Adding new record to the particular table");
+                    Console.WriteLine("Adding a new record to the particular table");
                     Console.Write("Enter the name of the table: ");
                     string table_name1 = Console.ReadLine();
                     Console.Write("Enter the name of new product: ");
@@ -46,8 +45,19 @@ namespace Shop
                     Console.ReadKey();
                     return true;
                 case "2":
-                    Console.WriteLine("Find product using the category search machine");
-                    Console.WriteLine("===============================================");
+                    Console.WriteLine("Displaying the contents of the particular table");
+                    Console.Write("Enter the name of the table: ");
+                    string table_name5 = Console.ReadLine();
+                    Console.Write("Enter name SQL LIKE condition (ex.%ban%): ");
+                    string frag_cond = Console.ReadLine();
+                    Connect_DB conection_DB5 = new Connect_DB();
+                    conection_DB5.Display_Table(table_name5, frag_cond);
+                    Console.ReadKey();
+                    return true;
+                                    
+                case "3":
+                    Console.WriteLine("Updating the record");
+                    Console.WriteLine("=======================");
                     List<string> div_out = new List<string>();
                     List<string> bry_out = new List<string>();
                     List<string> bat_out = new List<string>();
@@ -108,43 +118,28 @@ namespace Shop
                     Console.Write("Enter product number: ");
                     result = Console.ReadLine();
                     wsk = Int16.Parse(result);
-                    
                     outName = pro_out[wsk-1];
                     Console.WriteLine("-----------------------------");
                     Console.WriteLine("DIVISION: "+ outcomeDiv + ", BRIGADE: " + outcomeBry + ", BATTALION: " + outcomeBat);
                     Connect_DB conection_DB24 = new Connect_DB();
-                    //zwraca uuid
+                    
                     pro_discription = conection_DB24.Find_Selected_Product(outcomeDiv, outcomeBry, outcomeBat, outName);
+                    Console.WriteLine();
+                    Console.WriteLine("Select option: U(update), D(delete)");
+                    result = Console.ReadLine().ToUpper();
+                    if (result == "U")
+                    {
+
+                    }
+                    if(result == "D")
+                    {
+
+                    }
+                                     
                     Console.WriteLine("UUID: " + pro_discription);
                     
-                    
-                    
-                    Console.ReadKey();
-                    return true;
-                
-                
-                
-                
-                
-                case "3":
-                    Console.WriteLine("Update");
-                    Console.ReadKey();
                     return true;
                 case "4":
-                    Console.WriteLine("Delete");
-                    Console.ReadKey();
-                    return true;
-                case "5":
-                    Console.WriteLine("Displaying the particular table");
-                    Console.Write("Enter the name of the table: ");
-                    string table_name5 = Console.ReadLine();
-                    Console.Write("Enter name SQL LIKE condition (ex.%ban%): ");
-                    string frag_cond = Console.ReadLine();
-                    Connect_DB conection_DB5 = new Connect_DB();
-                    conection_DB5.Display_Table(table_name5, frag_cond);
-                    Console.ReadKey();
-                    return true;
-                case "6":
                     return false;
                 default:
                     return true;
