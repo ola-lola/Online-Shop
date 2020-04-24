@@ -90,7 +90,20 @@ namespace Shop
             }
         }
 
-    
+        //NEW version of delete record
+        public void Delete_Record(string id)
+        {
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                string s = String.Format("DELETE FROM products WHERE product_uid = '{0}'", id);
+                conn.Open();
+                using (var command = new NpgsqlCommand(s, conn))
+                {
+                    int nRows = command.ExecuteNonQuery();
+                    Console.Out.WriteLine(String.Format("Numbers of rows deleted = {0}", nRows));
+                }
+            }
+        }
         public void Display_Table(string n, string fr)
         {
             using (var conn = new NpgsqlConnection(connString))
