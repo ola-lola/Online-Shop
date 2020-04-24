@@ -1,8 +1,6 @@
 namespace Shop {
     public static class Shoplogo {
-        public static string[] ShopLogo()
-        {
-            string[] logo = new string[12] {
+        public readonly List<string> PlayerCardsToPrint = new List<string>  {
 
 
         @"//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\",
@@ -37,9 +35,7 @@ namespace Shop {
         @"\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//",
         
 
-
-            };
-            return logo;
+            
         }
     }
 }
