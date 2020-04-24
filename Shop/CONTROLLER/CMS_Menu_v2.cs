@@ -10,8 +10,8 @@ namespace Shop {
     public class CMS_Menu_v2 {
 
         private List<Menu> menuItems = new List<Menu>();
-        private int currentItemIndex = 0;
         private bool menuDisplayed = true;
+        private int currentItemIndex = 0;
 
         ///
         // CMS_Menu_v2 constructor creates a list of menu items from Enum CMSmenuOptions_lvl1
@@ -26,8 +26,10 @@ namespace Shop {
             
             while (this.menuDisplayed) {   
                 CMSmenuView.PrintMenu(this.menuItems);
-                
+
+                // TODO - move to class field
                 var current = menuItems[currentItemIndex];
+                
                 current.isChecked = true;
                 MenuViewFormatting.HighlightCurrent(menuItems);
 
