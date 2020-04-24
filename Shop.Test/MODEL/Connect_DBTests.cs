@@ -17,9 +17,13 @@ namespace Shop.Test
         {
             //TODO - Agnieszka
         }
+<<<<<<< HEAD
         [Fact]
         public void 
         
         
+=======
+
+>>>>>>> delete
     }
 }
