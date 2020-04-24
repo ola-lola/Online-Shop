@@ -16,14 +16,8 @@ namespace Shop.Test
         public void ReadTable_NotExistingColumnName_Catches_Exception()
         {
             //TODO - Agnieszka
+            
         }
-<<<<<<< HEAD
-        [Fact]
-        public void 
-        
-        
-=======
-
->>>>>>> delete
+       
     }
 }
