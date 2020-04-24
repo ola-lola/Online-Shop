@@ -1,8 +1,8 @@
-namespace Shop {
+/*namespace Shop {
     public static class Shoplogo {
         public static string[] ShopLogo()
         {
-            string[] logo = new string[12] {
+            string[] logo = new string[29] {
 
 
         @"//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\",
@@ -42,4 +42,4 @@ namespace Shop {
             return logo;
         }
     }
-}
+}*/
