@@ -1,12 +1,12 @@
 using System;
 
 namespace Shop {
-    public class Menu {
+    public class MenuItem {
         public string Content { get; private set; }
         public bool isChecked = false;
 
 
-        public Menu(string Content) {
+        public MenuItem(string Content) {
             this.Content = Content;
         }
         public void CheckCondition() {

@@ -6,11 +6,11 @@ namespace Shop
     ///
     // Class Conncect_DB - is IDAO implementation class
     ///
-    class Connect_DB : IDAO
+    class ConnectDB : IDAO
     {
-        string connString = new DbSettings().connString;
+    private static string connString = DbSettings.connString;
 
-       public void Add_new_record(string t_name,string n,string div, string bry, string bat, int qua,string un,string st,float pr)
+        public void Add_new_record(string t_name,string n,string div, string bry, string bat, int qua,string un,string st,float pr)
         {
             using (var conn = new NpgsqlConnection(connString))
             {
@@ -37,7 +37,6 @@ namespace Shop
         {
             //TODO - Agnieszka
         }
-
 
         public void UpdateQuantity(string product_uid, int quantity)
         {
@@ -105,8 +104,7 @@ namespace Shop
         }
 
         
-
-        public List<Product> ReadTable(string tableName , List<string> requiredColumns)
+        public void ReadTable(string tableName , List<string> requiredColumns)
         {
             // Create SQL query string
             var columns = String.Join(", ", requiredColumns);
@@ -126,18 +124,72 @@ namespace Shop
                     if (reader != null) {
                         while (reader.Read()) {
                             // TODO: change display or add writing data to List<Products>
-                            Console.Write("{0}\t{1} \n", reader[0], reader[1]);
+                            Console.Write("{0}\t{1}\t{2} \n", reader[0], reader[1], reader[2]);
                         }
                     }
                 }
                 conn.Close();
                 
                 // TODO: update method - Agnieszka 
-                return new List<Product>();
+                // return new List<Product>();
             }
         }
 
-    
+        //NEW version of delete record
+        public void Delete_Record(string id)
+        {
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                string s = String.Format("DELETE FROM products WHERE product_uid = '{0}'", id);
+                conn.Open();
+                using (var command = new NpgsqlCommand(s, conn))
+                {
+                    int nRows = command.ExecuteNonQuery();
+                    Console.Out.WriteLine(String.Format("Numbers of rows deleted = {0}", nRows));
+                }
+            }
+        }
+
+        public void Update_Price(string id, float pr)
+        {
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                string s = String.Format("UPDATE products SET price = {0} WHERE product_uid = '{1}'", pr,id);
+                conn.Open();
+                using (var command = new NpgsqlCommand(s, conn))
+                {
+                    int nRows = command.ExecuteNonQuery();
+                    Console.Out.WriteLine(String.Format("Numbers of rows uddated = {0}", nRows));
+                }
+            }
+        }
+        public void Update_Quantity(string id, int qu)
+        {
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                string s = String.Format("UPDATE products SET quantity = {0} WHERE product_uid = '{1}'", qu,id);
+                conn.Open();
+                using (var command = new NpgsqlCommand(s, conn))
+                {
+                    int nRows = command.ExecuteNonQuery();
+                    Console.Out.WriteLine(String.Format("Numbers of rows uddated = {0}", nRows));
+                }
+            }
+        }
+        public void Update_Name(string id, string na)
+        {
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                string s = String.Format("UPDATE products SET name = '{0}' WHERE product_uid = '{1}'", na,id);
+                conn.Open();
+                using (var command = new NpgsqlCommand(s, conn))
+                {
+                    int nRows = command.ExecuteNonQuery();
+                    Console.Out.WriteLine(String.Format("Numbers of rows uddated = {0}", nRows));
+                }
+            }
+        }
+
         public void Display_Table(string n, string fr)
         {
             using (var conn = new NpgsqlConnection(connString))
