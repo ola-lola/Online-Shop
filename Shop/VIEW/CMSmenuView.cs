@@ -3,6 +3,14 @@ using System.Collections.Generic;
 
 namespace Shop {
     public class CMSmenuView {
+
+        public static void PrintMenu(List<Menu> menuItemsToBePrinted) {
+            CMSmenuView.LogoScreen();
+            foreach (Menu item in menuItemsToBePrinted) {
+                Console.WriteLine(item);
+            }
+        }
+
         public static void LogoScreen() {
             Console.Clear();
             string separator = new String('*', Console.LargestWindowWidth);

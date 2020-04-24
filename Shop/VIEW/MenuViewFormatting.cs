@@ -6,11 +6,7 @@ namespace Shop {
         public static void HighlightCurrent(List<Menu> menuIt) {
             Console.Clear();
             Console.ResetColor();
-            CMSmenuView.LogoScreen();
-            foreach (Menu item in menuIt) {
-                // Console.SetCursorPosition((Console.WindowWidth - item.Content.Length) / 2, Console.CursorTop);
-                Console.WriteLine(item);
-            }
+            CMSmenuView.PrintMenu(menuIt);
         }
     }
 }

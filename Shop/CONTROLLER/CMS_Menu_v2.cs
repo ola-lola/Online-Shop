@@ -3,9 +3,15 @@ using System.Collections.Generic;
 using System.Threading;
 
 namespace Shop {
+        
+    ///
+    // CMS_Menu_v2 class represents main CMS mode menu object
+    ///
     public class CMS_Menu_v2 {
 
         private List<Menu> menuItems = new List<Menu>();
+        private int currentItemIndex = 0;
+        private bool menuDisplayed = true;
 
         ///
         // CMS_Menu_v2 constructor creates a list of menu items from Enum CMSmenuOptions_lvl1
@@ -17,16 +23,11 @@ namespace Shop {
         }
 
         public void PrintCMSmenu_v2() {
-            int i = 0;
             
-            bool menuDisplayed = true;
-            while (menuDisplayed) {   
-                CMSmenuView.LogoScreen();
-                foreach (Menu item in this.menuItems) {
-                    // Console.SetCursorPosition((Console.WindowWidth - item.Content.Length) / 2, Console.CursorTop);
-                    Console.WriteLine(item);
-                }
-                var current = menuItems[i];
+            while (this.menuDisplayed) {   
+                CMSmenuView.PrintMenu(this.menuItems);
+                
+                var current = menuItems[currentItemIndex];
                 current.isChecked = true;
                 MenuViewFormatting.HighlightCurrent(menuItems);
 
@@ -68,12 +69,12 @@ namespace Shop {
                 {
                     case ConsoleKey.UpArrow:
                         Console.BackgroundColor = ConsoleColor.Black;
-                        if (i != 0 ) current = menuItems[i--]; else current = menuItems[0];
+                        if (currentItemIndex != 0 ) current = menuItems[currentItemIndex--]; else current = menuItems[0];
                         break;
 
                     case ConsoleKey.DownArrow:
                         Console.BackgroundColor = ConsoleColor.Black;
-                        if (i != menuItems.Count-1 ) current = menuItems[i++]; else current = menuItems[menuItems.Count-1];
+                        if (currentItemIndex != menuItems.Count-1 ) current = menuItems[currentItemIndex++]; else current = menuItems[menuItems.Count-1];
                         break;
                 }
             }

@@ -10,7 +10,7 @@ namespace Shop
         private static string Host = "127.0.0.1";
         private static string User = "postgres";
         private static string DBname = "fmcgshop";
-        private static string Password = "trenchnap2019";
+        private static string Password = "postgresaa";
         private static string Port = "5432";
         
         public string connString = String.Format(

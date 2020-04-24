@@ -1,6 +1,8 @@
+using System.Collections.Generic;
+
 namespace Shop {
-    public static class Shoplogo {
-        public readonly List<string> PlayerCardsToPrint = new List<string>  {
+    public class Shoplogo {
+        public static readonly List<string> PlayerCardsToPrint = new List<string>  {
 
 
         @"//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\",
@@ -36,6 +38,6 @@ namespace Shop {
         
 
             
-        }
+        };
     }
 }
