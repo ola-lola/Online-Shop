@@ -17,5 +17,10 @@ namespace Shop.Test
         {
             //TODO - Agnieszka
         }
+        [Fact]
+        public void test()
+        {
+            
+        }
     }
 }
