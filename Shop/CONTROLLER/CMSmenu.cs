@@ -129,10 +129,33 @@ namespace Shop
                     if (result == "U")
                     {
                         Console.WriteLine("What would you like to change? -> Select an option");
-                        List<string> things_to_change = new List<string>() {"price", "quantity","name"};
+                        List<string> things_to_change = new List<string>() {"price", "quantity","name of product"};
                         for (int i = 1; i<=things_to_change.Count; i++)
                         {
                             Console.WriteLine(i +") " + things_to_change[i-1]);
+                        }
+                        result = Console.ReadLine();
+                        if (result == "1")
+                        {
+                            Console.Write("Enter new price value: ");
+                            float val = float.Parse(Console.ReadLine());
+                            Connect_DB connection_DB26 = new Connect_DB();
+                            connection_DB26.Update_Price(pro_discription, val);
+
+                        }
+                        else if (result == "2") 
+                        {
+                            Console.Write("Enter new quantity value: ");
+                            int ival = Int16.Parse(Console.ReadLine());
+                            Connect_DB connection_DB27 = new Connect_DB();
+                            connection_DB27.Update_Quantity(pro_discription, ival);
+                        }
+                        else if (result == "3")
+                        {
+                            Console.Write("Enter new product name: ");
+                            result = Console.ReadLine();
+                            Connect_DB connection_DB27 = new Connect_DB();
+                            connection_DB27.Update_Name(pro_discription, result);
                         }
                     }
                     else if (result == "D")

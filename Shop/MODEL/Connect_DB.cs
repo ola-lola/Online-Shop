@@ -57,7 +57,6 @@ namespace Shop
             }
         }
         
-
         public void DeleteRecord() {}
         public List<Product> ReadTable(string tableName , List<string> requiredColumns)
         {
@@ -104,6 +103,47 @@ namespace Shop
                 }
             }
         }
+
+        public void Update_Price(string id, float pr)
+        {
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                string s = String.Format("UPDATE products SET price = {0} WHERE product_uid = '{1}'", pr,id);
+                conn.Open();
+                using (var command = new NpgsqlCommand(s, conn))
+                {
+                    int nRows = command.ExecuteNonQuery();
+                    Console.Out.WriteLine(String.Format("Numbers of rows uddated = {0}", nRows));
+                }
+            }
+        }
+        public void Update_Quantity(string id, int qu)
+        {
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                string s = String.Format("UPDATE products SET quantity = {0} WHERE product_uid = '{1}'", qu,id);
+                conn.Open();
+                using (var command = new NpgsqlCommand(s, conn))
+                {
+                    int nRows = command.ExecuteNonQuery();
+                    Console.Out.WriteLine(String.Format("Numbers of rows uddated = {0}", nRows));
+                }
+            }
+        }
+        public void Update_Name(string id, string na)
+        {
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                string s = String.Format("UPDATE products SET name = '{0}' WHERE product_uid = '{1}'", na,id);
+                conn.Open();
+                using (var command = new NpgsqlCommand(s, conn))
+                {
+                    int nRows = command.ExecuteNonQuery();
+                    Console.Out.WriteLine(String.Format("Numbers of rows uddated = {0}", nRows));
+                }
+            }
+        }
+
         public void Display_Table(string n, string fr)
         {
             using (var conn = new NpgsqlConnection(connString))
