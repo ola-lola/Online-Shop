@@ -210,5 +210,4 @@ namespace Shop
             return prod_uuid;
         }
     }
-    
 }
