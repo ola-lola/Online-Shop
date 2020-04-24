@@ -1,8 +1,6 @@
 /*namespace Shop {
     public static class Shoplogo {
-        public static string[] ShopLogo()
-        {
-            string[] logo = new string[29] {
+        public readonly List<string> PlayerCardsToPrint = new List<string>  {
 
 
         @"//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\",
@@ -37,9 +35,7 @@
         @"\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//",
         
 
-
-            };
-            return logo;
+            
         }
     }
 }*/
