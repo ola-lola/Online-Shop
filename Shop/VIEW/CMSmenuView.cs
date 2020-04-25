@@ -295,7 +295,7 @@ namespace Shop {
                     Console.Write("Enter new price value: ");
                     float val = float.Parse(Console.ReadLine());
                     ConnectDB connection_DB26 = new ConnectDB();
-                    connection_DB26.Update_Price(pro_discription, val);
+                    connection_DB26.UpdatePrice(pro_discription, val);
 
                 }
                 else if (result == "2") 
@@ -303,20 +303,20 @@ namespace Shop {
                     Console.Write("Enter new quantity value: ");
                     int ival = Int16.Parse(Console.ReadLine());
                     ConnectDB connection_DB27 = new ConnectDB();
-                    connection_DB27.Update_Quantity(pro_discription, ival);
+                    connection_DB27.UpdateQuantity(pro_discription, ival);
                 }
                 else if (result == "3")
                 {
                     Console.Write("Enter new product name: ");
                     result = Console.ReadLine();
                     ConnectDB connection_DB27 = new ConnectDB();
-                    connection_DB27.Update_Name(pro_discription, result);
+                    connection_DB27.UpdateName(pro_discription, result);
                 }
             }
             else if (result == "D")
             {
                 ConnectDB connection_DB25 = new ConnectDB();
-                connection_DB25.Delete_Record(pro_discription);
+                connection_DB25.DeleteRecord(pro_discription);
             }        
             Console.ReadKey();
         }
