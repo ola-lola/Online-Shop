@@ -336,7 +336,6 @@ namespace Shop {
                 Console.WriteLine("{0}. {1}", i, pro_out[i-1]);
             }
             
-
             Console.Write("Enter product number: ");
             result = Console.ReadLine();
             // check block
@@ -369,7 +368,7 @@ namespace Shop {
                 List<string> things_to_change = new List<string>() {"price", "quantity","name of product"};
                 for (int i = 1; i<=things_to_change.Count; i++)
                 {
-                    Console.WriteLine(i +") " + things_to_change[i-1]);
+                    Console.Write(i +") " + things_to_change[i-1] + "  ");
                 }
                 result = Console.ReadLine();
                 if (result == "1")
@@ -381,7 +380,6 @@ namespace Shop {
                     Console.ResetColor();
                     ConnectDB connection_DB26 = new ConnectDB();
                     connection_DB26.UpdatePrice(pro_discription, val);
-
                 }
                 else if (result == "2") 
                 {   
@@ -402,6 +400,10 @@ namespace Shop {
                     Console.ResetColor();
                     ConnectDB connection_DB27 = new ConnectDB();
                     connection_DB27.UpdateName(pro_discription, result);
+                }
+                else
+                {
+                    Console.WriteLine("You exit update. No changes");
                 }
             }
             else if (result == "D")
