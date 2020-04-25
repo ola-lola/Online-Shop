@@ -7,7 +7,7 @@ namespace Shop {
 
         public static void PrintMainMenuCMS(List<MenuItem> menuItemsToBePrinted) {
             Console.Clear(); Console.ResetColor();
-
+            
             CMSmenuView.LogoScreen();
             PrintMenuList(menuItemsToBePrinted);
         }
@@ -24,9 +24,12 @@ namespace Shop {
             Console.WriteLine(separator);
             foreach (string line in CMSlogo.ShopLogo()) {
                 // Console.SetCursorPosition((Console.WindowWidth - line.Length) / 2, Console.CursorTop);
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Console.WriteLine(line);
+                Console.ResetColor();
             }
             Console.WriteLine($"\n{separator}");
+            
         }
 
         public static string GetTableName() {
@@ -218,6 +221,7 @@ namespace Shop {
         }
     
         public static void SearchInStock() {
+            Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("Display specific tables, columns or products\n");
             Console.ForegroundColor = ConsoleColor.DarkGray;
@@ -236,6 +240,7 @@ namespace Shop {
         }
 
         public static void UpdateOrDelete() {
+            Console.Clear();
             Console.WriteLine("Updating the record");
             Console.WriteLine("=======================");
             List<string> div_out = new List<string>();
