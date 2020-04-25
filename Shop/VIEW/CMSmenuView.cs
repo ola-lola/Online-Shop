@@ -259,7 +259,20 @@ namespace Shop {
 
             Console.Write("Enter division number: ");
 
+            result = Console.ReadLine();
+            // check block
+            char firstchar = result[0];  //first char from string input
+            int asciicode = firstchar;   //change char to ascii value
+            char maxchar = (char)(div_out.Count + '0'); // change size list to char
+            int maxascii = maxchar; //change char to ascii value
+            while (asciicode < 49 || asciicode > maxascii)  //while correcness loop
+            {
+                Console.Write("Enter PROPER (!!!) division number: ");
                 result = Console.ReadLine();
+                firstchar = result[0];  
+                asciicode = firstchar;
+            }
+            // check block
             wsk = Int16.Parse(result);
             outcomeDiv = div_out[wsk-1];
             Console.WriteLine("--------------------------");
@@ -273,6 +286,19 @@ namespace Shop {
             
             Console.Write("Enter brigade number: ");
             result = Console.ReadLine();
+            // check block
+            firstchar = result[0];  //first char from string input
+            asciicode = firstchar;   //change char to ascii value
+            maxchar = (char)(bry_out.Count + '0'); // change size list to char
+            maxascii = maxchar; //change char to ascii value
+            while (asciicode < 49 || asciicode > maxascii)  //while correcness loop
+            {
+                Console.Write("Enter PROPER (!!!) brigade number: ");
+                result = Console.ReadLine();
+                firstchar = result[0];  
+                asciicode = firstchar;
+            }
+            // check block
             wsk = Int16.Parse(result);
             outcomeBry = bry_out[wsk-1];
             Console.WriteLine("----------------------------");
@@ -286,6 +312,19 @@ namespace Shop {
             
             Console.Write("Enter battalion number: ");
             result = Console.ReadLine();
+            // check block
+            firstchar = result[0];  //first char from string input
+            asciicode = firstchar;   //change char to ascii value
+            maxchar = (char)(bat_out.Count + '0'); // change size list to char
+            maxascii = maxchar; //change char to ascii value
+            while (asciicode < 49 || asciicode > maxascii)  //while correcness loop
+            {
+                Console.Write("Enter PROPER (!!!) battalion number: ");
+                result = Console.ReadLine();
+                firstchar = result[0];  
+                asciicode = firstchar;
+            }
+            // check block
             wsk = Int16.Parse(result);
             outcomeBat = bat_out[wsk-1];
             Console.WriteLine("----------------------------");
@@ -300,6 +339,19 @@ namespace Shop {
 
             Console.Write("Enter product number: ");
             result = Console.ReadLine();
+            // check block
+            firstchar = result[0];  //first char from string input
+            asciicode = firstchar;   //change char to ascii value
+            maxchar = (char)(pro_out.Count + '0'); // change size list to char
+            maxascii = maxchar; //change char to ascii value
+            while (asciicode < 49 || asciicode > maxascii)  //while correcness loop
+            {
+                Console.Write("Enter PROPER (!!!) product number: ");
+                result = Console.ReadLine();
+                firstchar = result[0];  
+                asciicode = firstchar;
+            }
+            // check block
             wsk = Int16.Parse(result);
             outName = pro_out[wsk-1];
             Console.WriteLine("-----------------------------");
