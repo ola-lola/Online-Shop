@@ -211,14 +211,24 @@ namespace Shop {
         }
     
         public static void SearchInStock() {
-            Console.WriteLine("Displaying the particular table");
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("Display specific tables, columns or products\n");
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine("AVAILABLE TABLES TO CHOOSE:");
+            Console.ResetColor();
+            Console.WriteLine(":: products :: division :: brigade :: battalion :: clients :: transactions ::\n");
+            Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.Write("Enter the name of the table: ");
+            Console.ResetColor();
             string table_name5 = Console.ReadLine();
-            Console.Write("Enter name SQL LIKE condition (ex.%ban%): ");
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.Write("\nEnter a letter or word: ");
+            Console.ResetColor();
             string frag_cond = Console.ReadLine();
             ConnectDB conection_DB5 = new ConnectDB();
             conection_DB5.Display_Table(table_name5, frag_cond);
             Console.ReadKey();
+            
         }
 
         public static void UpdateOrDelete() {
