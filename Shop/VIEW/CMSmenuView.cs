@@ -29,11 +29,19 @@ namespace Shop {
         }
 
         public static void AddNewData() {
-            Console.WriteLine("Adding a new record to the particular table");
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("Please follow the next instructions to add a new record to Shop's Database.\n");
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine("AVAILABLE TABLES TO CHOOSE:");
+            Console.ResetColor();
+            Console.WriteLine(":: products :: division :: brigade :: battalion :: clients :: transactions ::\n");
             
             string table_name1;
             do { 
+                Console.ForegroundColor = ConsoleColor.DarkGray;
                 Console.Write("Enter the name of the table: ");
+                Console.ResetColor();
                 table_name1 = Console.ReadLine();
             } while (table_name1.ToLower() != "products");
             
@@ -71,18 +79,23 @@ namespace Shop {
             
             List<string> dataRowInput = new List<string>();
 
-            System.Console.WriteLine($"Please specify entry to be added to the data table: {dbTableName}");
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            System.Console.WriteLine($"\nEnter the following information about new product which you want to add.");
+            Console.ResetColor();
             foreach (string column in requiredColumns) {
                 string userInput;
                 do {
-                    Console.Write($"{column.ToUpper()}:");
+                    Console.Write($"{column.ToUpper()}:  ");
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
                     userInput = Console.ReadLine();
+                    Console.ResetColor();
                 } while (!CMSmenuView.ValidateInputData(userInput, dbTableName, column));
                 dataRowInput.Add(userInput);
             }
 
             return dataRowInput;
         }
+
 
         public static bool ValidateInputData (string input, string dbTableName, string dataColumnName) {
             

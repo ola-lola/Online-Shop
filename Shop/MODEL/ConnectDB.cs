@@ -135,7 +135,10 @@ namespace Shop
             }
         }
 
-        //NEW version of delete record
+        
+        //METODY ANDRZEJA
+
+
         public void Delete_Record(string id)
         {
             using (var conn = new NpgsqlConnection(connString))
@@ -190,6 +193,9 @@ namespace Shop
             }
         }
 
+        
+
+        
         public void Display_Table(string n, string fr)
         {
             using (var conn = new NpgsqlConnection(connString))
