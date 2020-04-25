@@ -17,7 +17,7 @@ namespace Shop
             using (var conn = new NpgsqlConnection(connString))
             {
                 string s = String.Format("INSERT INTO {0}(product_uid,name,division,brigade,battalion,quantity,unit,status, price) VALUES (uuid_generate_v4(),@n,@div,@bry,@bat,@qua,@un,@st,@pr)", t_name);
-                Console.Out.WriteLine("Opening connection");
+
                 conn.Open();
                 using (var command = new NpgsqlCommand(s, conn))
                 {
@@ -30,7 +30,9 @@ namespace Shop
                     command.Parameters.AddWithValue("@st", st);
                     command.Parameters.AddWithValue("@pr", pr);
                     int nRows = command.ExecuteNonQuery();
-                    Console.Out.WriteLine(String.Format("Inserted {0} row",nRows));
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    Console.Out.WriteLine(String.Format("\nInserted {0} row",nRows));
+                    Console.ResetColor();
                 }
             }
         }
@@ -52,7 +54,9 @@ namespace Shop
                     command.Parameters.AddWithValue("@quantity", quantity);
 
                     int nRows = command.ExecuteNonQuery();
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
                     Console.Out.WriteLine(String.Format("Product info updated",nRows));
+                    Console.ResetColor();
                 }
             }
         }
@@ -69,7 +73,9 @@ namespace Shop
                     command.Parameters.AddWithValue("@name", name);
 
                     int nRows = command.ExecuteNonQuery();
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
                     Console.Out.WriteLine(String.Format("Product info updated",nRows));
+                    Console.ResetColor();
                 }
             }
         }
@@ -86,7 +92,9 @@ namespace Shop
                     command.Parameters.AddWithValue("@price", price);
 
                     int nRows = command.ExecuteNonQuery();
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
                     Console.Out.WriteLine(String.Format("Product info updated",nRows));
+                    Console.ResetColor();
                 }
             }
         }
@@ -100,7 +108,9 @@ namespace Shop
                 using (var command = new NpgsqlCommand(toDelete, conn))
                 {
                     int nRows = command.ExecuteNonQuery();
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.Out.WriteLine(String.Format("Numbers of deleted rows = {0}", nRows));
+                    Console.ResetColor();
                 }
             }
         }
@@ -236,7 +246,7 @@ namespace Shop
         {
             List<string> div_list = new List<string>();
             using (var conn = new NpgsqlConnection(connString))
-            {
+            {   
                 Console.Out.WriteLine("List of available divisions");
                 conn.Open();
                 using (var command = new NpgsqlCommand("SELECT DISTINCT division FROM products",conn))

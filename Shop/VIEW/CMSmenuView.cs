@@ -251,11 +251,14 @@ namespace Shop {
             int wsk;
             ConnectDB conection_DB2 = new ConnectDB();
             div_out = conection_DB2.Find_Division();
+
             for (int i = 1; i <= div_out.Count; i++)
             {
                 Console.WriteLine("{0}. {1}", i, div_out[i-1]);
             }
+
             Console.Write("Enter division number: ");
+
                 result = Console.ReadLine();
             wsk = Int16.Parse(result);
             outcomeDiv = div_out[wsk-1];
@@ -319,23 +322,32 @@ namespace Shop {
                 result = Console.ReadLine();
                 if (result == "1")
                 {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
                     Console.Write("Enter new price value: ");
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
                     float val = float.Parse(Console.ReadLine());
+                    Console.ResetColor();
                     ConnectDB connection_DB26 = new ConnectDB();
                     connection_DB26.UpdatePrice(pro_discription, val);
 
                 }
                 else if (result == "2") 
-                {
+                {   
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
                     Console.Write("Enter new quantity value: ");
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
                     int ival = Int16.Parse(Console.ReadLine());
+                    Console.ResetColor();
                     ConnectDB connection_DB27 = new ConnectDB();
                     connection_DB27.UpdateQuantity(pro_discription, ival);
                 }
                 else if (result == "3")
-                {
+                {   
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
                     Console.Write("Enter new product name: ");
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
                     result = Console.ReadLine();
+                    Console.ResetColor();
                     ConnectDB connection_DB27 = new ConnectDB();
                     connection_DB27.UpdateName(pro_discription, result);
                 }
