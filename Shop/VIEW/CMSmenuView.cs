@@ -370,6 +370,8 @@ namespace Shop {
             Console.WriteLine(":: products :: division :: brigade :: battalion :: clients :: transactions ::\n");
             string tableName = CMSmenuView.GetTableName();
             ConnectDB conection_DB_100 = new ConnectDB();
+            List<string> columnsToQuery = new List<string>();
+            
             conection_DB_100.ReadTable(tableName, new List<string>() {"name", "division", "status"});
             Console.ReadKey();
         }

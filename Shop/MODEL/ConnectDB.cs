@@ -118,14 +118,8 @@ namespace Shop
         
         public void ReadTable(string tableName , List<string> requiredColumns)
         {
-            string[] allColumnNames = new string[8] {   "name",
-                                                        "division",
-                                                        "brigade",  
-                                                        "battalion",
-                                                        "unit",
-                                                        "status",
-                                                        "quantity",
-                                                        "price"};
+            string[] allColumnNames = Enum.GetNames(typeof(ProductsTableColumns));
+            
             // Create SQL query string
             var columns = String.Join(", ", requiredColumns);
             // TODO: think about LIMIT added here (what if very large table?) -Agnieszka
