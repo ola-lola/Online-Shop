@@ -1,5 +1,5 @@
 namespace Shop {
-    public enum CMSmenuOptions_lvl1 {
+    public enum CMSmenuOptions {
         CREATE_NEW_RECORD,          // 0
         READ_RECORDS,               // 1
         UPDATE_OR_DELETE_RECORD,    // 2

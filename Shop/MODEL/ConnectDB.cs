@@ -1,6 +1,8 @@
 using System;
 using Npgsql;
 using System.Collections.Generic;
+using System.Linq;
+
 namespace Shop
 {
     ///
@@ -116,6 +118,8 @@ namespace Shop
         
         public void ReadTable(string tableName , List<string> requiredColumns)
         {
+            string[] allColumnNames = Enum.GetNames(typeof(ProductsTableColumns));
+            
             // Create SQL query string
             var columns = String.Join(", ", requiredColumns);
             // TODO: think about LIMIT added here (what if very large table?) -Agnieszka
@@ -133,8 +137,12 @@ namespace Shop
 
                     if (reader != null) {
                         while (reader.Read()) {
-                            // TODO: change display or add writing data to List<Products>
-                            Console.Write("{0}\t{1}\t{2} \n", reader[0], reader[1], reader[2]);
+                            // TODO: add option in this method to choose columns to display or add writing data to List<Products>
+                            foreach (string columnName in allColumnNames.Intersect(requiredColumns))
+                            {
+                                System.Console.Write($"{reader[columnName], 25}\t");
+                            }
+                            System.Console.Write("\n");
                         }
                     }
                 }

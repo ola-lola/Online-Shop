@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Shop {
     public class CMSmenuView {
@@ -28,6 +29,19 @@ namespace Shop {
             Console.WriteLine($"\n{separator}");
         }
 
+        public static string GetTableName() {
+
+            string tableName;
+
+            do { 
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.Write("Enter the name of the table: ");
+                Console.ResetColor();
+                tableName = Console.ReadLine();
+            } while (!Enum.GetNames(typeof(AvailableTableNames)).Contains(tableName));
+
+            return tableName;
+        }
         public static void AddNewData() {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkYellow;
@@ -37,14 +51,7 @@ namespace Shop {
             Console.ResetColor();
             Console.WriteLine(":: products :: division :: brigade :: battalion :: clients :: transactions ::\n");
             
-            string table_name1;
-            do { 
-                Console.ForegroundColor = ConsoleColor.DarkGray;
-                Console.Write("Enter the name of the table: ");
-                Console.ResetColor();
-                table_name1 = Console.ReadLine();
-            } while (table_name1.ToLower() != "products");
-            
+            string table_name1 = CMSmenuView.GetTableName();
             
             List<string> newEntryData = CMSmenuView.GetEntryToDbInput(table_name1, new List<string>() { "name", 
                                                                                                         "division", 
@@ -217,10 +224,7 @@ namespace Shop {
             Console.WriteLine("AVAILABLE TABLES TO CHOOSE:");
             Console.ResetColor();
             Console.WriteLine(":: products :: division :: brigade :: battalion :: clients :: transactions ::\n");
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write("Enter the name of the table: ");
-            Console.ResetColor();
-            string table_name5 = Console.ReadLine();
+            string table_name5 = CMSmenuView.GetTableName();
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.Write("\nEnter a letter or word: ");
             Console.ResetColor();
@@ -255,7 +259,20 @@ namespace Shop {
 
             Console.Write("Enter division number: ");
 
+            result = Console.ReadLine();
+            // check block
+            char firstchar = result[0];  //first char from string input
+            int asciicode = firstchar;   //change char to ascii value
+            char maxchar = (char)(div_out.Count + '0'); // change size list to char
+            int maxascii = maxchar; //change char to ascii value
+            while (asciicode < 49 || asciicode > maxascii)  //while correcness loop
+            {
+                Console.Write("Enter PROPER (!!!) division number: ");
                 result = Console.ReadLine();
+                firstchar = result[0];  
+                asciicode = firstchar;
+            }
+            // check block
             wsk = Int16.Parse(result);
             outcomeDiv = div_out[wsk-1];
             Console.WriteLine("--------------------------");
@@ -269,6 +286,19 @@ namespace Shop {
             
             Console.Write("Enter brigade number: ");
             result = Console.ReadLine();
+            // check block
+            firstchar = result[0];  //first char from string input
+            asciicode = firstchar;   //change char to ascii value
+            maxchar = (char)(bry_out.Count + '0'); // change size list to char
+            maxascii = maxchar; //change char to ascii value
+            while (asciicode < 49 || asciicode > maxascii)  //while correcness loop
+            {
+                Console.Write("Enter PROPER (!!!) brigade number: ");
+                result = Console.ReadLine();
+                firstchar = result[0];  
+                asciicode = firstchar;
+            }
+            // check block
             wsk = Int16.Parse(result);
             outcomeBry = bry_out[wsk-1];
             Console.WriteLine("----------------------------");
@@ -282,6 +312,19 @@ namespace Shop {
             
             Console.Write("Enter battalion number: ");
             result = Console.ReadLine();
+            // check block
+            firstchar = result[0];  //first char from string input
+            asciicode = firstchar;   //change char to ascii value
+            maxchar = (char)(bat_out.Count + '0'); // change size list to char
+            maxascii = maxchar; //change char to ascii value
+            while (asciicode < 49 || asciicode > maxascii)  //while correcness loop
+            {
+                Console.Write("Enter PROPER (!!!) battalion number: ");
+                result = Console.ReadLine();
+                firstchar = result[0];  
+                asciicode = firstchar;
+            }
+            // check block
             wsk = Int16.Parse(result);
             outcomeBat = bat_out[wsk-1];
             Console.WriteLine("----------------------------");
@@ -293,9 +336,21 @@ namespace Shop {
                 Console.WriteLine("{0}. {1}", i, pro_out[i-1]);
             }
             
-
             Console.Write("Enter product number: ");
             result = Console.ReadLine();
+            // check block
+            firstchar = result[0];  //first char from string input
+            asciicode = firstchar;   //change char to ascii value
+            maxchar = (char)(pro_out.Count + '0'); // change size list to char
+            maxascii = maxchar; //change char to ascii value
+            while (asciicode < 49 || asciicode > maxascii)  //while correcness loop
+            {
+                Console.Write("Enter PROPER (!!!) product number: ");
+                result = Console.ReadLine();
+                firstchar = result[0];  
+                asciicode = firstchar;
+            }
+            // check block
             wsk = Int16.Parse(result);
             outName = pro_out[wsk-1];
             Console.WriteLine("-----------------------------");
@@ -313,7 +368,7 @@ namespace Shop {
                 List<string> things_to_change = new List<string>() {"price", "quantity","name of product"};
                 for (int i = 1; i<=things_to_change.Count; i++)
                 {
-                    Console.WriteLine(i +") " + things_to_change[i-1]);
+                    Console.Write(i +") " + things_to_change[i-1] + "  ");
                 }
                 result = Console.ReadLine();
                 if (result == "1")
@@ -325,7 +380,6 @@ namespace Shop {
                     Console.ResetColor();
                     ConnectDB connection_DB26 = new ConnectDB();
                     connection_DB26.UpdatePrice(pro_discription, val);
-
                 }
                 else if (result == "2") 
                 {   
@@ -347,6 +401,10 @@ namespace Shop {
                     ConnectDB connection_DB27 = new ConnectDB();
                     connection_DB27.UpdateName(pro_discription, result);
                 }
+                else
+                {
+                    Console.WriteLine("You exit update. No changes");
+                }
             }
             else if (result == "D")
             {
@@ -356,5 +414,20 @@ namespace Shop {
             Console.ReadKey();
         }
 
+        public static void PreviewAllItemsInStock() {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("Please follow the next instructions to add a new record to Shop's Database.\n");
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine("AVAILABLE TABLES TO CHOOSE:");
+            Console.ResetColor();
+            Console.WriteLine(":: products :: division :: brigade :: battalion :: clients :: transactions ::\n");
+            string tableName = CMSmenuView.GetTableName();
+            ConnectDB conection_DB_100 = new ConnectDB();
+            List<string> columnsToQuery = new List<string>();
+            
+            conection_DB_100.ReadTable(tableName, new List<string>() {"name", "division", "status"});
+            Console.ReadKey();
+        }
     }
 }
