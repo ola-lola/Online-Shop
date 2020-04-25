@@ -1,23 +1,22 @@
 using System;
+using System.Collections.Generic;
 
 namespace Shop {
-    public class MenuItem {
-        public string Content { get; private set; }
-        public bool isChecked = false;
+    public class Menu {
+        public List<MenuItem> menuItems = new List<MenuItem>();
+        public bool menuDisplayed;
+        public int currentItemIndex;
+        public MenuItem current;
 
+        public Menu()
+        {
+            // TODO: how to pass concrete enum as constructor parameter?
+            // foreach(string item in Enum.GetNames(typeof(CMSmenuOptions_lvl1))){
+            //     menuItems.Add(new MenuItem(item));
+            // }
 
-        public MenuItem(string Content) {
-            this.Content = Content;
-        }
-        public void CheckCondition() {
-            if (isChecked) {
-                Console.BackgroundColor = ConsoleColor.White;
-                Console.ForegroundColor = ConsoleColor.Black;
-            } else { Console.ResetColor(); }
-        }
-        public override string ToString() {
-            this.CheckCondition();
-            return this.Content;
+            menuDisplayed = true;
+            currentItemIndex = 0;
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Shop {
     public class CMSmenuView {
@@ -28,6 +29,19 @@ namespace Shop {
             Console.WriteLine($"\n{separator}");
         }
 
+        public static string GetTableName() {
+
+            string tableName;
+
+            do { 
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.Write("Enter the name of the table: ");
+                Console.ResetColor();
+                tableName = Console.ReadLine();
+            } while (!Enum.GetNames(typeof(AvailableTableNames)).Contains(tableName));
+
+            return tableName;
+        }
         public static void AddNewData() {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkYellow;
@@ -37,14 +51,7 @@ namespace Shop {
             Console.ResetColor();
             Console.WriteLine(":: products :: division :: brigade :: battalion :: clients :: transactions ::\n");
             
-            string table_name1;
-            do { 
-                Console.ForegroundColor = ConsoleColor.DarkGray;
-                Console.Write("Enter the name of the table: ");
-                Console.ResetColor();
-                table_name1 = Console.ReadLine();
-            } while (table_name1.ToLower() != "products");
-            
+            string table_name1 = CMSmenuView.GetTableName();
             
             List<string> newEntryData = CMSmenuView.GetEntryToDbInput(table_name1, new List<string>() { "name", 
                                                                                                         "division", 
@@ -217,10 +224,7 @@ namespace Shop {
             Console.WriteLine("AVAILABLE TABLES TO CHOOSE:");
             Console.ResetColor();
             Console.WriteLine(":: products :: division :: brigade :: battalion :: clients :: transactions ::\n");
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write("Enter the name of the table: ");
-            Console.ResetColor();
-            string table_name5 = Console.ReadLine();
+            string table_name5 = CMSmenuView.GetTableName();
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.Write("\nEnter a letter or word: ");
             Console.ResetColor();
@@ -344,5 +348,18 @@ namespace Shop {
             Console.ReadKey();
         }
 
+        public static void PreviewAllItemsInStock() {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("Please follow the next instructions to add a new record to Shop's Database.\n");
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine("AVAILABLE TABLES TO CHOOSE:");
+            Console.ResetColor();
+            Console.WriteLine(":: products :: division :: brigade :: battalion :: clients :: transactions ::\n");
+            string tableName = CMSmenuView.GetTableName();
+            ConnectDB conection_DB_100 = new ConnectDB();
+            conection_DB_100.ReadTable(tableName, new List<string>() {"name", "division", "status"});
+            Console.ReadKey();
+        }
     }
 }
