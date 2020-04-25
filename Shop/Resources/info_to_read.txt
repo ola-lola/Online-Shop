@@ -18,3 +18,5 @@ Wyełnione zbiory możecie przysyłać pod zmienionymi nazwami poza githubem
 Wprowadzę je do bazy.
 Pushuje powyższe na origin develop!!!
 
+Wprowadziłem maszynę do wyszukiwania rekordów w tabeli
+

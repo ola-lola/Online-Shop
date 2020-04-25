@@ -13,6 +13,7 @@ namespace Shop
            
            if (args.Length == 1)
            {
+               // ADMIN MODE
                if (args[0]== "aaa")
                {
                    bool showMenu = true;
@@ -22,10 +23,13 @@ namespace Shop
                    }
                }
            }
-           Console.WriteLine("Hello Team");
-            //    System.Console.WriteLine(CMSmenuOptions_lvl1.ADD_NEW_DATA.ToString());
-            var menuCMSv2 = new CMS_Menu_v2();
-            menuCMSv2.PrintCMSmenu_v2();
+           // SHOPPING MODE
+           else
+           {
+                Console.WriteLine("Hello Team");
+                var menuCMSv2 = new CMSmainMenu();
+                menuCMSv2.PrintCMSmenu_v2();
+           }
         }
     }
 }
