@@ -210,7 +210,8 @@ namespace Shop
         {
             using (var conn = new NpgsqlConnection(connString))
             {
-                string s = String.Format("SELECT name, quantity, unit, price FROM {0} WHERE name LIKE '{1}'", n, fr);
+                string s = String.Format("SELECT name, quantity, unit, price FROM {0} WHERE name LIKE '{1}%'"
+                + "or name LIKE '%{1}%' or name LIKE '%{1}'", n, fr);
                 Console.Out.WriteLine("Opening connection");
                 conn.Open();
                 using (var command = new NpgsqlCommand(s, conn))
