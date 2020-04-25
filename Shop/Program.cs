@@ -11,25 +11,17 @@ namespace Shop
         {
            // build connection string with DB on local server
            
-           if (args.Length == 1)
-           {
-               // ADMIN MODE
-               if (args[0]== "aaa")
-               {
-                   bool showMenu = true;
-                   while(showMenu)
-                   {
-                       showMenu = CMSmenu.CMSMenu_display();
-                   }
-               }
-           }
-           // SHOPPING MODE
-           else
-           {
+            // ADMIN MODE
+            if (args.Length == 1 && args[0]== "aaa")
+            {
+                var menuCMS = new CMSmainMenu();
+                menuCMS.PrintmainMenu();
+            }
+            // SHOPPING MODE
+            else
+            {
                 Console.WriteLine("Hello Team");
-                var menuCMSv2 = new CMSmainMenu();
-                menuCMSv2.PrintCMSmenu_v2();
-           }
+            }
         }
     }
 }

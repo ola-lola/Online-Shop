@@ -28,7 +28,7 @@ namespace Shop {
             currentItemIndex = 0;
         }
 
-        public void PrintCMSmenu_v2() {
+        public void PrintmainMenu() {
             
             while (this.menuDisplayed) {
 
