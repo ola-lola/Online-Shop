@@ -401,7 +401,16 @@ namespace Shop {
                     Console.ForegroundColor = ConsoleColor.DarkGray;
                     Console.Write("Enter new product name: ");
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
+
                     result = Console.ReadLine();
+                    while (result.Length > 25){
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("\nThis name is too long. Use max 25 letters.\n");
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        result = Console.ReadLine();
+                        Console.ResetColor();
+                    }
+
                     Console.ResetColor();
                     ConnectDB connection_DB27 = new ConnectDB();
                     connection_DB27.UpdateName(pro_discription, result);
