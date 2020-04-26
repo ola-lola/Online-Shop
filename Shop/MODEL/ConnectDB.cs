@@ -120,34 +120,58 @@ namespace Shop
             
             // Create SQL query string
             var columns = String.Join(", ", requiredColumns);
-            // TODO: think about LIMIT added here (what if very large table?) -Agnieszka
-            string SQLquery = $"SELECT {columns} FROM {tableName}";
 
-            // Execute query to DB
-            using (var conn = new NpgsqlConnection(connString))
-            {
-                conn.Open();
-                using (var command = new NpgsqlCommand(SQLquery, conn))
+            var pressedKey = ConsoleKey.Spacebar;
+            int offset = 0;
+            while(pressedKey == ConsoleKey.Spacebar || pressedKey == ConsoleKey.LeftArrow) {
+
+                string SQLquery = $"SELECT {columns} FROM {tableName} LIMIT 10 OFFSET {offset}";
+
+                // Execute query to DB
+                using (var conn = new NpgsqlConnection(connString))
                 {
-                    NpgsqlDataReader reader = null;
-                    try {reader = command.ExecuteReader();}
-                    catch (Npgsql.PostgresException e) { System.Console.WriteLine(e.Message); }
+                    conn.Open();
+                    using (var command = new NpgsqlCommand(SQLquery, conn))
+                    {
+                        NpgsqlDataReader reader = null;
+                        try {reader = command.ExecuteReader();}
+                        catch (Npgsql.PostgresException e) { System.Console.WriteLine(e.Message); }
 
-                    if (reader != null) {
-                        while (reader.Read()) {
-                            // TODO: add option in this method to choose columns to display or add writing data to List<Products>
-                            foreach (string columnName in allColumnNames.Intersect(requiredColumns))
-                            {
-                                System.Console.Write($"{reader[columnName], 25}\t");
+
+                        if (reader != null) {
+                            // FIXME: Move printing to View!!! - Agnieszka
+                            Console.Clear();
+                            Console.ForegroundColor = ConsoleColor.DarkGray;
+                            System.Console.WriteLine("Table name: " + tableName);
+                            Console.ResetColor();
+                            string separator = new String('*', Console.LargestWindowWidth);
+                            Console.WriteLine("\n"+separator);
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            foreach (string column in requiredColumns) {
+                                System.Console.Write($"{column, 25}\t");
                             }
+                            Console.ResetColor();
                             System.Console.Write("\n");
+                            Console.WriteLine(separator);
+                            while (reader.Read()) {
+                                // TODO: add option in this method to choose columns to display or add writing data to List<Products>
+                                foreach (string columnName in allColumnNames.Intersect(requiredColumns))
+                                {
+                                    System.Console.Write($"{reader[columnName], 25}\t");
+                                }
+                                System.Console.Write("\n");
+                            }
                         }
                     }
+                    conn.Close();
+                    
+                    // TODO: update method - Agnieszka 
+                    // return new List<Product>();
                 }
-                conn.Close();
                 
-                // TODO: update method - Agnieszka 
-                // return new List<Product>();
+                pressedKey = Console.ReadKey().Key;
+                if (pressedKey == ConsoleKey.LeftArrow) {offset -= 10; if (offset < 0) {offset = 0;}}
+                if (pressedKey == ConsoleKey.Spacebar) {offset += 10;}
             }
         }
 
@@ -188,8 +212,10 @@ namespace Shop
                     var reader = command.ExecuteReader();
                     // while (reader.Read())
                     // {
-                        for (int i = 0; i < reader.FieldCount; i++)
-                            Console.WriteLine(reader.GetName(i));
+                        for (int i = 0; i < reader.FieldCount; i++) {
+                            // Console.WriteLine(reader.GetName(i));
+                            columns.Add(reader.GetName(i));
+                        }
                     // }
                 }
                 conn.Close();
