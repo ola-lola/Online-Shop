@@ -57,30 +57,8 @@ namespace Shop {
                             break;
                     }
                 }
-                
-                this.NavigateMenu(pressedKey);
+                mainMenu.NavigateMenu(pressedKey);
             }
-        }
-
-        ///
-        // NavigateMenu method moves up-down through menu list
-        ///
-        public void NavigateMenu(ConsoleKey input) {
-
-            switch (input) {
-                
-                case ConsoleKey.UpArrow:
-                    Console.BackgroundColor = ConsoleColor.Black;
-                    if (mainMenu.currentItemIndex != 0 ) mainMenu.current = mainMenu.menuItems[mainMenu.currentItemIndex--];
-                    else mainMenu.current = mainMenu.menuItems[0];
-                    break;
-
-                case ConsoleKey.DownArrow:
-                    Console.BackgroundColor = ConsoleColor.Black;
-                    if (mainMenu.currentItemIndex != mainMenu.menuItems.Count-1 ) mainMenu.current = mainMenu.menuItems[mainMenu.currentItemIndex++];
-                    else mainMenu.current = mainMenu.menuItems[mainMenu.menuItems.Count-1];
-                    break;
-            } 
         }
     }
 }

@@ -77,21 +77,119 @@ namespace Shop {
 
         public static List<string> GetEntryToDbInput(string dbTableName, List<string> requiredColumns) {
             
+            Menu getEntryMenu = new Menu();
+            foreach(string column in requiredColumns) {
+                getEntryMenu.menuItems.Add(new MenuItem(column.ToUpper()+": "));
+            }
+            getEntryMenu.menuItems.Add(new MenuItem("CONFIRM ADD"));
+            getEntryMenu.menuItems.Add(new MenuItem("BACK TO MAIN MENU"));
+            getEntryMenu.current = getEntryMenu.menuItems[0];
+
+            // getEntryMenu.PrintMenuList();
+
+            string newName = "";
+            string newDivision = "";
+            string newBattalion = "";
+            string newBrigade = "";
+            string newQuantity = "";
+            string newUnit = "";
+            string newStatus = "";
+            string newPrice = "";
+
+            string[] newParameters = new string[8] { newName,
+                                                     newDivision,
+                                                     newBattalion,
+                                                     newBrigade,
+                                                     newQuantity,
+                                                     newUnit,
+                                                     newStatus,
+                                                     newPrice };
+
+            while (getEntryMenu.menuDisplayed) {
+
+                getEntryMenu.current = getEntryMenu.menuItems[getEntryMenu.currentItemIndex];
+                
+                // TODO: think about List<Menu> change to HashMap<Menu><bool>
+                //       to store info about current menu item
+                getEntryMenu.current.isChecked = true;
+                CMSmenuView.PrintMainMenuCMS(getEntryMenu);
+                getEntryMenu.current.isChecked = false;
+
+                var pressedKey = Console.ReadKey().Key;
+
+                if (pressedKey == ConsoleKey.Enter) {
+
+                    Console.SetCursorPosition(getEntryMenu.current.Content.Length, Console.CursorTop);
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+
+                    switch (getEntryMenu.current.Content) {
+                        case "NAME: ":
+                            Console.SetCursorPosition(getEntryMenu.current.Content.Length, Console.CursorTop-10);
+                            newName = Console.ReadLine();
+                            while(!CMSmenuView.ValidateInputData(newName, dbTableName, "name")) {
+                                Console.SetCursorPosition(getEntryMenu.current.Content.Length, Console.CursorTop-1);
+                                System.Console.Write("                                                         ");
+                                Console.SetCursorPosition(getEntryMenu.current.Content.Length, Console.CursorTop);
+                                // Verify after each Console.ReadKey();
+                                // if (Console.ReadKey() newName status is invalid) {Console.ForegroundColor.RED}
+                                newName = Console.ReadLine();
+                            }
+                            getEntryMenu.menuItems[getEntryMenu.currentItemIndex].Content = "NAME: " + newName;
+                            break;
+                        case "DIVISION: ":
+                            Console.SetCursorPosition(getEntryMenu.current.Content.Length, Console.CursorTop-9);
+                            newDivision = Console.ReadLine();
+                            break;
+                        case "BRIGADE: ":
+                            Console.SetCursorPosition(getEntryMenu.current.Content.Length, Console.CursorTop-8);
+                            newBrigade = Console.ReadLine();
+                            break;
+                        case "BATTALION: ":
+                            Console.SetCursorPosition(getEntryMenu.current.Content.Length, Console.CursorTop-7);
+                            newBattalion = Console.ReadLine();
+                            break;
+                        case "QUANTITY: ":
+                            Console.SetCursorPosition(getEntryMenu.current.Content.Length, Console.CursorTop-6);
+                            newQuantity = Console.ReadLine();
+                            break;
+                        case "UNIT: ":
+                            Console.SetCursorPosition(getEntryMenu.current.Content.Length, Console.CursorTop-5);
+                            newUnit = Console.ReadLine();
+                            break;
+                        case "STATUS: ":
+                            Console.SetCursorPosition(getEntryMenu.current.Content.Length, Console.CursorTop-4);
+                            newStatus = Console.ReadLine();
+                            break;
+                        case "PRICE: ":
+                            Console.SetCursorPosition(getEntryMenu.current.Content.Length, Console.CursorTop-3);
+                            newPrice = Console.ReadLine();
+                            break;
+                        case "CONFIRM ADD":
+                            break;
+                        case "BACK TO MAIN MENU":
+                            break;
+                    }
+                    Console.ResetColor();
+                }
+                if (!newParameters.Contains("")) {getEntryMenu.menuDisplayed = false;}
+                getEntryMenu.NavigateMenu(pressedKey);
+            }
+
             List<string> dataRowInput = new List<string>();
 
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            System.Console.WriteLine($"\nEnter the following information about new product which you want to add.");
-            Console.ResetColor();
-            foreach (string column in requiredColumns) {
-                string userInput;
-                do {
-                    Console.Write($"{column.ToUpper()}:  ");
-                    Console.ForegroundColor = ConsoleColor.DarkYellow;
-                    userInput = Console.ReadLine();
-                    Console.ResetColor();
-                } while (!CMSmenuView.ValidateInputData(userInput, dbTableName, column));
-                dataRowInput.Add(userInput);
-            }
+            // Console.ForegroundColor = ConsoleColor.DarkGray;
+            // System.Console.WriteLine($"\nEnter the following information about new product which you want to add.");
+            // Console.ResetColor();
+            // foreach (string column in requiredColumns) {
+            //     string userInput;
+            //     do {
+            //         Console.Write($"{column.ToUpper()}:  ");
+            //         Console.ForegroundColor = ConsoleColor.DarkYellow;
+            //         userInput = Console.ReadLine();
+            //         Console.ResetColor();
+            //     } while (!CMSmenuView.ValidateInputData(userInput, dbTableName, column));
+            //     dataRowInput.Add(userInput);
+            // }
 
             return dataRowInput;
         }
