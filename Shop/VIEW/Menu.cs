@@ -18,5 +18,11 @@ namespace Shop {
             menuDisplayed = true;
             currentItemIndex = 0;
         }
+
+        public void PrintMenuList() {
+            foreach (MenuItem item in this.menuItems) {
+                Console.WriteLine(item);
+            }
+        }
     }
 }

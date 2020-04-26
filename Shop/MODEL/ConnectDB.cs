@@ -9,11 +9,11 @@ namespace Shop
     ///
     // Class Conncect_DB - is IDAO implementation class
     ///
-    class ConnectDB : IDAO
+    class ConnectDB : IDAOcrud
     {
-    private static string connString = DbSettings.connString;
+        private static string connString = DbSettings.connString;
 
-        public void AddProductToDb(string t_name, Product product)
+        public void AddProduct(string t_name, Product product)
         {
             using (var conn = new NpgsqlConnection(connString))
             {
@@ -38,26 +38,8 @@ namespace Shop
             }
         }
 
-        public void UpdateQuantity(string product_uid, int quantity)
-        {
-            using (var conn = new NpgsqlConnection(connString))
-            {
-                string toUpdate = String.Format("UPDATE products SET quantity = @quantity WHERE product_uid = '{0}'", product_uid);
-                Console.Out.WriteLine(toUpdate);
-                conn.Open();
-                using (var command = new NpgsqlCommand(toUpdate, conn))
-                {
-                    command.Parameters.AddWithValue("@quantity", quantity);
 
-                    int nRows = command.ExecuteNonQuery();
-                    Console.ForegroundColor = ConsoleColor.DarkYellow;
-                    Console.Out.WriteLine(String.Format("Product info updated",nRows));
-                    Console.ResetColor();
-                }
-            }
-        }
-
-        public void UpdateName(string product_uid, string name)
+        public void UpdateProductName(string product_uid, string name)
         {
             using (var conn = new NpgsqlConnection(connString))
             {
@@ -76,7 +58,26 @@ namespace Shop
             }
         }
 
-        public void UpdatePrice(string product_uid, float price)
+        public void UpdateProductQuantity(string product_uid, int quantity)
+        {
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                string toUpdate = String.Format("UPDATE products SET quantity = @quantity WHERE product_uid = '{0}'", product_uid);
+                Console.Out.WriteLine(toUpdate);
+                conn.Open();
+                using (var command = new NpgsqlCommand(toUpdate, conn))
+                {
+                    command.Parameters.AddWithValue("@quantity", quantity);
+
+                    int nRows = command.ExecuteNonQuery();
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.Out.WriteLine(String.Format("Product info updated",nRows));
+                    Console.ResetColor();
+                }
+            }
+        }
+
+        public void UpdateProductPrice(string product_uid, float price)
         {
             using (var conn = new NpgsqlConnection(connString))
             {
@@ -95,7 +96,8 @@ namespace Shop
             }
         }
 
-        public void DeleteRecord(string product_uid)
+
+        public void DeleteProduct(string product_uid)
         {
             using (var conn = new NpgsqlConnection(connString))
             {
@@ -150,6 +152,7 @@ namespace Shop
         }
 
 
+        // OTHER METHODS
         public List<string> GetTableNamesFromDb() {
 
             List<string> tables = new List<string>();
@@ -172,7 +175,6 @@ namespace Shop
             }
             return tables;
         }
-
         
         public List<string> GetColumnNamesFromTable(string tableName) {
             
@@ -195,7 +197,7 @@ namespace Shop
             return columns;
         }
         
-        public void Display_Table(string n, string fr)
+        public void SearchInTable(string n, string fr)
         {
             using (var conn = new NpgsqlConnection(connString))
             {
@@ -218,6 +220,8 @@ namespace Shop
                 }
             }
         }
+        
+        // FIND METHODS
         public List<string> Find_Division()
         {
             List<string> div_list = new List<string>();

@@ -30,7 +30,7 @@ namespace Shop {
                 // TODO: think about List<Menu> change to HashMap<Menu><bool>
                 //       to store info about current menu item
                 mainMenu.current.isChecked = true;
-                CMSmenuView.PrintMainMenuCMS(mainMenu.menuItems);
+                CMSmenuView.PrintMainMenuCMS(mainMenu);
                 mainMenu.current.isChecked = false;
 
                 var pressedKey = Console.ReadKey().Key;

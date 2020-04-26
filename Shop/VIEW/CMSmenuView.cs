@@ -8,17 +8,11 @@ using System.Text.RegularExpressions;
 namespace Shop {
     public class CMSmenuView {
 
-        public static void PrintMainMenuCMS(List<MenuItem> menuItemsToBePrinted) {
+        public static void PrintMainMenuCMS(Menu menuCMSInstance) {
             Console.Clear(); Console.ResetColor();
             
             CMSmenuView.LogoScreen();
-            PrintMenuList(menuItemsToBePrinted);
-        }
-
-        public static void PrintMenuList(List<MenuItem> menuItemsList) {
-            foreach (MenuItem item in menuItemsList) {
-                Console.WriteLine(item);
-            }
+            menuCMSInstance.PrintMenuList();
         }
 
         public static void LogoScreen() {
@@ -75,7 +69,7 @@ namespace Shop {
                                                     newEntryData[6].ToUpper(),
                                                     float.Parse(newEntryData[7]));
 
-            conection_DB.AddProductToDb(table_name1, productToBeAdded);
+            conection_DB.AddProduct(table_name1, productToBeAdded);
             Console.ReadKey();
         }
 
@@ -229,7 +223,7 @@ namespace Shop {
             Console.Write("\nEnter a letter or word: ");
             Console.ResetColor();
             string frag_cond = Console.ReadLine();
-            conection_DB5.Display_Table(table_name5, frag_cond);
+            conection_DB5.SearchInTable(table_name5, frag_cond);
             Console.ReadKey();
             
         }
@@ -390,7 +384,7 @@ namespace Shop {
                     float val = float.Parse(result);
                     Console.ResetColor();
                     ConnectDB connection_DB26 = new ConnectDB();
-                    connection_DB26.UpdatePrice(pro_discription, val);
+                    connection_DB26.UpdateProductPrice(pro_discription, val);
                 }
 
                 else if (result == "2") 
@@ -410,7 +404,7 @@ namespace Shop {
                     int ival = Int16.Parse(result);
                     Console.ResetColor();
                     ConnectDB connection_DB27 = new ConnectDB();
-                    connection_DB27.UpdateQuantity(pro_discription, ival);
+                    connection_DB27.UpdateProductQuantity(pro_discription, ival);
                 }
                 else if (result == "3")
                 {   
@@ -428,7 +422,7 @@ namespace Shop {
                     }
                     Console.ResetColor();
                     ConnectDB connection_DB27 = new ConnectDB();
-                    connection_DB27.UpdateName(pro_discription, result);
+                    connection_DB27.UpdateProductName(pro_discription, result);
                 }
                 else
                 {
@@ -438,7 +432,7 @@ namespace Shop {
             else if (result == "D")
             {
                 ConnectDB connection_DB25 = new ConnectDB();
-                connection_DB25.DeleteRecord(pro_discription);
+                connection_DB25.DeleteProduct(pro_discription);
             }        
             Console.ReadKey();
         }
