@@ -1,19 +1,18 @@
 using System;
-using System.Collections.Generic;
 
 namespace Shop {
         
     ///
     // CMS_Menu_v2 class represents main CMS mode menu object
     ///
-    public class CMSmainMenu {
+    public class CMSmenuController {
 
         private Menu mainMenu = new Menu();
 
         ///
         // CMS_Menu_v2 constructor creates a list of menu items from Enum CMSmenuOptions_lvl1
         ///
-        public CMSmainMenu() {
+        public CMSmenuController() {
 
             // Save all menu items to list (names = enum CMSmenuOptions_lvl1)
             foreach(string item in Enum.GetNames(typeof(CMSmenuOptions))){

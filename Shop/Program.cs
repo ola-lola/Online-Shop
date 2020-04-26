@@ -18,7 +18,7 @@ namespace Shop
             else
             {
                 Console.WriteLine("Hello Team");
-                var menuCMS = new CMSmainMenu();
+                var menuCMS = new CMSmenuController();
                 menuCMS.PrintmainMenu();
             }
         }

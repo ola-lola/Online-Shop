@@ -227,7 +227,6 @@ namespace Shop
             List<string> div_list = new List<string>();
             using (var conn = new NpgsqlConnection(connString))
             {   
-                Console.Out.WriteLine("List of available divisions");
                 conn.Open();
                 using (var command = new NpgsqlCommand("SELECT DISTINCT division FROM products",conn))
                 {

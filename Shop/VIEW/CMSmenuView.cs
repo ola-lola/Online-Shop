@@ -230,7 +230,7 @@ namespace Shop {
 
         public static void UpdateOrDelete() {
             Console.Clear();
-            Console.WriteLine("Updating the record");
+            Console.WriteLine("Updating/Deleteing the record");
             Console.WriteLine("=======================");
             List<string> div_out = new List<string>();
             List<string> bry_out = new List<string>();
@@ -243,29 +243,21 @@ namespace Shop {
             string outName;
             string result;
             int wsk;
+            
             ConnectDB conection_DB2 = new ConnectDB();
+            
+            Console.Out.WriteLine("List of available divisions");
             div_out = conection_DB2.Find_Division();
-
-            for (int i = 1; i <= div_out.Count; i++)
-            {
-                Console.WriteLine("{0}. {1}", i, div_out[i-1]);
-            }
+            View.PrintList(div_out);
 
             Console.Write("Enter division number: ");
-
             result = Console.ReadLine();
-            // check block
-            char firstchar = result[0];  //first char from string input
-            int asciicode = firstchar;   //change char to ascii value
-            char maxchar = (char)(div_out.Count + '0'); // change size list to char
-            int maxascii = maxchar; //change char to ascii value
-            while (asciicode < 49 || asciicode > maxascii)  //while correcness loop
-            {
+
+            while(!View.VerifyListChoiceInput(result, div_out)) {
                 Console.Write("Enter PROPER (!!!) division number: ");
                 result = Console.ReadLine();
-                firstchar = result[0];  
-                asciicode = firstchar;
             }
+
             // check block
             wsk = Int16.Parse(result);
             outcomeDiv = div_out[wsk-1];
@@ -273,24 +265,13 @@ namespace Shop {
             Console.WriteLine("DIVISION: " + outcomeDiv);
             ConnectDB conection_DB21 = new ConnectDB();
             bry_out = conection_DB21.Find_Brigade(outcomeDiv);
-            for (int i = 1; i <= bry_out.Count; i++)
-            {
-                Console.WriteLine("{0}. {1}", i, bry_out[i-1]);
-            }
+            View.PrintList(bry_out);
             
             Console.Write("Enter brigade number: ");
             result = Console.ReadLine();
-            // check block
-            firstchar = result[0];  //first char from string input
-            asciicode = firstchar;   //change char to ascii value
-            maxchar = (char)(bry_out.Count + '0'); // change size list to char
-            maxascii = maxchar; //change char to ascii value
-            while (asciicode < 49 || asciicode > maxascii)  //while correcness loop
-            {
+            while(!View.VerifyListChoiceInput(result, bry_out)) {
                 Console.Write("Enter PROPER (!!!) brigade number: ");
                 result = Console.ReadLine();
-                firstchar = result[0];  
-                asciicode = firstchar;
             }
             // check block
             wsk = Int16.Parse(result);
@@ -299,24 +280,13 @@ namespace Shop {
             Console.WriteLine("DIVISION: " + outcomeDiv + ", BRIGADE: " + outcomeBry);
             ConnectDB conection_DB22 = new ConnectDB();
             bat_out = conection_DB22.Find_Battalion(outcomeDiv, outcomeBry);
-            for (int i = 1; i <= bat_out.Count; i++)
-            {
-                Console.WriteLine("{0}. {1}", i, bat_out[i-1]);
-            }
+            View.PrintList(bat_out);
             
             Console.Write("Enter battalion number: ");
             result = Console.ReadLine();
-            // check block
-            firstchar = result[0];  //first char from string input
-            asciicode = firstchar;   //change char to ascii value
-            maxchar = (char)(bat_out.Count + '0'); // change size list to char
-            maxascii = maxchar; //change char to ascii value
-            while (asciicode < 49 || asciicode > maxascii)  //while correcness loop
-            {
+            while(!View.VerifyListChoiceInput(result, bat_out)) {
                 Console.Write("Enter PROPER (!!!) battalion number: ");
                 result = Console.ReadLine();
-                firstchar = result[0];  
-                asciicode = firstchar;
             }
             // check block
             wsk = Int16.Parse(result);
@@ -325,24 +295,13 @@ namespace Shop {
             Console.WriteLine("DIVISION: "+ outcomeDiv + ", BRIGADE: " + outcomeBry + ", BATTALION: " + outcomeBat);
             ConnectDB conection_DB23 = new ConnectDB();
             pro_out = conection_DB23.Find_Product(outcomeDiv, outcomeBry, outcomeBat);
-            for (int i = 1; i <= pro_out.Count; i++)
-            {
-                Console.WriteLine("{0}. {1}", i, pro_out[i-1]);
-            }
-            
+            View.PrintList(pro_out);
+
             Console.Write("Enter product number: ");
             result = Console.ReadLine();
-            // check block
-            firstchar = result[0];  //first char from string input
-            asciicode = firstchar;   //change char to ascii value
-            maxchar = (char)(pro_out.Count + '0'); // change size list to char
-            maxascii = maxchar; //change char to ascii value
-            while (asciicode < 49 || asciicode > maxascii)  //while correcness loop
-            {
+            while(!View.VerifyListChoiceInput(result, pro_out)) {
                 Console.Write("Enter PROPER (!!!) product number: ");
                 result = Console.ReadLine();
-                firstchar = result[0];  
-                asciicode = firstchar;
             }
             // check block
             wsk = Int16.Parse(result);
