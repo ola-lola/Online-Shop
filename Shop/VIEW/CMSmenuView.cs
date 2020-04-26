@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Npgsql;
 using System.Data;
+using System.Text.RegularExpressions;
 
 namespace Shop {
     public class CMSmenuView {
@@ -373,19 +374,40 @@ namespace Shop {
                 if (result == "1")
                 {
                     Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.Write("Enter new price value: ");
+                    Console.Write("\n\nEnter NEW price value: ");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.Write("\n*If a new price includes cents/pounds - please use dots between numbers e.g. 2.4):\n");
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
-                    float val = float.Parse(Console.ReadLine());
+                    result = Console.ReadLine();
+                        while (!(isNumeric(result)))
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.Write("Invalid input.\n\n Try again:  ");
+                            Console.ForegroundColor = ConsoleColor.DarkYellow;
+                            result = Console.ReadLine();
+                            Console.ResetColor();
+                        }
+                    float val = float.Parse(result);
                     Console.ResetColor();
                     ConnectDB connection_DB26 = new ConnectDB();
                     connection_DB26.UpdatePrice(pro_discription, val);
                 }
+
                 else if (result == "2") 
                 {   
                     Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.Write("Enter new quantity value: ");
+                    Console.Write("\n\nEnter NEW quantity value: ");
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
-                    int ival = Int16.Parse(Console.ReadLine());
+                    result = Console.ReadLine();
+                        while (!(isNumeric(result)))
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.Write("Quantity column accept only numbers. Do not use letters.\n\n Try again:  ");
+                            Console.ForegroundColor = ConsoleColor.DarkYellow;
+                            result = Console.ReadLine();
+                            Console.ResetColor();
+                        }
+                    int ival = Int16.Parse(result);
                     Console.ResetColor();
                     ConnectDB connection_DB27 = new ConnectDB();
                     connection_DB27.UpdateQuantity(pro_discription, ival);
@@ -393,18 +415,17 @@ namespace Shop {
                 else if (result == "3")
                 {   
                     Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.Write("Enter new product name: ");
+                    Console.Write("\n\nEnter NEW product name: ");
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
 
                     result = Console.ReadLine();
                     while (result.Length > 25){
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("\nThis name is too long. Use max 25 letters.\n");
+                        Console.WriteLine("\nThis name is too long.Please use max 25 letters.\n\n Try again:  ");
                         Console.ForegroundColor = ConsoleColor.DarkYellow;
                         result = Console.ReadLine();
                         Console.ResetColor();
                     }
-
                     Console.ResetColor();
                     ConnectDB connection_DB27 = new ConnectDB();
                     connection_DB27.UpdateName(pro_discription, result);
@@ -442,6 +463,10 @@ namespace Shop {
                 Console.Write($":: {tableName} :: ");
             }
             System.Console.WriteLine();
+        }
+        public static bool isNumeric(string strToCheck) {
+            Regex rg = new Regex(@"^[0-9\s,]*$");
+            return rg.IsMatch(strToCheck);
         }
     }
 }
