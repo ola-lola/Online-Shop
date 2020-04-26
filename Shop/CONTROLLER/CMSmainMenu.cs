@@ -42,7 +42,7 @@ namespace Shop {
                     
                     switch ((int) temp) {
                         case 0: // CREATE_NEW_RECORD
-                            CMSmenuView.AddNewData();
+                            CMSmenuView.MainAddNewProduct();
                             break;
                         case 1: // READ_RECORDS
                             CMSmenuView.SearchInStock();

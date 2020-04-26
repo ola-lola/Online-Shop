@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Npgsql;
+using System.Data;
 
 namespace Shop {
     public class CMSmenuView {
@@ -45,15 +47,13 @@ namespace Shop {
 
             return tableName;
         }
-        public static void AddNewData() {
+        public static void MainAddNewProduct() {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("Please follow the next instructions to add a new record to Shop's Database.\n");
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine("AVAILABLE TABLES TO CHOOSE:");
-            Console.ResetColor();
-            Console.WriteLine(":: products :: division :: brigade :: battalion :: clients :: transactions ::\n");
-            
+            ConnectDB conection_DB = new ConnectDB();
+            PrintAvailableTables(conection_DB.GetTableNamesFromDb());
+
             string table_name1 = CMSmenuView.GetTableName();
             
             List<string> newEntryData = CMSmenuView.GetEntryToDbInput(table_name1, new List<string>() { "name", 
@@ -65,19 +65,16 @@ namespace Shop {
                                                                                                         "status",
                                                                                                         "price"});  
             
-            string name_new = newEntryData[0];
-            string div_new = newEntryData[1];
-            string bryg_new = newEntryData[2];
-            string bat_new = newEntryData[3];
-            string qua_new_str = newEntryData[4];
-            int qua_new = Int16.Parse(qua_new_str);
-            string unit_new = newEntryData[5];
-            string status_new = newEntryData[6].ToUpper();
-            string price_new_str = newEntryData[7];
-            float price_new = float.Parse(price_new_str);
+            Product productToBeAdded = new Product( newEntryData[0],
+                                                    newEntryData[1],
+                                                    newEntryData[2],
+                                                    newEntryData[3],
+                                                    Int16.Parse(newEntryData[4]),
+                                                    newEntryData[5],
+                                                    newEntryData[6].ToUpper(),
+                                                    float.Parse(newEntryData[7]));
 
-            ConnectDB conection_DB = new ConnectDB();
-            conection_DB.Add_new_record(table_name1,name_new,div_new, bryg_new,bat_new,qua_new,unit_new,status_new, price_new);
+            conection_DB.AddProductToDb(table_name1, productToBeAdded);
             Console.ReadKey();
         }
 
@@ -224,16 +221,13 @@ namespace Shop {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("Display specific tables, columns or products\n");
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine("AVAILABLE TABLES TO CHOOSE:");
-            Console.ResetColor();
-            Console.WriteLine(":: products :: division :: brigade :: battalion :: clients :: transactions ::\n");
+            ConnectDB conection_DB5 = new ConnectDB();
+            PrintAvailableTables(conection_DB5.GetTableNamesFromDb());
             string table_name5 = CMSmenuView.GetTableName();
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.Write("\nEnter a letter or word: ");
             Console.ResetColor();
             string frag_cond = Console.ReadLine();
-            ConnectDB conection_DB5 = new ConnectDB();
             conection_DB5.Display_Table(table_name5, frag_cond);
             Console.ReadKey();
             
@@ -432,16 +426,22 @@ namespace Shop {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("Please follow the next instructions to add a new record to Shop's Database.\n");
+            ConnectDB conection_DB_100 = new ConnectDB();
+            PrintAvailableTables(conection_DB_100.GetTableNamesFromDb());
+            string tableName = CMSmenuView.GetTableName();
+            List<string> columnsToQuery = conection_DB_100.GetColumnNamesFromTable(tableName);
+            conection_DB_100.ReadTable(tableName, new List<string>() {"name", "division", "status"});
+            Console.ReadKey();
+        }
+
+        public static void PrintAvailableTables(List<string> tables) {
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.WriteLine("AVAILABLE TABLES TO CHOOSE:");
             Console.ResetColor();
-            Console.WriteLine(":: products :: division :: brigade :: battalion :: clients :: transactions ::\n");
-            string tableName = CMSmenuView.GetTableName();
-            ConnectDB conection_DB_100 = new ConnectDB();
-            List<string> columnsToQuery = new List<string>();
-            
-            conection_DB_100.ReadTable(tableName, new List<string>() {"name", "division", "status"});
-            Console.ReadKey();
+            foreach (string tableName in tables) {
+                Console.Write($":: {tableName} :: ");
+            }
+            System.Console.WriteLine();
         }
     }
 }

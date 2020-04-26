@@ -2,6 +2,7 @@ using System;
 using Npgsql;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data;
 
 namespace Shop
 {
@@ -12,7 +13,7 @@ namespace Shop
     {
     private static string connString = DbSettings.connString;
 
-        public void Add_new_record(string t_name,string n,string div, string bry, string bat, int qua,string un,string st,float pr)
+        public void AddProductToDb(string t_name, Product product)
         {
             using (var conn = new NpgsqlConnection(connString))
             {
@@ -21,14 +22,14 @@ namespace Shop
                 conn.Open();
                 using (var command = new NpgsqlCommand(s, conn))
                 {
-                    command.Parameters.AddWithValue("@n", n);
-                    command.Parameters.AddWithValue("@div", div);
-                    command.Parameters.AddWithValue("@bry", bry);
-                    command.Parameters.AddWithValue("@bat", bat);
-                    command.Parameters.AddWithValue("@qua", qua);
-                    command.Parameters.AddWithValue("@un", un);
-                    command.Parameters.AddWithValue("@st", st);
-                    command.Parameters.AddWithValue("@pr", pr);
+                    command.Parameters.AddWithValue("@n", product.Name);
+                    command.Parameters.AddWithValue("@div", product.Division1);
+                    command.Parameters.AddWithValue("@bry", product.Brigade2);
+                    command.Parameters.AddWithValue("@bat", product.Battalion3);
+                    command.Parameters.AddWithValue("@qua", product.Quantity);
+                    command.Parameters.AddWithValue("@un", product.Unit);
+                    command.Parameters.AddWithValue("@st", product.Status);
+                    command.Parameters.AddWithValue("@pr", product.PricePerUnit);
                     int nRows = command.ExecuteNonQuery();
                     Console.ForegroundColor = ConsoleColor.DarkGreen;
                     Console.Out.WriteLine(String.Format("\nInserted {0} row",nRows));
@@ -151,6 +152,52 @@ namespace Shop
                 // TODO: update method - Agnieszka 
                 // return new List<Product>();
             }
+        }
+
+
+        public List<string> GetTableNamesFromDb() {
+
+            List<string> tables = new List<string>();
+
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                conn.Open();
+                DataTable dataTable = conn.GetSchema("Tables");
+                    foreach (DataRow row in dataTable.Rows)
+                    {
+                        // Per info:
+                        // string dbName = (string)row[0];
+                        // string tableAccessibilityPublicPrivate = (string)row[1];
+                        
+                        string tableName = (string)row[2];
+                        tables.Add(tableName);
+                    }
+
+                conn.Close();
+            }
+            return tables;
+        }
+
+        
+        public List<string> GetColumnNamesFromTable(string tableName) {
+            
+            List<string> columns = new List<string>();
+
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                conn.Open();
+                using (var command = new NpgsqlCommand($"SELECT * FROM {tableName}", conn))
+                {
+                    var reader = command.ExecuteReader();
+                    // while (reader.Read())
+                    // {
+                        for (int i = 0; i < reader.FieldCount; i++)
+                            Console.WriteLine(reader.GetName(i));
+                    // }
+                }
+                conn.Close();
+            }
+            return columns;
         }
 
         

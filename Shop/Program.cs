@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-// using System.Reflection;
-using System.Threading;
 
 namespace Shop
 {
@@ -14,13 +11,15 @@ namespace Shop
             // ADMIN MODE
             if (args.Length == 1 && args[0]== "aaa")
             {
-                var menuCMS = new CMSmainMenu();
-                menuCMS.PrintmainMenu();
+                // var menuCMS = new CMSmainMenu();
+                // menuCMS.PrintmainMenu();
             }
             // SHOPPING MODE
             else
             {
                 Console.WriteLine("Hello Team");
+                var menuCMS = new CMSmainMenu();
+                menuCMS.PrintmainMenu();
             }
         }
     }
