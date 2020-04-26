@@ -380,17 +380,29 @@ namespace Shop {
                 if (result == "1")
                 {
                     Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.Write("Enter new price value: ");
+                    Console.Write("\n\nEnter NEW price value: ");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.Write("\n*If a new price includes cents/pounds - please use dots between numbers e.g. 2.4):\n");
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
-                    float val = float.Parse(Console.ReadLine());
+                    result = Console.ReadLine();
+                        while (!(isNumeric(result)))
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.Write("Invalid input.\n\n Try again:  ");
+                            Console.ForegroundColor = ConsoleColor.DarkYellow;
+                            result = Console.ReadLine();
+                            Console.ResetColor();
+                        }
+                    float val = float.Parse(result);
                     Console.ResetColor();
                     ConnectDB connection_DB26 = new ConnectDB();
                     connection_DB26.UpdatePrice(pro_discription, val);
                 }
+
                 else if (result == "2") 
                 {   
                     Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.Write("Enter new quantity value: ");
+                    Console.Write("\n\nEnter NEW quantity value: ");
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
                     result = Console.ReadLine();
                         while (!(isNumeric(result)))
@@ -409,7 +421,7 @@ namespace Shop {
                 else if (result == "3")
                 {   
                     Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.Write("Enter new product name: ");
+                    Console.Write("\n\nEnter NEW product name: ");
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
 
                     result = Console.ReadLine();
