@@ -15,6 +15,7 @@ namespace Shop {
                 Console.ForegroundColor = ConsoleColor.Black;
             } else { Console.ResetColor(); }
         }
+        
         public override string ToString() {
             this.CheckCondition();
             return this.Content;
