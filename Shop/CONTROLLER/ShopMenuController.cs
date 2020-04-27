@@ -1,57 +1,59 @@
 using System;
+using System.Collections.Generic;
+using System.Threading;
 
 namespace Shop {
     public class ShopMenuController {
         private Menu shopMainMenu = new Menu();
 
         public ShopMenuController() {
-            foreach(string item in Enum.GetNames(typeof(ShopMenuOptions))){
+            List<string> _mainShopMenu = new List<string>();
+            _mainShopMenu.Add("//\\\\//                    = =   START_SHOPPING   = =                  \\\\//\\\\");
+            _mainShopMenu.Add("\\\\//\\\\                    = =   REGISTER_USER    = =                  //\\\\//");
+            _mainShopMenu.Add("//\\\\//                    = =        QUIT        = =                  \\\\//\\\\");
+
+            foreach(string item in _mainShopMenu){
                 shopMainMenu.menuItems.Add(new MenuItem(item));
             }
         }
 
 
-        // public void PrintmainMenu() {
+        public void PrintMainShopMenu() {
             
-        //     while (this.mainMenu.menuDisplayed) {
+            while (this.shopMainMenu.menuDisplayed) {
 
-        //         mainMenu.current = mainMenu.menuItems[mainMenu.currentItemIndex];
+                shopMainMenu.current = shopMainMenu.menuItems[shopMainMenu.currentItemIndex];
                 
-        //         // TODO: think about List<Menu> change to HashMap<Menu><bool>
-        //         //       to store info about current menu item
-        //         mainMenu.current.isChecked = true;
-        //         CMSmenuView.PrintMainMenuCMS(mainMenu);
-        //         mainMenu.current.isChecked = false;
+                // TODO: think about List<Menu> change to HashMap<Menu><bool>
+                //       to store info about current menu item
+                shopMainMenu.current.isChecked = true;
+                ShopMenuView.PrintMainMenuShop(shopMainMenu);
+                shopMainMenu.current.isChecked = false;
 
-        //         var pressedKey = Console.ReadKey().Key;
+                var pressedKey = Console.ReadKey().Key;
 
-        //         if (pressedKey == ConsoleKey.Enter) {
+                if (pressedKey == ConsoleKey.Enter) {
 
-        //             // Parse current menu item content (string) to defined enum
-        //             Enum.TryParse(mainMenu.current.Content, out CMSmenuOptions temp);
+                    // Parse current menu item content (string) to defined enum
                     
-        //             switch ((int) temp) {
-        //                 case 0: // CREATE_NEW_RECORD
-        //                     CMSmenuView.MainAddNewProduct();
-        //                     break;
-        //                 case 1: // READ_RECORDS
-        //                     CMSmenuView.SearchInStock();
-        //                     break;
-        //                 case 2: // UPDATE_OR_DELETE_RECORD
-        //                     CMSmenuView.UpdateOrDelete();
-        //                     break;
-        //                 case 3: // PREVIEW_ALL_ITEMS_IN_STOCK
-        //                     CMSmenuView.PreviewAllItemsInStock();
-        //                     break;
-        //                 case 4: // EXIT_CMS
-        //                     mainMenu.menuDisplayed = false;
-        //                     break;
-        //             }
-        //         }
+                    switch (shopMainMenu.current.Content) {
+                        case "//\\\\//                    = =   START_SHOPPING   = =                  \\\\//\\\\": // START_SHOPPING
+                            System.Console.WriteLine("start shopping");
+                            Thread.Sleep(1000);
+                            break;
+                        case "\\\\//\\\\                    = =   REGISTER_USER    = =                  //\\\\//": // REGISTER_USER
+                            System.Console.WriteLine("register user");
+                            Thread.Sleep(1000);
+                            break;
+                        case "//\\\\//                    = =        QUIT        = =                  \\\\//\\\\": // QUIT
+                            shopMainMenu.menuDisplayed = false;
+                            break;
+                    }
+                }
                 
-        //         this.NavigateMenu(pressedKey);
-        //     }
-        // }
+                shopMainMenu.NavigateMenu(pressedKey);
+            }
+        }
 
     }
 }

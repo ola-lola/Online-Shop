@@ -21,7 +21,14 @@ namespace Shop {
 
         public void PrintMenuList() {
             foreach (MenuItem item in this.menuItems) {
-                Console.WriteLine(item);
+                foreach (char i in item.Content) {
+                    if (i == '/' || i == '\\' || i == ' ' | i == '=' | i == '-') {
+                        Console.ResetColor();
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    } else {item.CheckCondition();}
+                    System.Console.Write(i);
+                }
+                Console.WriteLine();
             }
         }
 
