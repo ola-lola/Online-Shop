@@ -6,7 +6,20 @@ namespace Shop
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+           // build connection string with DB on local server
+           
+            // ADMIN MODE
+            if (args.Length == 1 && args[0]== "aaa")
+            {
+                var menuCMS = new CMSmenuController();
+                menuCMS.PrintmainMenu();
+            }
+            // SHOPPING MODE
+            else
+            {
+                Console.WriteLine("Hello Team");
+            }
         }
     }
 }
+
