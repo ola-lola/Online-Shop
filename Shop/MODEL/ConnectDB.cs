@@ -9,7 +9,7 @@ namespace Shop
     ///
     // Class Conncect_DB - is IDAO implementation class
     ///
-    class ConnectDB : IDAOcrud
+    public class ConnectDB : IDAOcrud
     {
         private static string connString = DbSettings.connString;
 
