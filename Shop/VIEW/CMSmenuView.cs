@@ -180,9 +180,10 @@ namespace Shop {
             }
             wsk = Int16.Parse(result);
             outcomeDiv = div_out[wsk-1];
-            Console.WriteLine("--------------------------");
+            Console.Clear();
             Console.WriteLine("DIVISION: " + outcomeDiv);
-            
+            Console.WriteLine("Find the product (division/brigade/battalion)");
+            Console.WriteLine("==============================================");
             // Choose the brigade
             ConnectDB conection_DB21 = new ConnectDB();
             Console.Out.WriteLine("List of available brigades:");
@@ -196,9 +197,10 @@ namespace Shop {
             }
             wsk = Int16.Parse(result);
             outcomeBry = bry_out[wsk-1];
-            Console.WriteLine("----------------------------");
+            Console.Clear();
             Console.WriteLine("DIVISION: " + outcomeDiv + ", BRIGADE: " + outcomeBry);
-            
+            Console.WriteLine("Find the product (division/brigade/battalion)");
+            Console.WriteLine("==============================================");
             // Choose the battalion
             ConnectDB conection_DB22 = new ConnectDB();
             Console.Out.WriteLine("List of available battalions:");
@@ -213,9 +215,10 @@ namespace Shop {
             }
             wsk = Int16.Parse(result);
             outcomeBat = bat_out[wsk-1];
-            Console.WriteLine("----------------------------");
+            Console.Clear();
             Console.WriteLine("DIVISION: "+ outcomeDiv + ", BRIGADE: " + outcomeBry + ", BATTALION: " + outcomeBat);
-            
+            Console.WriteLine("Find the product (division/brigade/battalion)");
+            Console.WriteLine("==============================================");
             // Choose the product
             ConnectDB conection_DB23 = new ConnectDB();
             Console.Out.WriteLine("List of available products:");

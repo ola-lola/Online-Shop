@@ -120,7 +120,7 @@ namespace Shop {
                 string pro_discription = GetProductUUID();
                 string result;
                 Console.WriteLine("-----------------------------");
-                Console.WriteLine("P (put into Cart)   C  (continue shoping) -> Select an option");
+                Console.WriteLine("P(put into Cart) -> Select an option");
                 result = Console.ReadLine().ToUpper();
                 if (result == "P")
                 {
@@ -134,19 +134,24 @@ namespace Shop {
                     {
                         customer_Cart.Add(pro_discription, 1);
                     }
-                    Console.WriteLine("Your shoping cart:");
-                    Display_Cart(customer_Cart);
-                    Console.ReadKey();
+                    Temp_Display_Cart(customer_Cart);
+                    Console.WriteLine();
+                    Console.WriteLine("E(to stop shoping -> Select an option");
+                    result = Console.ReadLine().ToUpper();
+                    if (result == "E") {break;}
                 }
-                else {break;}
             }
-            
-            
-            
+            Console.WriteLine("Cart confirmation and payment block");
+            Console.ReadKey();
         }
-        static void Display_Cart(Dictionary<string,int> contentCart)
+        static void Temp_Display_Cart(Dictionary<string,int> contentCart)
         {
-            Console.WriteLine(contentCart.Count);
+            Console.WriteLine("Your shoping cart:");
+            foreach (KeyValuePair<string,int> kvp in contentCart)
+            {
+                
+                    Console.WriteLine(kvp.Key + "   " + kvp.Value);
+            }
         }
     }
 }
