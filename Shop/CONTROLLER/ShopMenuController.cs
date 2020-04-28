@@ -38,8 +38,7 @@ namespace Shop {
                     
                     switch (shopMainMenu.current.Content) {
                         case "//\\\\//                    = =   START_SHOPPING   = =                  \\\\//\\\\": // START_SHOPPING
-                            System.Console.WriteLine("start shopping");
-                            Thread.Sleep(1000);
+                            ShopMenuView.PutToCart();
                             break;
                         case "\\\\//\\\\                    = =   REGISTER_USER    = =                  //\\\\//": // REGISTER_USER
                             System.Console.WriteLine("register user");

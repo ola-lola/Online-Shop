@@ -332,7 +332,7 @@ namespace Shop
                     while (reader.Read())
                     {
                         Console.WriteLine(
-                            string.Format("{0} - {1} {2}, price = {3}",
+                            string.Format("{0} - {1} {2}, price = {3} Euro per unit",
                             reader.GetString(0),
                             reader.GetInt16(1).ToString(),
                             reader.GetString(2),

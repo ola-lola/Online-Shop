@@ -152,57 +152,56 @@ namespace Shop {
             
         }
 
-        public static void UpdateOrDelete() {
+        public static string GetProductUUID() {
             Console.Clear();
-            Console.WriteLine("Updating/Deleteing the record");
-            Console.WriteLine("=======================");
+            Console.WriteLine("Find the product (division/brigade/battalion)");
+            Console.WriteLine("==============================================");
             List<string> div_out = new List<string>();
             List<string> bry_out = new List<string>();
             List<string> bat_out = new List<string>();
             List<string> pro_out = new List<string>();
-            string pro_discription;
+            string prod_uuid;
             string outcomeDiv;
             string outcomeBry;
             string outcomeBat;
             string outName;
             string result;
             int wsk;
-            
+            // Choose the division
             ConnectDB conection_DB2 = new ConnectDB();
-            
-            Console.Out.WriteLine("List of available divisions");
+            Console.Out.WriteLine("List of available divisions:");
             div_out = conection_DB2.Find_Division();
             View.PrintList(div_out);
-
             Console.Write("Enter division number: ");
             result = Console.ReadLine();
-
             while(!View.VerifyListChoiceInput(result, div_out)) {
                 Console.Write("Enter PROPER (!!!) division number: ");
                 result = Console.ReadLine();
             }
-
-            // check block
             wsk = Int16.Parse(result);
             outcomeDiv = div_out[wsk-1];
             Console.WriteLine("--------------------------");
             Console.WriteLine("DIVISION: " + outcomeDiv);
+            
+            // Choose the brigade
             ConnectDB conection_DB21 = new ConnectDB();
+            Console.Out.WriteLine("List of available brigades:");
             bry_out = conection_DB21.Find_Brigade(outcomeDiv);
             View.PrintList(bry_out);
-            
             Console.Write("Enter brigade number: ");
             result = Console.ReadLine();
             while(!View.VerifyListChoiceInput(result, bry_out)) {
                 Console.Write("Enter PROPER (!!!) brigade number: ");
                 result = Console.ReadLine();
             }
-            // check block
             wsk = Int16.Parse(result);
             outcomeBry = bry_out[wsk-1];
             Console.WriteLine("----------------------------");
             Console.WriteLine("DIVISION: " + outcomeDiv + ", BRIGADE: " + outcomeBry);
+            
+            // Choose the battalion
             ConnectDB conection_DB22 = new ConnectDB();
+            Console.Out.WriteLine("List of available battalions:");
             bat_out = conection_DB22.Find_Battalion(outcomeDiv, outcomeBry);
             View.PrintList(bat_out);
             
@@ -212,30 +211,34 @@ namespace Shop {
                 Console.Write("Enter PROPER (!!!) battalion number: ");
                 result = Console.ReadLine();
             }
-            // check block
             wsk = Int16.Parse(result);
             outcomeBat = bat_out[wsk-1];
             Console.WriteLine("----------------------------");
             Console.WriteLine("DIVISION: "+ outcomeDiv + ", BRIGADE: " + outcomeBry + ", BATTALION: " + outcomeBat);
+            
+            // Choose the product
             ConnectDB conection_DB23 = new ConnectDB();
+            Console.Out.WriteLine("List of available products:");
             pro_out = conection_DB23.Find_Product(outcomeDiv, outcomeBry, outcomeBat);
             View.PrintList(pro_out);
-
             Console.Write("Enter product number: ");
             result = Console.ReadLine();
             while(!View.VerifyListChoiceInput(result, pro_out)) {
                 Console.Write("Enter PROPER (!!!) product number: ");
                 result = Console.ReadLine();
             }
-            // check block
             wsk = Int16.Parse(result);
             outName = pro_out[wsk-1];
             Console.WriteLine("-----------------------------");
             Console.WriteLine("DIVISION: "+ outcomeDiv + ", BRIGADE: " + outcomeBry + ", BATTALION: " + outcomeBat);
+            // return iiud of product and display         
             ConnectDB conection_DB24 = new ConnectDB();
-            // return uuid
-            pro_discription = conection_DB24.Find_Selected_Product(outcomeDiv, outcomeBry, outcomeBat, outName);
-            
+            return prod_uuid = conection_DB24.Find_Selected_Product(outcomeDiv, outcomeBry, outcomeBat, outName);
+        }    
+        public static void UpdateOrDelete()
+        {
+            string pro_discription = GetProductUUID();
+            string result;
             Console.WriteLine("-----------------------------");
             Console.WriteLine("U (update)   D  (delete) -> Select an option");
             result = Console.ReadLine().ToUpper();
