@@ -105,9 +105,10 @@ namespace Shop {
             }
             wsk = Int16.Parse(result);
             outName = pro_out[wsk-1];
-            Console.WriteLine("-----------------------------");
+            Console.Clear();
             Console.WriteLine("DIVISION: "+ outcomeDiv + ", BRIGADE: " + outcomeBry + ", BATTALION: " + outcomeBat);
             // return iiud of product and display         
+            Console.WriteLine("==============================================");
             ConnectDB conection_DB24 = new ConnectDB();
             return prod_uuid = conection_DB24.Find_Selected_Product(outcomeDiv, outcomeBry, outcomeBat, outName);
         }    
@@ -146,11 +147,10 @@ namespace Shop {
         }
         static void Temp_Display_Cart(Dictionary<string,int> contentCart)
         {
-            Console.WriteLine("Your shoping cart:");
+                      
             foreach (KeyValuePair<string,int> kvp in contentCart)
             {
-                
-                    Console.WriteLine(kvp.Key + "   " + kvp.Value);
+                Console.WriteLine(kvp.Key + " - " + kvp.Value);
             }
         }
     }

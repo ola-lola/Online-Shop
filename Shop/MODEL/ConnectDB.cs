@@ -343,5 +343,20 @@ namespace Shop
             }
             return prod_uuid;
         }
+        public string Find_Cart_Product (string indexuuid)
+        {
+            string outreturn;
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                string s = String.Format("SELECT name, unit, price FROM products WHERE product_uid = {0}", indexuuid);
+                conn.Open();
+                using (var command = new NpgsqlCommand(s,conn))
+                {
+                    var reader = command.ExecuteReader();
+                    outreturn = reader.GetString(0) + reader.GetString(1) + reader.GetFloat(2).ToString();
+                }
+            }
+            return outreturn;
+        }
     }
 }
