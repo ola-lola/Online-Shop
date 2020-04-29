@@ -8,9 +8,9 @@ namespace Shop {
 
         public ShopMenuController() {
             List<string> _mainShopMenu = new List<string>();
-            _mainShopMenu.Add("//\\\\//                    = =   START_SHOPPING   = =                  \\\\//\\\\");
-            _mainShopMenu.Add("\\\\//\\\\                    = =   REGISTER_USER    = =                  //\\\\//");
-            _mainShopMenu.Add("//\\\\//                    = =        QUIT        = =                  \\\\//\\\\");
+            _mainShopMenu.Add("//\\\\//                        = =   START_SHOPPING   = =                          \\\\//\\\\");
+            _mainShopMenu.Add("\\\\//\\\\                        = =   REGISTER_USER    = =                          //\\\\//");
+            _mainShopMenu.Add("//\\\\//                        = =        QUIT        = =                          \\\\//\\\\");
 
             foreach(string item in _mainShopMenu){
                 shopMainMenu.menuItems.Add(new MenuItem(item));
@@ -37,14 +37,14 @@ namespace Shop {
                     // Parse current menu item content (string) to defined enum
                     
                     switch (shopMainMenu.current.Content) {
-                        case "//\\\\//                    = =   START_SHOPPING   = =                  \\\\//\\\\": // START_SHOPPING
+                        case "//\\\\//                        = =   START_SHOPPING   = =                          \\\\//\\\\": // START_SHOPPING
                             ShopMenuView.PutToCart();
                             break;
-                        case "\\\\//\\\\                    = =   REGISTER_USER    = =                  //\\\\//": // REGISTER_USER
+                        case "\\\\//\\\\                        = =   REGISTER_USER    = =                          //\\\\//": // REGISTER_USER
                             System.Console.WriteLine("register user");
                             Thread.Sleep(1000);
                             break;
-                        case "//\\\\//                    = =        QUIT        = =                  \\\\//\\\\": // QUIT
+                        case "//\\\\//                        = =        QUIT        = =                          \\\\//\\\\": // QUIT
                             shopMainMenu.menuDisplayed = false;
                             break;
                     }

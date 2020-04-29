@@ -8,6 +8,9 @@ namespace Shop {
     public class Cart
     {
         public Dictionary<Product,int> cart = new Dictionary<Product, int>();
+        public string Customer;
+        public int CartValue;
+
 
         public void AddProductToCart() 
         {
