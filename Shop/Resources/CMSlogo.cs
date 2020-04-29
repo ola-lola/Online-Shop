@@ -4,7 +4,7 @@ namespace Shop {
     public static class CMSlogo {
         public static string[] ShopLogo()
         {
-            string[] logo = new string[16] {
+            string[] logo = new string[17] {
             "                                                                                        ",   
             "                                                                                        ",
             "           ██████╗███╗   ███╗███████╗    ███╗   ███╗ ██████╗ ██████╗ ███████╗           ",
@@ -19,6 +19,7 @@ namespace Shop {
             "                    CMS MODE!          ~  |####/                                        ",
             "                                  ~       |____.                                        ",
             "                __________________________o____o_________                               ",
+            "                                                                                        ",
             "                                                                                        ",
             "                                                                                        ",
             };
