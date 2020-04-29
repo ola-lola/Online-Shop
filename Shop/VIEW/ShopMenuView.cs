@@ -148,18 +148,21 @@ namespace Shop {
             Console.Clear();
             Console.WriteLine("Your Cart:");
             Console.WriteLine("-------------------------------------------------------------");
-            List<Product> outcome_prod = new List<Product>();
+            Dictionary<Product, int> outcome_prod = new Dictionary<Product, int>();
             outcome_prod = Temp_Display_Cart(customer_Cart);
             Console.WriteLine("-------------------------------------------------------------");
             Console.WriteLine();
             Console.WriteLine("działanie cart approval and payment");
             //test
-            Console.WriteLine(outcome_prod[1].Name);
+            Console.WriteLine(" Sprawdzenie, czy poprawnie działa Dict<Product,int>");
+            Console.WriteLine("wybrano drugi itemz dict dla Product.Name i value");
+            Console.WriteLine(outcome_prod.ElementAt(1).Key.Name + "  -  " + outcome_prod.ElementAt(1).Value);
             //test
             Console.ReadKey();
         }
-        static List<Product> Temp_Display_Cart(Dictionary<string,int> contentCart)
+        static Dictionary<Product, int> Temp_Display_Cart(Dictionary<string,int> contentCart)
         {
+            Dictionary<Product, int> product_dict = new Dictionary<Product, int>();
             List<Product> product_list = new List<Product>();
             ConnectDB conectionproper = new ConnectDB();
             int counter = 0;    
@@ -174,7 +177,11 @@ namespace Shop {
                     mojeproperties[0],mojeproperties[1],mojeproperties[2],mojeproperties[3],
                     Int16.Parse(mojeproperties[4]),mojeproperties[5],mojeproperties[6], float.Parse(mojeproperties[7])));
             }
-            return product_list;
+            for (int i = 0; i < contentCart.Count; i++)
+            {
+                product_dict[product_list[i]] = contentCart.ElementAt(i).Value;
+            }
+            return product_dict;
         }
     }
 }
