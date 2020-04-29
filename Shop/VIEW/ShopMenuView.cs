@@ -136,8 +136,9 @@ namespace Shop {
                         customer_Cart.Add(pro_discription, 1);
                     }
                     Console.WriteLine("Your Cart:");
-                    Console.WriteLine("-----------");
+                    Console.WriteLine("-------------------------------------------------------------");
                     Temp_Display_Cart(customer_Cart);
+                    Console.WriteLine("-------------------------------------------------------------");
                     Console.WriteLine();
                     Console.Write("S(to stop shoping), ENTER (continue shoping) -> Select an option: ");
                     result = Console.ReadLine().ToUpper();
@@ -145,20 +146,24 @@ namespace Shop {
                 }
             }
             Console.WriteLine("Your Cart:");
-            Console.WriteLine("-----------");
+            Console.WriteLine("-------------------------------------------------------------");
             Temp_Display_Cart(customer_Cart);
-            Console.WriteLine("Cart confirmation and payment block");
+            Console.WriteLine("-------------------------------------------------------------");
+            Console.WriteLine();
+            Console.WriteLine("działanie cart approval and payment");
             Console.ReadKey();
         }
         static void Temp_Display_Cart(Dictionary<string,int> contentCart)
         {
             ConnectDB conectionproper = new ConnectDB();
-                
+            int counter = 0;    
             foreach (KeyValuePair<string,int> kvp in contentCart)
             {
-                List<string> mojeproperties = conectionproper.Product_Properties(kvp.Key);  
-                                
-                Console.WriteLine(mojeproperties[0] + "(" + mojeproperties[5] + ") price/unit: " + mojeproperties[7] + " \t--> " + kvp.Value);
+                counter += 1;
+                List<string> mojeproperties = conectionproper.Product_Properties(kvp.Key);
+                string s1 = String.Format("{0}. {1}({2})",counter, mojeproperties[0],mojeproperties[5]);
+                string s = String.Format("{0,-35}{1,-12}{2, -8}  --->  {3}",s1, "price/unit:",mojeproperties[7], kvp.Value);  
+                Console.WriteLine(s);
             }
         }
     }

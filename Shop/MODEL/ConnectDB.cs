@@ -339,17 +339,6 @@ namespace Shop
                         prod_properties.Add(reader.GetString(5));
                         prod_properties.Add(reader.GetString(6));
                         prod_properties.Add(reader.GetFloat(7).ToString());
-                        
-                        /*Console.WriteLine(
-                            string.Format("{0}-{1}-{2}-{3}-{4}-{5}-{6}-{7}",
-                            reader.GetString(0),
-                            reader.GetString(1),
-                            reader.GetString(2),
-                            reader.GetString(3),
-                            reader.GetInt16(4).ToString(),
-                            reader.GetString(5),
-                            reader.GetString(6),
-                            reader.GetFloat(7).ToString()));*/
                     }
                 }
             }
