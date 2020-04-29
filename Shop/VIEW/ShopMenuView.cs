@@ -145,16 +145,22 @@ namespace Shop {
                     if (result == "S") {break;}
                 }
             }
+            Console.Clear();
             Console.WriteLine("Your Cart:");
             Console.WriteLine("-------------------------------------------------------------");
-            Temp_Display_Cart(customer_Cart);
+            List<Product> outcome_prod = new List<Product>();
+            outcome_prod = Temp_Display_Cart(customer_Cart);
             Console.WriteLine("-------------------------------------------------------------");
             Console.WriteLine();
             Console.WriteLine("działanie cart approval and payment");
+            //test
+            Console.WriteLine(outcome_prod[1].Name);
+            //test
             Console.ReadKey();
         }
-        static void Temp_Display_Cart(Dictionary<string,int> contentCart)
+        static List<Product> Temp_Display_Cart(Dictionary<string,int> contentCart)
         {
+            List<Product> product_list = new List<Product>();
             ConnectDB conectionproper = new ConnectDB();
             int counter = 0;    
             foreach (KeyValuePair<string,int> kvp in contentCart)
@@ -164,7 +170,11 @@ namespace Shop {
                 string s1 = String.Format("{0}. {1}({2})",counter, mojeproperties[0],mojeproperties[5]);
                 string s = String.Format("{0,-35}{1,-12}{2, -8}  --->  {3}",s1, "price/unit:",mojeproperties[7], kvp.Value);  
                 Console.WriteLine(s);
+                product_list.Add(new Product(
+                    mojeproperties[0],mojeproperties[1],mojeproperties[2],mojeproperties[3],
+                    Int16.Parse(mojeproperties[4]),mojeproperties[5],mojeproperties[6], float.Parse(mojeproperties[7])));
             }
+            return product_list;
         }
     }
 }
