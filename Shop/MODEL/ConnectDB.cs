@@ -319,6 +319,42 @@ namespace Shop
             }
             return prod_list;
         }
+        public List<string> Product_Properties (string ui)
+        {
+            List<string> prod_properties = new List<string>();
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                string s = String.Format("SELECT name,division,brigade,battalion,quantity,unit,status,price FROM products WHERE product_uid = '{0}'",ui);
+                conn.Open();
+                using (var command = new NpgsqlCommand(s,conn))
+                {
+                    var reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        prod_properties.Add(reader.GetString(0));
+                        prod_properties.Add(reader.GetString(1));
+                        prod_properties.Add(reader.GetString(2));
+                        prod_properties.Add(reader.GetString(3));
+                        prod_properties.Add(reader.GetInt16(4).ToString());
+                        prod_properties.Add(reader.GetString(5));
+                        prod_properties.Add(reader.GetString(6));
+                        prod_properties.Add(reader.GetFloat(7).ToString());
+                        
+                        /*Console.WriteLine(
+                            string.Format("{0}-{1}-{2}-{3}-{4}-{5}-{6}-{7}",
+                            reader.GetString(0),
+                            reader.GetString(1),
+                            reader.GetString(2),
+                            reader.GetString(3),
+                            reader.GetInt16(4).ToString(),
+                            reader.GetString(5),
+                            reader.GetString(6),
+                            reader.GetFloat(7).ToString()));*/
+                    }
+                }
+            }
+            return prod_properties;
+        }
         public string Find_Selected_Product(string div, string bry, string bat, string name)
         {
             string prod_uuid = "";
@@ -343,20 +379,24 @@ namespace Shop
             }
             return prod_uuid;
         }
-        public string Find_Cart_Product (string indexuuid)
+        public List<string> FindName(string ind)
         {
-            string outreturn;
+            List<string> prod_list = new List<string>();
             using (var conn = new NpgsqlConnection(connString))
             {
-                string s = String.Format("SELECT name, unit, price FROM products WHERE product_uid = {0}", indexuuid);
+                string s = String.Format("SELECT DISTINCT name FROM products WHERE product_uid = '{0}'", ind);
                 conn.Open();
                 using (var command = new NpgsqlCommand(s,conn))
                 {
                     var reader = command.ExecuteReader();
-                    outreturn = reader.GetString(0) + reader.GetString(1) + reader.GetFloat(2).ToString();
+                    while (reader.Read())
+                    {
+                        prod_list.Add(reader.GetString(0));
+                    }
                 }
             }
-            return outreturn;
+            return prod_list;
         }
+        
     }
 }

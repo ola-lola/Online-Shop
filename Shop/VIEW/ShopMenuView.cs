@@ -95,7 +95,7 @@ namespace Shop {
             Console.WriteLine("==============================================");
             ConnectDB conection_DB23 = new ConnectDB();
             Console.Out.WriteLine("List of available products:");
-            pro_out = conection_DB23.Find_Product(outcomeDiv, outcomeBry, outcomeBat);
+            pro_out = conection_DB23.Find_Product(outcomeDiv, outcomeBry, outcomeBat); //list of products
             View.PrintList(pro_out);
             Console.Write("Enter product number: ");
             result = Console.ReadLine();
@@ -104,7 +104,7 @@ namespace Shop {
                 result = Console.ReadLine();
             }
             wsk = Int16.Parse(result);
-            outName = pro_out[wsk-1];
+            outName = pro_out[wsk-1];  // jeden product
             Console.Clear();
             Console.WriteLine("DIVISION: "+ outcomeDiv + ", BRIGADE: " + outcomeBry + ", BATTALION: " + outcomeBat);
             // return iiud of product and display         
@@ -139,7 +139,7 @@ namespace Shop {
                     Console.WriteLine("-----------");
                     Temp_Display_Cart(customer_Cart);
                     Console.WriteLine();
-                    Console.Write("S(to stop shoping), ENTER (continue shoping) -> Select an option");
+                    Console.Write("S(to stop shoping), ENTER (continue shoping) -> Select an option: ");
                     result = Console.ReadLine().ToUpper();
                     if (result == "S") {break;}
                 }
@@ -152,10 +152,13 @@ namespace Shop {
         }
         static void Temp_Display_Cart(Dictionary<string,int> contentCart)
         {
-                      
+            ConnectDB conectionproper = new ConnectDB();
+                
             foreach (KeyValuePair<string,int> kvp in contentCart)
             {
-                Console.WriteLine(kvp.Key + " - " + kvp.Value);
+                List<string> mojeproperties = conectionproper.Product_Properties(kvp.Key);  
+                                
+                Console.WriteLine(mojeproperties[0] + "(" + mojeproperties[5] + ") price/unit: " + mojeproperties[7] + " \t--> " + kvp.Value);
             }
         }
     }
