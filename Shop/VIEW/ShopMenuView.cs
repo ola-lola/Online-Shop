@@ -183,5 +183,13 @@ namespace Shop {
             }
             return product_dict;
         }
+
+        public static void RegisterClient()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("Please follow the next instructions to register (5% discount guaranted).\n");
+            Console.ReadKey();
+        }
     }
 }

@@ -41,8 +41,7 @@ namespace Shop {
                             ShopMenuView.PutToCart();
                             break;
                         case "\\\\//\\\\                        = =   REGISTER_USER    = =                          //\\\\//": // REGISTER_USER
-                            System.Console.WriteLine("register user");
-                            Thread.Sleep(1000);
+                            ShopMenuView.RegisterClient();
                             break;
                         case "//\\\\//                        = =        QUIT        = =                          \\\\//\\\\": // QUIT
                             shopMainMenu.menuDisplayed = false;
