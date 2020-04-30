@@ -183,5 +183,73 @@ namespace Shop {
             }
             return product_dict;
         }
+
+        public static void RegisterClient()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("Please follow the next instructions to register (5% discount guaranted).\n");
+            string client_table_name = "customers";
+            List<string> newEntryData = ShopMenuView.GetEntryToDbClientInput(client_table_name, new List<string>() { "name", 
+                                                                                                        "surname", 
+                                                                                                        "email",
+                                                                                                        "delivery_address",
+                                                                                                        "tel_number",
+                                                                                                        "nick",
+                                                                                                        "password",
+                                                                                                        "credit_card_number"});
+            
+            Customer clientDataToBeAdded = new Customer(newEntryData[0],
+                                                        newEntryData[1],
+                                                        newEntryData[2],
+                                                        newEntryData[3],
+                                                        newEntryData[4],
+                                                        newEntryData[5],
+                                                        newEntryData[6],
+                                                        newEntryData[7]);
+            ConnectDB conection_ClientDB = new ConnectDB();
+            conection_ClientDB.AddCustomer(client_table_name, clientDataToBeAdded);
+            Console.ReadKey();
+        }
+        public static List<string> GetEntryToDbClientInput(string dbClientTab, List<string> requiredColumns)
+        {
+            List<string> dataRowClientInput = new List<string>();
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            System.Console.WriteLine($"\nEnter the following information about Yourself (payment and delivery)");
+            Console.ResetColor();
+            foreach (string column in requiredColumns) {
+                string userInput;
+                do {
+                    Console.Write($"{column.ToUpper()}:  ");
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    userInput = Console.ReadLine();
+                    Console.ResetColor();
+                } while (!ShopMenuView.ValidateClientInputData(userInput, dbClientTab, column));
+                dataRowClientInput.Add(userInput);
+            }
+            return dataRowClientInput;
+        }
+        
+        
+        
+        
+        public static bool ValidateClientInputData(string input,string dbClientTableName,string dataClientColumn)
+        {
+            // Column with specific data type constraints - products table
+            List<string> varchars25 = new List<string>(){"name", "surname", "email", "nick", "password" };
+            string varchars40 = "delivery_address";
+            string varchars16 = "credit_card_number";
+            string varchars9 = "tel_number";
+            if (dbClientTableName.ToLower() != "customers") {return false;}
+            else {
+                if (varchars25.Contains(dataClientColumn)) { if (input.Length <= 25) return true; }
+                else if (varchars40 == dataClientColumn) {if (input.Length <= 40) return true;}
+                else if (varchars16 == dataClientColumn) {if (input.Length <= 16) return true;}
+                else if (varchars9 == dataClientColumn) {if (input.Length <= 9) return true;}
+                return false;
+            }
+
+        }
+
     }
 }

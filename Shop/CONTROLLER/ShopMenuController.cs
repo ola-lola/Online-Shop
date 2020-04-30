@@ -36,14 +36,13 @@ namespace Shop {
                     // Parse current menu item content (string) to defined enum
                     
                     switch (shopMainMenu.current.Content) {
-                        case "//\\\\//                    = =   START_SHOPPING   = =                  \\\\//\\\\": // START_SHOPPING
+                        case "//\\\\//                        = =   START_SHOPPING   = =                          \\\\//\\\\": // START_SHOPPING
                             ShopMenuView.PutToCart();
                             break;
-                        case "\\\\//\\\\                    = =   REGISTER_USER    = =                  //\\\\//": // REGISTER_USER
-                            System.Console.WriteLine("register user");
-                            Thread.Sleep(1000);
+                        case "\\\\//\\\\                        = =   REGISTER_USER    = =                          //\\\\//": // REGISTER_USER
+                            ShopMenuView.RegisterClient();
                             break;
-                        case "//\\\\//                    = =        QUIT        = =                  \\\\//\\\\": // QUIT
+                        case "//\\\\//                        = =        QUIT        = =                          \\\\//\\\\": // QUIT
                             shopMainMenu.menuDisplayed = false;
                             break;
                     }

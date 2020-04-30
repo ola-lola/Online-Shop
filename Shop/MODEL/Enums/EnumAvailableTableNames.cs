@@ -1,6 +1,8 @@
 namespace Shop {
     public enum AvailableTableNames {
-        products,          // 0
+        products,               // 0
+        customers,              // 1
+        transactions,           // 2
     }
 
     public enum ProductsTableColumns {

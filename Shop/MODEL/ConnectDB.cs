@@ -37,6 +37,31 @@ namespace Shop
                 }
             }
         }
+        public void AddCustomer(string t_name, Customer customer)
+        {
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                string s = String.Format("INSERT INTO {0}(customer_uid,name,surname,email,delivery_address,tel_number,nick,password,credit_card_number) VALUES (uuid_generate_v4(),@n,@su,@em,@ad,@ph,@ni,@pa,@cr)", t_name);
+
+                conn.Open();
+                using (var command = new NpgsqlCommand(s, conn))
+                {
+                    command.Parameters.AddWithValue("@n", customer.Name);
+                    command.Parameters.AddWithValue("@su", customer.Surname);
+                    command.Parameters.AddWithValue("@em", customer.Email);
+                    command.Parameters.AddWithValue("@ad", customer.Address);
+                    command.Parameters.AddWithValue("@ph", customer.Phone);
+                    command.Parameters.AddWithValue("@ni", customer.Nick);
+                    command.Parameters.AddWithValue("@pa", customer.Password);
+                    command.Parameters.AddWithValue("@cr", customer.CreditCard);
+                    int nRows = command.ExecuteNonQuery();
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    Console.Out.WriteLine(String.Format("\nInserted {0} row",nRows));
+                    Console.ResetColor();
+                }
+            }
+        }
+
 
 
         public void UpdateProductName(string product_uid, string name)

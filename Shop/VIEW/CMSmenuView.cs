@@ -8,22 +8,51 @@ namespace Shop {
 
         public static void PrintMainMenuCMS(Menu menuCMSInstance) {
             Console.Clear(); Console.ResetColor();
-            
+            CMSmenuView.LogoScreenL1(CMSlogo.LogoLine1);
             CMSmenuView.LogoScreen();
             menuCMSInstance.PrintMenuList();
+            CMSmenuView.LogoScreenL2(CMSlogo.LogoLine2);
         }
 
         public static void LogoScreen() {
-            Console.Clear();
-            string separator = new String('*', Console.LargestWindowWidth);
-            Console.WriteLine(separator);
+            //Console.Clear();
+            //string separator = new String('*', Console.LargestWindowWidth);
+            //Console.WriteLine(separator);
             foreach (string line in CMSlogo.ShopLogo()) {
                 // Console.SetCursorPosition((Console.WindowWidth - line.Length) / 2, Console.CursorTop);
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Console.WriteLine(line);
                 Console.ResetColor();
             }
-            Console.WriteLine($"\n{separator}");
+            //Console.WriteLine($"\n{separator}");
+            
+        }
+
+        public static void LogoScreenL1(List<string> logoline1) {
+            Console.Clear();
+            //string separator = new String('*', Console.LargestWindowWidth);
+            //Console.WriteLine(separator);
+            foreach (string line in logoline1) {
+                // Console.SetCursorPosition((Console.WindowWidth - line.Length) / 2, Console.CursorTop);
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine(line);
+                Console.ResetColor();
+            }
+            //Console.WriteLine($"\n{separator}");
+            
+        }
+
+        public static void LogoScreenL2(List<string> logoline2) {
+            //Console.Clear();
+            //string separator = new String('*', Console.LargestWindowWidth);
+            //Console.WriteLine(separator);
+            foreach (string line in logoline2) {
+                // Console.SetCursorPosition((Console.WindowWidth - line.Length) / 2, Console.CursorTop);
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine(line);
+                Console.ResetColor();
+            }
+            //Console.WriteLine($"\n{separator}");
             
         }
 
