@@ -248,12 +248,29 @@ namespace Shop
             return columns;
         }
         
-        public void SearchInTable(string n, string fr)
+        public void SearchInTable(string tableName, string phrase)
         {
             using (var conn = new NpgsqlConnection(connString))
             {
-                string s = String.Format("SELECT name, quantity, unit, price FROM {0} WHERE name LIKE '{1}%'"
-                + "or name LIKE '%{1}%' or name LIKE '%{1}'", n, fr);
+                string s = "";
+                switch(tableName) {
+                    case "products":
+                        s = String.Format("SELECT name, quantity, unit, price FROM {0} WHERE name LIKE '{1}%'"
+                            + "or name LIKE '%{1}%' or name LIKE '%{1}'", tableName, phrase);
+                        break;
+                    case "customers":
+                        s = String.Format("SELECT name, surname, email, tel_number FROM {0} WHERE name LIKE '{1}%'"
+                            + "or name LIKE '%{1}%' or name LIKE '%{1}'", tableName, phrase);
+                        break;
+                    case "transactions":
+                        // TODO:
+                        // s = String.Format("SELECT customer, price_value, credit_card_number FROM {0} WHERE name LIKE '{1}%'"
+                        //     + "or name LIKE '%{1}%' or name LIKE '%{1}'", tableName, phrase);
+                        break;
+                    default:
+                        s = "";
+                        break;
+                }
                 Console.Out.WriteLine("Opening connection");
                 conn.Open();
                 using (var command = new NpgsqlCommand(s, conn))
@@ -261,12 +278,28 @@ namespace Shop
                     var reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        Console.WriteLine(
-                            string.Format("{0} - {1} {2}, price = {3}",
-                            reader.GetString(0),
-                            reader.GetInt16(1).ToString(),
-                            reader.GetString(2),
-                            reader.GetDouble(3).ToString()));
+                        switch(tableName) {
+                            case "products":
+                                Console.WriteLine(
+                                    string.Format("{0} - {1} {2}, price = {3}",
+                                    reader.GetString(0),
+                                    reader.GetInt16(1).ToString(),
+                                    reader.GetString(2),
+                                    reader.GetDouble(3).ToString()));
+                                break;
+                            case "customers":
+                                Console.WriteLine(
+                                    string.Format("{0} {1}, email = {2}, tel = {3}",
+                                    reader.GetString(0),
+                                    reader.GetString(1),
+                                    reader.GetString(2),
+                                    reader.GetString(3)));
+                                break;
+                            case "transactions":
+                                // TODO:
+                                Console.WriteLine("todo");
+                                break;
+                        }
                     }
                 }
             }
