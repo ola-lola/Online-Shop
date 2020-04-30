@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace Shop {
     public class Menu {
+        public List<string> menuContent = new List<string>();
         public List<MenuItem> menuItems = new List<MenuItem>();
         public bool menuDisplayed;
         public int currentItemIndex;

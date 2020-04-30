@@ -7,12 +7,11 @@ namespace Shop {
         private Menu shopMainMenu = new Menu();
 
         public ShopMenuController() {
-            List<string> _mainShopMenu = new List<string>();
-            _mainShopMenu.Add("//\\\\//                    = =   START_SHOPPING   = =                  \\\\//\\\\");
-            _mainShopMenu.Add("\\\\//\\\\                    = =   REGISTER_USER    = =                  //\\\\//");
-            _mainShopMenu.Add("//\\\\//                    = =        QUIT        = =                  \\\\//\\\\");
+            shopMainMenu.menuContent.Add("//\\\\//                    = =   START_SHOPPING   = =                  \\\\//\\\\");
+            shopMainMenu.menuContent.Add("\\\\//\\\\                    = =   REGISTER_USER    = =                  //\\\\//");
+            shopMainMenu.menuContent.Add("//\\\\//                    = =        QUIT        = =                  \\\\//\\\\");
 
-            foreach(string item in _mainShopMenu){
+            foreach(string item in shopMainMenu.menuContent){
                 shopMainMenu.menuItems.Add(new MenuItem(item));
             }
         }
