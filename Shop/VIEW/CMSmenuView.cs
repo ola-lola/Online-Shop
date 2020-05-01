@@ -8,52 +8,18 @@ namespace Shop {
 
         public static void PrintMainMenuCMS(Menu menuCMSInstance) {
             Console.Clear(); Console.ResetColor();
-            CMSmenuView.LogoScreenL1(CMSlogo.LogoLine1);
-            CMSmenuView.LogoScreen();
+            CMSmenuView.ShowLogo(CMSlogo.LogoLine1);
+            CMSmenuView.ShowLogo(CMSlogo.ShopLogo());
             menuCMSInstance.PrintMenuList();
-            CMSmenuView.LogoScreenL2(CMSlogo.LogoLine2);
+            CMSmenuView.ShowLogo(CMSlogo.LogoLine2);
         }
 
-        public static void LogoScreen() {
-            //Console.Clear();
-            //string separator = new String('*', Console.LargestWindowWidth);
-            //Console.WriteLine(separator);
-            foreach (string line in CMSlogo.ShopLogo()) {
-                // Console.SetCursorPosition((Console.WindowWidth - line.Length) / 2, Console.CursorTop);
+        public static void ShowLogo(IEnumerable<string> logo) {
+            foreach (string line in logo) {
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Console.WriteLine(line);
                 Console.ResetColor();
             }
-            //Console.WriteLine($"\n{separator}");
-            
-        }
-
-        public static void LogoScreenL1(List<string> logoline1) {
-            Console.Clear();
-            //string separator = new String('*', Console.LargestWindowWidth);
-            //Console.WriteLine(separator);
-            foreach (string line in logoline1) {
-                // Console.SetCursorPosition((Console.WindowWidth - line.Length) / 2, Console.CursorTop);
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
-                Console.WriteLine(line);
-                Console.ResetColor();
-            }
-            //Console.WriteLine($"\n{separator}");
-            
-        }
-
-        public static void LogoScreenL2(List<string> logoline2) {
-            //Console.Clear();
-            //string separator = new String('*', Console.LargestWindowWidth);
-            //Console.WriteLine(separator);
-            foreach (string line in logoline2) {
-                // Console.SetCursorPosition((Console.WindowWidth - line.Length) / 2, Console.CursorTop);
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
-                Console.WriteLine(line);
-                Console.ResetColor();
-            }
-            //Console.WriteLine($"\n{separator}");
-            
         }
 
         public static string GetTableName() {
@@ -69,12 +35,28 @@ namespace Shop {
 
             return tableName;
         }
+
+        public static string GetColumnName(string tableName) {
+
+            string columnName;
+            ConnectDB conection_DB102 = new ConnectDB();
+
+            do { 
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.Write("Enter the name of the column: ");
+                Console.ResetColor();
+                columnName = Console.ReadLine();
+            } while (!conection_DB102.GetColumnNamesFromTable(tableName).Contains(columnName));
+
+            return columnName;
+        }
+
         public static void MainAddNewProduct() {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("Please follow the next instructions to add a new record to Shop's Database.\n");
             ConnectDB conection_DB = new ConnectDB();
-            PrintAvailableTables(conection_DB.GetTableNamesFromDb());
+            PrintAvailableOptions("tables", conection_DB.GetTableNamesFromDb());
 
             string table_name1 = CMSmenuView.GetTableName();
             
@@ -169,14 +151,23 @@ namespace Shop {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("Display specific tables, columns or products\n");
+
             ConnectDB conection_DB5 = new ConnectDB();
-            PrintAvailableTables(conection_DB5.GetTableNamesFromDb());
+            PrintAvailableOptions("tables", conection_DB5.GetTableNamesFromDb());
             string table_name5 = CMSmenuView.GetTableName();
+            
+            // GET 'SEARCH BY' INFO
+            ConnectDB conection_DB101 = new ConnectDB();
+            PrintAvailableOptions("columns", conection_DB101.GetColumnNamesFromTable(table_name5));
+            string searchByColumn = GetColumnName(table_name5);
+            System.Console.WriteLine($"Search by column: {searchByColumn}");            
+
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.Write("\nEnter a letter or word: ");
             Console.ResetColor();
             string frag_cond = Console.ReadLine();
-            conection_DB5.SearchInTable(table_name5, frag_cond);
+            
+            conection_DB5.SearchInTable(table_name5, frag_cond, searchByColumn);
             Console.ReadKey();
             
         }
@@ -360,19 +351,19 @@ namespace Shop {
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("Please follow the next instructions to add a new record to Shop's Database.\n");
             ConnectDB conection_DB_100 = new ConnectDB();
-            PrintAvailableTables(conection_DB_100.GetTableNamesFromDb());
+            PrintAvailableOptions("tables", conection_DB_100.GetTableNamesFromDb());
             string tableName = CMSmenuView.GetTableName();
             List<string> columnsToQuery = conection_DB_100.GetColumnNamesFromTable(tableName);
             conection_DB_100.ReadTable(tableName, new List<string>() {"name", "division", "status"});
             Console.ReadKey();
         }
 
-        public static void PrintAvailableTables(List<string> tables) {
+        public static void PrintAvailableOptions(string optionsGroupName, List<string> options) {
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine("AVAILABLE TABLES TO CHOOSE:");
+            Console.WriteLine($"AVAILABLE {optionsGroupName.ToUpper()} TO CHOOSE:");
             Console.ResetColor();
-            foreach (string tableName in tables) {
-                Console.Write($":: {tableName} :: ");
+            foreach (string name in options) {
+                Console.Write($":: {name} :: ");
             }
             System.Console.WriteLine();
         }

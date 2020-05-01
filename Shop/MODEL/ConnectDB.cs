@@ -248,24 +248,23 @@ namespace Shop
             return columns;
         }
         
-        public void SearchInTable(string tableName, string phrase)
+        public void SearchInTable(string tableName, string phrase, string searchByColumnName)
         {
             using (var conn = new NpgsqlConnection(connString))
             {
                 string s = "";
                 switch(tableName) {
                     case "products":
-                        s = String.Format("SELECT name, quantity, unit, price FROM {0} WHERE name LIKE '{1}%'"
-                            + "or name LIKE '%{1}%' or name LIKE '%{1}'", tableName, phrase);
+                        s = String.Format("SELECT name, quantity, unit, price FROM {0} WHERE {2} LIKE '{1}%'"
+                            + "or {2} LIKE '%{1}%' or {2} LIKE '%{1}'", tableName, phrase, searchByColumnName);
                         break;
                     case "customers":
-                        s = String.Format("SELECT name, surname, email, tel_number FROM {0} WHERE name LIKE '{1}%'"
-                            + "or name LIKE '%{1}%' or name LIKE '%{1}'", tableName, phrase);
+                        s = String.Format("SELECT name, surname, email, tel_number FROM {0} WHERE {2} LIKE '{1}%'"
+                            + "or {2} LIKE '%{1}%' or {2} LIKE '%{1}'", tableName, phrase, searchByColumnName);
                         break;
                     case "transactions":
-                        // TODO:
-                        // s = String.Format("SELECT customer, price_value, credit_card_number FROM {0} WHERE name LIKE '{1}%'"
-                        //     + "or name LIKE '%{1}%' or name LIKE '%{1}'", tableName, phrase);
+                        s = String.Format("SELECT customer_uid, price_value, credit_card_number FROM {0} WHERE {2} LIKE '{1}%'"
+                            + "or {2} LIKE '%{1}%' or {2} LIKE '%{1}'", tableName, phrase, searchByColumnName);
                         break;
                     default:
                         s = "";
@@ -296,8 +295,11 @@ namespace Shop
                                     reader.GetString(3)));
                                 break;
                             case "transactions":
-                                // TODO:
-                                Console.WriteLine("todo");
+                                Console.WriteLine(
+                                    string.Format("customer = {0}, transaction_price = {1}, credit_card = {2}",
+                                    reader.GetString(0),
+                                    reader.GetDouble(1).ToString(),
+                                    reader.GetString(2)));
                                 break;
                         }
                     }

@@ -29,7 +29,7 @@ namespace Shop {
                     } else {item.CheckCondition();}
                     System.Console.Write(i);
                 }
-                Console.WriteLine();
+                Console.WriteLine(); //Console.ResetColor();
             }
         }
 
