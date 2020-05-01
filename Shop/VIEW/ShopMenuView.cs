@@ -134,6 +134,14 @@ namespace Shop {
                     {
                         customer_Cart.Add(pro_discription, 1);
                     }
+                    Console.Write("A(add quantity), ENTER (continue): ");
+                    result1 = Console.ReadLine().ToUpper();
+                    if (result1 == "A")
+                    {
+                        Console.Write("How many: ");
+                        int x = Int16.Parse(Console.ReadLine());
+                        customer_Cart[pro_discription]= x;
+                    }
                     Console.WriteLine("Your Cart:");
                     Console.WriteLine("LP| Description                 | price |Quantity|  Value  |");
                     Console.WriteLine("-----------------------------------------------------------");
@@ -144,6 +152,7 @@ namespace Shop {
                     if (result1 == "S") {break;}
                 }
             }
+            
             Console.Clear();
             Console.WriteLine("Your Cart:");
             Console.WriteLine("LP| Description                 | price |Quantity|  Value  |");
@@ -157,9 +166,12 @@ namespace Shop {
             {
                 PaymentProcedure();
             } 
-
+        }
         static void PaymentProcedure()
         {
+            Console.WriteLine();
+            Console.WriteLine("Payment Procedures");
+            Console.WriteLine("---------------------------");
             Console.Write("Enter credit card owner name: ");
             string creditName = Console.ReadLine();
             Console.Write("Enter credit card number: ");
@@ -177,9 +189,10 @@ namespace Shop {
                 Console.WriteLine("We confirm your payment. Product will be deliver in 2 hours");
                 Console.WriteLine("Thank You Very Much. We are looking forward to be in your service");
             }
-        }
             Console.ReadKey();
         }
+        
+        
         static Dictionary<Product, int> Temp_Display_Cart(Dictionary<string,int> contentCart)
         {
             Dictionary<Product, int> product_dict = new Dictionary<Product, int>();
