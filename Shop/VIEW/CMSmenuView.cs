@@ -258,6 +258,7 @@ namespace Shop {
             ConnectDB conection_DB24 = new ConnectDB();
             return prod_uuid = conection_DB24.Find_Selected_Product(outcomeDiv, outcomeBry, outcomeBat, outName);
         }    
+        
         public static void UpdateOrDelete()
         {
             string pro_discription = GetProductUUID();
@@ -347,14 +348,25 @@ namespace Shop {
         }
 
         public static void PreviewAllItemsInStock() {
-            Console.Clear();
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine("Please follow the next instructions to add a new record to Shop's Database.\n");
+            Console.Clear(); Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("Please follow the instructions to see table content in the Shop's Database.\n");
+            
             ConnectDB conection_DB_100 = new ConnectDB();
             PrintAvailableOptions("tables", conection_DB_100.GetTableNamesFromDb());
             string tableName = CMSmenuView.GetTableName();
-            List<string> columnsToQuery = conection_DB_100.GetColumnNamesFromTable(tableName);
-            conection_DB_100.ReadTable(tableName, new List<string>() {"name", "division", "status"});
+            
+            // GET 'SEARCH WHAT' INFO
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            System.Console.WriteLine("Please input which columns to display\nenter - confirm, Esc - to finish input"); Console.ResetColor();
+            List<string> columnsToQuery = new List<string>();
+            PrintAvailableOptions("columns", conection_DB_100.GetColumnNamesFromTable(tableName));
+            var action = Console.ReadKey(true).Key;
+            while (action != ConsoleKey.Escape) {
+                string column = GetColumnName(tableName);
+                columnsToQuery.Add(column);
+                action = Console.ReadKey(true).Key;
+            }
+            conection_DB_100.ReadTable(tableName, columnsToQuery);
             Console.ReadKey();
         }
 

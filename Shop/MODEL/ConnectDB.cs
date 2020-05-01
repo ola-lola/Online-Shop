@@ -141,7 +141,7 @@ namespace Shop
         
         public void ReadTable(string tableName , List<string> requiredColumns)
         {
-            string[] allColumnNames = Enum.GetNames(typeof(ProductsTableColumns));
+            // string[] allColumnNames = Enum.GetNames(typeof(AllTableColumns));
             
             // Create SQL query string
             var columns = String.Join(", ", requiredColumns);
@@ -180,7 +180,8 @@ namespace Shop
                             Console.WriteLine(separator);
                             while (reader.Read()) {
                                 // TODO: add option in this method to choose columns to display or add writing data to List<Products>
-                                foreach (string columnName in allColumnNames.Intersect(requiredColumns))
+                                // foreach (string columnName in allColumnNames.Intersect(requiredColumns))
+                                foreach (string columnName in requiredColumns)
                                 {
                                     System.Console.Write($"{reader[columnName], 25}\t");
                                 }

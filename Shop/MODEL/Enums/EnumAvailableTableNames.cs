@@ -5,7 +5,7 @@ namespace Shop {
         transactions,           // 2
     }
 
-    public enum ProductsTableColumns {
+    public enum AllTableColumns {
         name,              // 0
         division,          // 1
         brigade,           // 2
@@ -13,7 +13,23 @@ namespace Shop {
         unit,              // 4
         status,            // 5
         quantity,          // 6
-        price              // 7
+        price,             // 7
+        
+        
+        customer_uid,
+        //name,
+        surname,
+        email,
+        delivery_address,
+        tel_number,
+        nick,
+        password,
+        // credit_card_number
+
+        transaction_uid,
+        // customer_uid,
+        price_value,
+        credit_card_number
     }
 
 }
