@@ -7,9 +7,9 @@ namespace Shop {
         private Menu shopMainMenu = new Menu();
 
         public ShopMenuController() {
-            shopMainMenu.menuContent.Add("//\\\\//                    = =   START_SHOPPING   = =                  \\\\//\\\\");
-            shopMainMenu.menuContent.Add("\\\\//\\\\                    = =   REGISTER_USER    = =                  //\\\\//");
-            shopMainMenu.menuContent.Add("//\\\\//                    = =        QUIT        = =                  \\\\//\\\\");
+            shopMainMenu.menuContent.Add("//\\\\//                        = =   START_SHOPPING   = =                          \\\\//\\\\");
+            shopMainMenu.menuContent.Add("\\\\//\\\\                        = =   REGISTER_USER    = =                          //\\\\//");
+            shopMainMenu.menuContent.Add("//\\\\//                        = =        QUIT        = =                          \\\\//\\\\");
 
             foreach(string item in shopMainMenu.menuContent){
                 shopMainMenu.menuItems.Add(new MenuItem(item));
