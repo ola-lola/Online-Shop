@@ -145,13 +145,13 @@ namespace Shop {
                     try {
                         int qua_new = Int16.Parse(input);
                         return true;
-                    } catch (Exception e) {return false;}
+                    } catch (Exception) {return false;}
                 }
                 else if (reals == dataColumnName) {
                     try {
                         float price_new = float.Parse(input);
                         return true;
-                    } catch (Exception e) {return false;}
+                    } catch (Exception) {return false;}
                 }
                 return false;
             }

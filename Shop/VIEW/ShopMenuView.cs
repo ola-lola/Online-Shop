@@ -119,11 +119,10 @@ namespace Shop {
             while(continue_Shoping)
             {
                 string pro_discription = GetProductUUID();
-                string result;
                 Console.WriteLine("-----------------------------");
                 Console.Write("P(put into Cart), ENTER (continue shoping) -> Select an option: ");
-                result = Console.ReadLine().ToUpper();
-                if (result == "P")
+                string result1 = Console.ReadLine().ToUpper();
+                if (result1 == "P")
                 {
                     if (customer_Cart.ContainsKey(pro_discription))
                     {
@@ -136,28 +135,49 @@ namespace Shop {
                         customer_Cart.Add(pro_discription, 1);
                     }
                     Console.WriteLine("Your Cart:");
-                    Console.WriteLine("-------------------------------------------------------------");
+                    Console.WriteLine("LP| Description                 | price |Quantity|  Value  |");
+                    Console.WriteLine("-----------------------------------------------------------");
                     Temp_Display_Cart(customer_Cart);
-                    Console.WriteLine("-------------------------------------------------------------");
                     Console.WriteLine();
                     Console.Write("S(to stop shoping), ENTER (continue shoping) -> Select an option: ");
-                    result = Console.ReadLine().ToUpper();
-                    if (result == "S") {break;}
+                    result1 = Console.ReadLine().ToUpper();
+                    if (result1 == "S") {break;}
                 }
             }
             Console.Clear();
             Console.WriteLine("Your Cart:");
-            Console.WriteLine("-------------------------------------------------------------");
+            Console.WriteLine("LP| Description                 | price |Quantity|  Value  |");
+            Console.WriteLine("-----------------------------------------------------------");
             Dictionary<Product, int> outcome_prod = new Dictionary<Product, int>();
             outcome_prod = Temp_Display_Cart(customer_Cart);
-            Console.WriteLine("-------------------------------------------------------------");
             Console.WriteLine();
-            Console.WriteLine("działanie cart approval and payment");
-            //test
-            Console.WriteLine(" Sprawdzenie, czy poprawnie działa Dict<Product,int>");
-            Console.WriteLine("wybrano drugi itemz dict dla Product.Name i value");
-            Console.WriteLine(outcome_prod.ElementAt(1).Key.Name + "  -  " + outcome_prod.ElementAt(1).Value);
-            //test
+            Console.Write("A(accept Cart content -> go to payment procedures: ");
+            string result = Console.ReadLine().ToUpper();
+            if (result == "A")
+            {
+                PaymentProcedure();
+            } 
+
+        static void PaymentProcedure()
+        {
+            Console.Write("Enter credit card owner name: ");
+            string creditName = Console.ReadLine();
+            Console.Write("Enter credit card number: ");
+            string creditNumber = Console.ReadLine();
+            Console.Write("Enter valid throu date: ");
+            string creditvalid = Console.ReadLine();
+            Console.Write("Enter CVV/CVC: ");
+            string creditCVC = Console.ReadLine();
+            Console.Write("E (accept Payment)");
+            string result = Console.ReadLine().ToUpper();
+            if (result == "E")
+            {
+                Console.WriteLine("We verifying your credit card validity - it takes few seconds");
+                System.Threading.Thread.Sleep(2000);
+                Console.WriteLine("We confirm your payment. Product will be deliver in 2 hours");
+                Console.WriteLine("Thank You Very Much. We are looking forward to be in your service");
+            }
+        }
             Console.ReadKey();
         }
         static Dictionary<Product, int> Temp_Display_Cart(Dictionary<string,int> contentCart)
@@ -165,18 +185,24 @@ namespace Shop {
             Dictionary<Product, int> product_dict = new Dictionary<Product, int>();
             List<Product> product_list = new List<Product>();
             ConnectDB conectionproper = new ConnectDB();
-            int counter = 0;    
+            int counter = 0;
+            float sum;
+            float total = 0;    
             foreach (KeyValuePair<string,int> kvp in contentCart)
             {
                 counter += 1;
                 List<string> mojeproperties = conectionproper.Product_Properties(kvp.Key);
                 string s1 = String.Format("{0}. {1}({2})",counter, mojeproperties[0],mojeproperties[5]);
-                string s = String.Format("{0,-35}{1,-12}{2, -8}  --->  {3}",s1, "price/unit:",mojeproperties[7], kvp.Value);  
+                sum = kvp.Value * float.Parse(mojeproperties[7]);
+                total = total + sum;
+                string s = String.Format("{0,-35}{1, -8}{2,-10}{3,-8}",s1,mojeproperties[7], kvp.Value, sum);  
                 Console.WriteLine(s);
                 product_list.Add(new Product(
                     mojeproperties[0],mojeproperties[1],mojeproperties[2],mojeproperties[3],
                     Int16.Parse(mojeproperties[4]),mojeproperties[5],mojeproperties[6], float.Parse(mojeproperties[7])));
             }
+            Console.WriteLine("-----------------------------------------------------------");
+            Console.WriteLine("                                        Total price: " + total + " Euro");
             for (int i = 0; i < contentCart.Count; i++)
             {
                 product_dict[product_list[i]] = contentCart.ElementAt(i).Value;
@@ -229,9 +255,6 @@ namespace Shop {
             }
             return dataRowClientInput;
         }
-        
-        
-        
         
         public static bool ValidateClientInputData(string input,string dbClientTableName,string dataClientColumn)
         {
