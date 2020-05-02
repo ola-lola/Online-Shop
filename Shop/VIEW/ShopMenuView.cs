@@ -152,7 +152,6 @@ namespace Shop {
                     if (result1 == "S") {break;}
                 }
             }
-            
             Console.Clear();
             Console.WriteLine("Your Cart:");
             Console.WriteLine("LP| Description                 | price |Quantity|  Value  |");
@@ -160,12 +159,43 @@ namespace Shop {
             Dictionary<Product, int> outcome_prod = new Dictionary<Product, int>();
             outcome_prod = Temp_Display_Cart(customer_Cart);
             Console.WriteLine();
-            Console.Write("A(accept Cart content -> go to payment procedures: ");
+            Console.Write("C(Corect Cart content) -> Select an option:: ");
             string result = Console.ReadLine().ToUpper();
-            if (result == "A")
+            if (result == "C")
             {
-                PaymentProcedure();
-            } 
+                bool correction = true;
+                while(correction)
+                {
+                    Dictionary<string,int> correctCart = new Dictionary<string, int>();
+                    Console.Write("D(delete product), U(update quantity -> Select an option: ");
+                    result = Console.ReadLine().ToUpper();
+                    if (result == "D")
+                    {
+                        Console.Write("Enter the Lp of product: ");
+                        int k = Int16.Parse(Console.ReadLine());
+                        customer_Cart.Remove(customer_Cart.ElementAt(k-1).Key);
+                    }
+                    else if (result == "U")
+                    {
+                        Console.Write("Enter the Lp of product: ");
+                        int k = Int16.Parse(Console.ReadLine());
+                        Console.Write("Enter the corrected quantity: ");
+                        int q = Int16.Parse(Console.ReadLine());
+                        string ind = customer_Cart.ElementAt(k-1).Key;
+                        customer_Cart[ind] = q;
+                    }
+                    Console.Clear();
+                    Console.WriteLine("LP| Description                 | price |Quantity|  Value  |");
+                    Console.WriteLine("-----------------------------------------------------------");
+                    Temp_Display_Cart(customer_Cart);
+                    Console.WriteLine();
+                    Console.Write("Q(quit Cart correction), ENTER (continue correction): ");
+                    result = Console.ReadLine().ToUpper();
+                    if (result == "Q") {break;}
+                }
+            
+            }
+            PaymentProcedure();
         }
         static void PaymentProcedure()
         {
