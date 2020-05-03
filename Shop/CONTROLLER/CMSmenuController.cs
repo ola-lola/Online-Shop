@@ -8,6 +8,7 @@ namespace Shop {
     public class CMSmenuController {
 
         private Menu mainMenu = new Menu();
+        
 
         ///
         // CMS_Menu_v2 constructor creates a list of menu items from Enum CMSmenuOptions_lvl1
@@ -31,6 +32,14 @@ namespace Shop {
                 mainMenu.current.isChecked = true;
                 CMSmenuView.PrintMainMenuCMS(mainMenu);
                 mainMenu.current.isChecked = false;
+
+                string result;
+                result = Console.ReadLine().ToUpper();
+                if (result == "s" || result == "S")
+                    { 
+                    var menuCMS = new ShopMenuController();
+                    menuCMS.PrintMainShopMenu();
+                    }
 
                 var pressedKey = Console.ReadKey().Key;
 
