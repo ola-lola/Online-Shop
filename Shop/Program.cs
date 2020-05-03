@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 namespace Shop
 {
@@ -20,6 +21,11 @@ namespace Shop
                 var menuCMS = new ShopMenuController();
                 menuCMS.PrintMainShopMenu();
             }
+
+            // string regMatchPasswordCriteria = "^(?=.*[0-9]{2,})(?=.*[A-Z])[A-Za-z\\d]{6,}$";
+            // Regex reg = new Regex(regMatchPasswordCriteria);
+            // bool checkPasswordReg = reg.IsMatch("20yuTaa") ? true : false;
+            // System.Console.WriteLine(checkPasswordReg);
         }
     }
 }

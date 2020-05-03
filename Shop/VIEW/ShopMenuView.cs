@@ -166,6 +166,8 @@ namespace Shop {
                 bool correction = true;
                 while(correction)
                 {
+                    // FIXME:
+                    // correctCard is never modified not used anywhere
                     Dictionary<string,int> correctCart = new Dictionary<string, int>();
                     Console.Write("D(delete product), U(update quantity -> Select an option: ");
                     result = Console.ReadLine().ToUpper();
@@ -218,6 +220,17 @@ namespace Shop {
                 System.Threading.Thread.Sleep(2000);
                 Console.WriteLine("We confirm your payment. Product will be deliver in 2 hours");
                 Console.WriteLine("Thank You Very Much. We are looking forward to be in your service");
+
+                Product example = new Product(  "Organic Fair Trade 5 Pack",
+                                                "Fresh Food",
+                                                "Fruits",
+                                                "Bananas",
+                                                100,
+                                                "item",
+                                                "A",
+                                                (float)10.5);
+                ConnectDB.UpdateProductAfterPayment("cfedc8d8-56e9-4c2d-839b-c2308f7de1f1", example, "50");
+
             }
             Console.ReadKey();
         }
