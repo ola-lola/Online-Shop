@@ -225,7 +225,12 @@ namespace Shop
             }
             return tables;
         }
-        
+
+        internal static void AddTransactionRecordToDB()
+        {
+            throw new NotImplementedException();
+        }
+
         public List<string> GetColumnNamesFromTable(string tableName) {
             
             List<string> columns = new List<string>();
@@ -447,6 +452,73 @@ namespace Shop
             }
             return prod_list;
         }
+
+        public void AddTransactionRecordToDB(string tableName, Transaction transaction)
+        {
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                string s = String.Format("INSERT INTO {0}(transaction_uid,customer_uid,price_value,credit_card_number) VALUES (uuid_generate_v4(),@customerUid,@priceValue,@creditCardNumber)", tableName);
+
+                conn.Open();
+                using (var command = new NpgsqlCommand(s, conn))
+                {
+                    command.Parameters.AddWithValue("@dcustomerUid",transaction.CustomerUid);
+                    command.Parameters.AddWithValue("@priceValue",transaction.PriceValue);
+                    command.Parameters.AddWithValue("@creditCardNumber", transaction.CreditCardNumber);
+
+                    int nRows = command.ExecuteNonQuery();
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    Console.Out.WriteLine(String.Format("\nInserted {0} transaction",nRows));
+                    Console.ResetColor();
+                }
+            }
+        }
+
+         public static void UpdateProductAfterPayment( string product_uid, Product product, string quantity)
+            {
+            List<string> prod_list = new List<string>();
+            try {
+                    using (var conn = new NpgsqlConnection(connString)) {
+
+                        foreach(string record in prod_list){
+
+                            if (product.Quantity == 1) { // ilość danego produktu w koszyku = 1 
+                                string toDelete = String.Format("DELETE FROM products WHERE product_uid = '{0}'", product_uid);
+                                conn.Open();
+                                using (var command = new NpgsqlCommand(toDelete, conn))
+                                    {
+                                        int nRows = command.ExecuteNonQuery();
+                                        Console.ForegroundColor = ConsoleColor.Red;
+                                        Console.Out.WriteLine(String.Format("Numbers of deleted rows = {0}", nRows));
+                                        Console.ResetColor();
+                                    };
+                                }
+                            else if (product.Quantity > 1) { // ilość danego produktu więszka niż 1 
+
+                                string toUpdate = String.Format("UPDATE products SET quantity = (quantity - @quantity) WHERE product_uid = '{0}'", product_uid);
+                                Console.Out.WriteLine(toUpdate);
+                                conn.Open();
+                                using (var command = new NpgsqlCommand(toUpdate, conn))
+                                    {
+                                    command.Parameters.AddWithValue("quantity - @quantity", quantity);
+
+                                    int nRows = command.ExecuteNonQuery();
+                                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                    Console.Out.WriteLine(String.Format("Product info updated",nRows));
+                                    Console.ResetColor();
+                                    }
+                                }
+                        }
+                    }
+                }
+                
+            catch (SystemException)
+                {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Out.WriteLine(String.Format("An error occurred"));
+                Console.ResetColor();
+                }
+            } 
         
     }
 }
