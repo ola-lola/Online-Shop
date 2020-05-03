@@ -453,7 +453,7 @@ namespace Shop
             return prod_list;
         }
 
-        public void AddTransactionRecordToDB(string tableName, Transaction transaction)
+        public void AddNewTransactionToDB(string tableName, Transaction transaction)
         {
             using (var conn = new NpgsqlConnection(connString))
             {
