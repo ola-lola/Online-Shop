@@ -33,14 +33,6 @@ namespace Shop {
                 CMSmenuView.PrintMainMenuCMS(mainMenu);
                 mainMenu.current.isChecked = false;
 
-                string result;
-                result = Console.ReadLine().ToUpper();
-                if (result == "s" || result == "S")
-                    { 
-                    var menuCMS = new ShopMenuController();
-                    menuCMS.PrintMainShopMenu();
-                    }
-
                 var pressedKey = Console.ReadKey().Key;
 
                 if (pressedKey == ConsoleKey.Enter) {
@@ -64,7 +56,11 @@ namespace Shop {
                         case 4: // EXIT_CMS
                             mainMenu.menuDisplayed = false;
                             break;
+                        }
                     }
+                else if (pressedKey == ConsoleKey.S) {
+                    var menuCMS = new ShopMenuController();
+                    menuCMS.PrintMainShopMenu();    
                 }
                 
                 mainMenu.NavigateMenu(pressedKey);
