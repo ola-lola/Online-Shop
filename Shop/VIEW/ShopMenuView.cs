@@ -218,8 +218,10 @@ namespace Shop {
             {
                 Console.WriteLine("We verifying your credit card validity - it takes few seconds");
                 System.Threading.Thread.Sleep(2000);
-                Console.WriteLine("We confirm your payment. Product will be deliver in 2 hours");
-                Console.WriteLine("Thank You Very Much. We are looking forward to be in your service");
+                Console.WriteLine("We confirmed and finished your payment.");
+                System.Threading.Thread.Sleep(2000);
+                Console.Clear();
+                ShopMenuView.LogoScreenShop(ScreenAfterShopping.ThankYouMessage);
 
                 Product example = new Product(  "Organic Fair Trade 5 Pack",
                                                 "Fresh Food",

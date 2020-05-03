@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Shop {
     public class ShopLogo {
-        public static readonly List<string> PlayerCardsToPrint = new List<string>  {
+        public static readonly List<string> FirstOptionOfLogo = new List<string>  {
 
 
         @"//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\",
