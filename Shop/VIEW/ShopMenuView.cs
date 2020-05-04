@@ -204,14 +204,32 @@ namespace Shop {
             Console.WriteLine();
             Console.WriteLine("Payment Procedures");
             Console.WriteLine("---------------------------");
-            Console.Write("Enter credit card owner name: ");
-            string creditName = Console.ReadLine();
-            Console.Write("Enter credit card number: ");
-            string creditNumber = Console.ReadLine();
-            Console.Write("Enter valid throu date: ");
-            string creditvalid = Console.ReadLine();
-            Console.Write("Enter CVV/CVC: ");
-            string creditCVC = Console.ReadLine();
+            
+            string creditName = "";
+            do {
+                Console.Write("Enter credit card owner name: ");
+                creditName = Console.ReadLine();
+            } while (!ShopMenuView.ValidateClientInputData(creditName, "customers", "name"));
+
+
+            string creditNumber = "";
+            do {
+                Console.Write("Enter credit card number: ");
+                creditNumber = Console.ReadLine();
+            } while (!InputVerifications.IsCreditCardNo(creditNumber));
+
+            string creditvalid = "";
+            do {
+                Console.Write("Enter valid throu date: ");
+                creditvalid = Console.ReadLine();
+            } while (!InputVerifications.IsValidThruDate(creditvalid));
+
+            string creditCVC = "";
+            do {
+                Console.Write("Enter CVV/CVC: ");
+                creditCVC = Console.ReadLine();
+            } while (!InputVerifications.IsCVC(creditCVC));
+
             Console.Write("E (accept Payment)");
             string result = Console.ReadLine().ToUpper();
             if (result == "E")

@@ -43,5 +43,18 @@ namespace Shop {
             Regex reg = new Regex(regMatchPasswordCriteria);
             return reg.IsMatch(checkedString) ? true : false;
         }
+    
+        public static bool IsCVC(string checkedString) {
+            string regMatchPasswordCriteria = "^[\\d]{3}$";
+            Regex reg = new Regex(regMatchPasswordCriteria);
+            return reg.IsMatch(checkedString) ? true : false;
+        }
+    
+        public static bool IsValidThruDate(string checkedString) {
+            string regMatchPasswordCriteria = "^[\\d]{2}[\\s]{1}[\\d]{2}$";
+            Regex reg = new Regex(regMatchPasswordCriteria);
+            return reg.IsMatch(checkedString) ? true : false;
+        }
+    
     }
 }
