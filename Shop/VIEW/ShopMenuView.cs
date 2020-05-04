@@ -196,6 +196,7 @@ namespace Shop {
             
             }
             PaymentProcedure();
+            // metoda do updatowania DB products po zapłaceniu
         }
         static void PaymentProcedure()
         {
