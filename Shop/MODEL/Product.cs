@@ -25,5 +25,6 @@ namespace Shop {
             this.Status = status;
             this.PricePerUnit = pricePerUnit;
         }
+        
     }
 }
