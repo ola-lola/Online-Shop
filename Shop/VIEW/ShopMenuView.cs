@@ -302,12 +302,52 @@ namespace Shop {
             System.Console.WriteLine($"\nEnter the following information about Yourself (payment and delivery)");
             Console.ResetColor();
             foreach (string column in requiredColumns) {
-                string userInput;
+                string userInput = "";
+                string street = "";
+                string house = "";
+                string city = "";
+                string postalCode = "";
+
+
                 do {
-                    Console.Write($"{column.ToUpper()}:  ");
-                    Console.ForegroundColor = ConsoleColor.DarkYellow;
-                    userInput = Console.ReadLine();
-                    Console.ResetColor();
+                    if (column != "delivery_address") {
+                        Console.Write($"{column.ToUpper()}:  ");
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        userInput = Console.ReadLine();
+                        Console.ResetColor();
+                    } else {
+                        do {
+                            userInput = "";
+                            do {
+                                Console.Write("Street: ");
+                                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                street = Console.ReadLine();
+                                Console.ResetColor();
+                            } while (!InputVerifications.IsStreet(street));
+
+                            do {
+                                Console.Write("House number: ");
+                                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                house = Console.ReadLine();
+                                Console.ResetColor();
+                            } while (!InputVerifications.IsHouseNb(house));
+
+                            do {
+                                Console.Write("City: ");
+                                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                city = Console.ReadLine();
+                                Console.ResetColor();
+                            } while (!InputVerifications.IsStreet(city));
+
+                            do {
+                                Console.Write("Postal code: ");
+                                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                postalCode= Console.ReadLine();
+                                Console.ResetColor();
+                            } while (!InputVerifications.IsPostalCode(postalCode));
+                        userInput = street + " " + house + " " + city + " " + postalCode;
+                        } while (userInput.Length > 40);
+                    }
                 } while (!ShopMenuView.ValidateClientInputData(userInput, dbClientTab, column));
                 dataRowClientInput.Add(userInput);
             }
@@ -323,10 +363,12 @@ namespace Shop {
             string varchars9 = "tel_number";
             if (dbClientTableName.ToLower() != "customers") {return false;}
             else {
-                if (varchars25.Contains(dataClientColumn)) { if (input.Length <= 25) return true; }
+                if (varchars25.Contains(dataClientColumn)) { if (input.Length > 0 && input.Length <= 25) return true; }
                 else if (varchars40 == dataClientColumn) {if (input.Length <= 40) return true;}
-                else if (varchars16 == dataClientColumn) {if (input.Length <= 16) return true;}
-                else if (varchars9 == dataClientColumn) {if (input.Length <= 9) return true;}
+                else if (varchars16 == dataClientColumn && InputVerifications.IsCreditCardNo(input)) {
+                    if (input.Length <= 16) return true; }
+                else if (varchars9 == dataClientColumn && InputVerifications.IsTelephone(input)) {
+                    if (input.Length <= 9) return true;}
                 return false;
             }
 
