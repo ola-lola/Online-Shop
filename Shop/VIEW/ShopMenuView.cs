@@ -199,12 +199,20 @@ namespace Shop {
             }
             PaymentProcedure();
             // metoda do updatowania DB products po zapłaceniu
+            // metoda zapisania transakcji do tabeli transactions
         }
         static void PaymentProcedure()
         {
             Console.WriteLine();
             Console.WriteLine("Payment Procedures");
             Console.WriteLine("---------------------------");
+
+            // Pytanie - czy jestes zarejestrowany
+            // Jeżeli jest registered: podaj Nick i Pasword
+            // Po podaniu, z tabeli Customers odczytuje dane shipingu i dane karty kredytowej
+            // oraz uuid clienta - potrzebne do 
+            //Jeżeli nie jest registered mozliwość rejestracji lub podanie poniżej:
+
             Console.Write("Enter credit card owner name: ");
             string creditName = Console.ReadLine();
             Console.Write("Enter credit card number: ");
