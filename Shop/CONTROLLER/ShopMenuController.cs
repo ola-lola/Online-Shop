@@ -47,6 +47,11 @@ namespace Shop {
                             break;
                     }
                 }
+                else if (pressedKey == ConsoleKey.C) {
+                    var menuCMS = new CMSmenuController();
+                    menuCMS.PrintmainMenu();
+                    
+                }
                 
                 shopMainMenu.NavigateMenu(pressedKey);
             }

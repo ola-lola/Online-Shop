@@ -8,6 +8,7 @@ namespace Shop {
     public class CMSmenuController {
 
         private Menu mainMenu = new Menu();
+        
 
         ///
         // CMS_Menu_v2 constructor creates a list of menu items from Enum CMSmenuOptions_lvl1
@@ -55,7 +56,11 @@ namespace Shop {
                         case 4: // EXIT_CMS
                             mainMenu.menuDisplayed = false;
                             break;
+                        }
                     }
+                else if (pressedKey == ConsoleKey.S) {
+                    var menuCMS = new ShopMenuController();
+                    menuCMS.PrintMainShopMenu();    
                 }
                 
                 mainMenu.NavigateMenu(pressedKey);
