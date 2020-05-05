@@ -168,7 +168,7 @@ namespace Shop {
                 {
                     // FIXME:
                     // correctCard is never modified not used anywhere
-                    Dictionary<string,int> correctCart = new Dictionary<string, int>();
+                    //Dictionary<string,int> correctCart = new Dictionary<string, int>();
                     Console.Write("D(delete product), U(update quantity -> Select an option: ");
                     result = Console.ReadLine().ToUpper();
                     if (result == "D")
