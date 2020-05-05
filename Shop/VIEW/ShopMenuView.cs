@@ -166,9 +166,6 @@ namespace Shop {
                 bool correction = true;
                 while(correction)
                 {
-                    // FIXME:
-                    // correctCard is never modified not used anywhere
-                    //Dictionary<string,int> correctCart = new Dictionary<string, int>();
                     Console.Write("D(delete product), U(update quantity -> Select an option: ");
                     result = Console.ReadLine().ToUpper();
                     if (result == "D")
@@ -275,7 +272,8 @@ namespace Shop {
         
         static void PayAndOut()
         {    
-            Console.Write("E (accept Payment)");
+            Console.WriteLine();
+            Console.Write("E (to accept Payment)");
             string result = Console.ReadLine().ToUpper();
             if (result == "E")
             {
