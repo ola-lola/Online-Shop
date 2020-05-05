@@ -159,16 +159,13 @@ namespace Shop {
             Dictionary<Product, int> outcome_prod = new Dictionary<Product, int>();
             outcome_prod = Temp_Display_Cart(customer_Cart);
             Console.WriteLine();
-            Console.Write("C(Corect Cart content) -> Select an option:: ");
+            Console.Write("C(Corect Cart content), ENTER (go to payment) -> Select an option:: ");
             string result = Console.ReadLine().ToUpper();
             if (result == "C")
             {
                 bool correction = true;
                 while(correction)
                 {
-                    // FIXME:
-                    // correctCard is never modified not used anywhere
-                    Dictionary<string,int> correctCart = new Dictionary<string, int>();
                     Console.Write("D(delete product), U(update quantity -> Select an option: ");
                     result = Console.ReadLine().ToUpper();
                     if (result == "D")
@@ -197,15 +194,71 @@ namespace Shop {
                 }
             
             }
-            PaymentProcedure();
+            List<string> nicpas = PaymentProcedure();
+            PayAndOut();
+            string ui;
+            int current_in_shop, current_in_Cart, updated_in_shop;
+            for (int i = 0; i < customer_Cart.Count; i++)
+            {
+                ui = customer_Cart.ElementAt(i).Key; //id productu
+                ConnectDB connetion_DB31 = new ConnectDB();
+                current_in_shop = connetion_DB31.FindQuantity(ui);
+                current_in_Cart = customer_Cart.ElementAt(i).Value;
+                if (current_in_shop > current_in_Cart)
+                {
+                    updated_in_shop = current_in_shop - current_in_Cart;
+                }
+                else {updated_in_shop = 100;}
+                ConnectDB connection_DB32 = new ConnectDB();
+                connection_DB32.UpdateProductQuantity(ui, updated_in_shop);
+            }
         }
-        static void PaymentProcedure()
+        static List<string> PaymentProcedure()
         {
             Console.WriteLine();
             Console.WriteLine("Payment Procedures");
             Console.WriteLine("---------------------------");
             
-            string creditName = "";
+            
+
+            Console.Write("E (accept Payment)");
+            Console.Write("Are you registered client (Y/N): ");
+            string result = Console.ReadLine().ToUpper();
+            List<string> nick_and_pass = new List<string>();
+            if (result == "Y")
+            {
+                Console.Write("Your Nickname: ");
+                nick_and_pass.Add(Console.ReadLine());
+                string pass = "";
+                Console.Write("Enter your password: ");
+                ConsoleKeyInfo key;
+                do
+                {
+                    key = Console.ReadKey(true);
+                    if (key.Key != ConsoleKey.Backspace)
+                    {
+                        pass += key.KeyChar;
+                        Console.Write("*");
+                    }
+                    else
+                    {
+                        Console.Write("\b");
+                    }
+                }
+                while (key.Key != ConsoleKey.Enter);
+                nick_and_pass.Add(pass);
+            }
+            else
+            {
+                Console.WriteLine("Would You like to register (gaining 5% discount) (Y/N): ");
+                string result1 = Console.ReadLine().ToUpper();
+                if (result1 == "Y")
+                {
+                    nick_and_pass = RegisterClient();
+                }
+                else
+                {
+                   string creditName = "";
             do {
                 Console.Write("Enter credit card owner name: ");
                 creditName = Console.ReadLine();
@@ -229,8 +282,17 @@ namespace Shop {
                 Console.Write("Enter CVV/CVC: ");
                 creditCVC = Console.ReadLine();
             } while (!InputVerifications.IsCVC(creditCVC));
-
-            Console.Write("E (accept Payment)");
+                    Console.Write("Enter shipping address:");
+                    string address_ship = Console.ReadLine();
+                }
+            }
+            return  nick_and_pass;
+        }
+        
+        static void PayAndOut()
+        {    
+            Console.WriteLine();
+            Console.Write("E (to accept Payment)");
             string result = Console.ReadLine().ToUpper();
             if (result == "E")
             {
@@ -240,16 +302,6 @@ namespace Shop {
                 System.Threading.Thread.Sleep(2000);
                 Console.Clear();
                 ShopMenuView.LogoScreenShop(ScreenAfterShopping.ThankYouMessage);
-
-                Product example = new Product(  "Organic Fair Trade 5 Pack",
-                                                "Fresh Food",
-                                                "Fruits",
-                                                "Bananas",
-                                                100,
-                                                "item",
-                                                "A",
-                                                (float)10.5);
-                ConnectDB.UpdateProductAfterPayment("cfedc8d8-56e9-4c2d-839b-c2308f7de1f1", example, "50");
 
             }
             Console.ReadKey();
@@ -286,12 +338,13 @@ namespace Shop {
             return product_dict;
         }
 
-        public static void RegisterClient()
+        public static List<string> RegisterClient()
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("Please follow the next instructions to register (5% discount guaranted).\n");
             string client_table_name = "customers";
+            List<string> nickpass = new List<string>();
             List<string> newEntryData = ShopMenuView.GetEntryToDbClientInput(client_table_name, new List<string>() { "name", 
                                                                                                         "surname", 
                                                                                                         "email",
@@ -311,7 +364,9 @@ namespace Shop {
                                                         newEntryData[7]);
             ConnectDB conection_ClientDB = new ConnectDB();
             conection_ClientDB.AddCustomer(client_table_name, clientDataToBeAdded);
-            Console.ReadKey();
+            nickpass.Add(newEntryData[5]);
+            nickpass.Add(newEntryData[6]);
+            return nickpass;
         }
         public static List<string> GetEntryToDbClientInput(string dbClientTab, List<string> requiredColumns)
         {
