@@ -6,16 +6,33 @@ namespace Shop.Test
 {
     public class UnitTest1
     {
-        [Fact]
-        public void ReadTable_NotExistingTableName_Catches_Exception()
+        [Theory]
+        [InlineData("98 20")]
+        [InlineData("04 23")]
+        [InlineData("56 09")]
+        public void IsValidThru_Result_True(string value)
         {
-            //TODO - Agnieszka
+            bool actual = InputVerifications.IsValidThruDate(value);
+            Assert.True(actual);
         }
-        [Fact]
-        public void ReadTable_NotExistingColumnName_Catches_Exception()
+
+        [Theory]
+        [InlineData("98320")]
+        [InlineData("0a 23")]
+        [InlineData("5 409")]
+        [InlineData("540 9")]
+        [InlineData("5409 ")]
+        [InlineData(" 5409")]
+        [InlineData("  409")]
+        [InlineData("356 09")]
+        [InlineData("56 309")]
+        [InlineData("5 0")]
+        [InlineData("")]
+        [InlineData(" ")]
+        public void IsValidThru_Result_False(string value)
         {
-            //TODO - Agnieszka
-        
+            bool actual = InputVerifications.IsValidThruDate(value);
+            Assert.False(actual);
         }
     }
 }
