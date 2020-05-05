@@ -212,6 +212,11 @@ namespace Shop {
                 ConnectDB connection_DB32 = new ConnectDB();
                 connection_DB32.UpdateProductQuantity(ui, updated_in_shop);
             }
+            
+
+
+
+
         }
         static List<string> PaymentProcedure()
         {
@@ -219,9 +224,6 @@ namespace Shop {
             Console.WriteLine("Payment Procedures");
             Console.WriteLine("---------------------------");
             
-            
-
-            Console.Write("E (accept Payment)");
             Console.Write("Are you registered client (Y/N): ");
             string result = Console.ReadLine().ToUpper();
             List<string> nick_and_pass = new List<string>();
