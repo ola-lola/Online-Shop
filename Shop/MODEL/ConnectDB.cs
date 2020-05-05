@@ -88,16 +88,16 @@ namespace Shop
             using (var conn = new NpgsqlConnection(connString))
             {
                 string toUpdate = String.Format("UPDATE products SET quantity = @quantity WHERE product_uid = '{0}'", product_uid);
-                Console.Out.WriteLine(toUpdate);
+                //Console.Out.WriteLine(toUpdate);
                 conn.Open();
                 using (var command = new NpgsqlCommand(toUpdate, conn))
                 {
                     command.Parameters.AddWithValue("@quantity", quantity);
 
                     int nRows = command.ExecuteNonQuery();
-                    Console.ForegroundColor = ConsoleColor.DarkYellow;
-                    Console.Out.WriteLine(String.Format("Product info updated",nRows));
-                    Console.ResetColor();
+                    //Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    //Console.Out.WriteLine(String.Format("Product info updated",nRows));
+                    //Console.ResetColor();
                 }
             }
         }
@@ -452,6 +452,24 @@ namespace Shop
             }
             return prod_list;
         }
+        public int FindQuantity(string ind)
+        {
+            int shop_current = 0;
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                string s = String.Format("SELECT quantity  FROM products WHERE product_uid = '{0}'", ind);
+                conn.Open();
+                using (var command = new NpgsqlCommand(s,conn))
+                {
+                    var reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        shop_current = reader.GetInt16(0);
+                    }
+                }
+            }
+            return shop_current;
+        }
 
         public void AddNewTransactionToDB(string tableName, Transaction transaction)
         {
@@ -473,52 +491,5 @@ namespace Shop
                 }
             }
         }
-
-         public static void UpdateProductAfterPayment( string product_uid, Product product, string quantity)
-            {
-            List<string> prod_list = new List<string>();
-            try {
-                    using (var conn = new NpgsqlConnection(connString)) {
-
-                        foreach(string record in prod_list){
-
-                            if (product.Quantity == 1) { // ilość danego produktu w koszyku = 1 
-                                string toDelete = String.Format("DELETE FROM products WHERE product_uid = '{0}'", product_uid);
-                                conn.Open();
-                                using (var command = new NpgsqlCommand(toDelete, conn))
-                                    {
-                                        int nRows = command.ExecuteNonQuery();
-                                        Console.ForegroundColor = ConsoleColor.Red;
-                                        Console.Out.WriteLine(String.Format("Numbers of deleted rows = {0}", nRows));
-                                        Console.ResetColor();
-                                    };
-                                }
-                            else if (product.Quantity > 1) { // ilość danego produktu więszka niż 1 
-
-                                string toUpdate = String.Format("UPDATE products SET quantity = (quantity - @quantity) WHERE product_uid = '{0}'", product_uid);
-                                Console.Out.WriteLine(toUpdate);
-                                conn.Open();
-                                using (var command = new NpgsqlCommand(toUpdate, conn))
-                                    {
-                                    command.Parameters.AddWithValue("quantity - @quantity", quantity);
-
-                                    int nRows = command.ExecuteNonQuery();
-                                    Console.ForegroundColor = ConsoleColor.DarkYellow;
-                                    Console.Out.WriteLine(String.Format("Product info updated",nRows));
-                                    Console.ResetColor();
-                                    }
-                                }
-                        }
-                    }
-                }
-                
-            catch (SystemException)
-                {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.Out.WriteLine(String.Format("An error occurred"));
-                Console.ResetColor();
-                }
-            } 
-        
     }
 }
