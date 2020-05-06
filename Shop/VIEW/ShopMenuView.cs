@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 namespace Shop {
     public class ShopMenuView {
 
+        public static float total;
         public static void PrintMainMenuShop(Menu menuInstance) {
             Console.Clear(); Console.ResetColor();
             
@@ -212,9 +213,13 @@ namespace Shop {
                 ConnectDB connection_DB32 = new ConnectDB();
                 connection_DB32.UpdateProductQuantity(ui, updated_in_shop);
             }
-            
-
-
+            // add new record to transactions
+            ConnectDB connection_DB34 = new ConnectDB();
+            string customerUUID = connection_DB34.Find_UUID_Customer(nicpas[0], nicpas[1]);
+            string customerCCard = connection_DB34.Find_CCard(nicpas[0], nicpas[1]);
+            Transaction transact = new Transaction(customerUUID, total ,customerCCard);
+            ConnectDB connetion_DB33 = new ConnectDB();
+            connetion_DB33.AddNewTransactionToDB(transact);
 
 
         }
@@ -317,7 +322,7 @@ namespace Shop {
             ConnectDB conectionproper = new ConnectDB();
             int counter = 0;
             float sum;
-            float total = 0;    
+            total = 0;    
             foreach (KeyValuePair<string,int> kvp in contentCart)
             {
                 counter += 1;

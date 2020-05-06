@@ -410,6 +410,42 @@ namespace Shop
             }
             return prod_properties;
         }
+        public string Find_UUID_Customer(string nickname, string pass)
+        {
+            string cust_id = "";
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                string s = String.Format("SELECT customer_uid FROM customers WHERE nick = '{0}'",nickname);
+                conn.Open();
+                using (var command = new NpgsqlCommand(s,conn))
+                {
+                    var reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        cust_id = reader.GetGuid(0).ToString();
+                    }
+                }
+            }
+            return cust_id;
+        }
+        public string Find_CCard(string nickname, string pass)
+        {
+            string cust_card = "";
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                string s = String.Format("SELECT credit_card_number FROM customers WHERE nick = '{0}'",nickname);
+                conn.Open();
+                using (var command = new NpgsqlCommand(s,conn))
+                {
+                    var reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        cust_card = reader.GetString(0);
+                    }
+                }
+            }
+            return cust_card;
+        }
         public string Find_Selected_Product(string div, string bry, string bat, string name)
         {
             string prod_uuid = "";
@@ -471,19 +507,19 @@ namespace Shop
             return shop_current;
         }
 
-        public void AddNewTransactionToDB(string tableName, Transaction transaction)
+        public void AddNewTransactionToDB(Transaction transaction)
         {
             using (var conn = new NpgsqlConnection(connString))
             {
-                string s = String.Format("INSERT INTO {0}(transaction_uid,customer_uid,price_value,credit_card_number) VALUES (uuid_generate_v4(),@customerUid,@priceValue,@creditCardNumber)", tableName);
+                string s = "INSERT INTO transactions (transaction_uid, customer_uid,price_value,credit_card_number) VALUES (uuid_generate_v4(),@customerUid,@priceValue,@creditCardNumber)";
 
                 conn.Open();
                 using (var command = new NpgsqlCommand(s, conn))
                 {
-                    command.Parameters.AddWithValue("@dcustomerUid",transaction.CustomerUid);
-                    command.Parameters.AddWithValue("@priceValue",transaction.PriceValue);
+                    command.Parameters.AddWithValue("@customerUid",new Guid(transaction.CustomerUUID));
+                    command.Parameters.AddWithValue("@priceValue",(float)transaction.PriceValue);
                     command.Parameters.AddWithValue("@creditCardNumber", transaction.CreditCardNumber);
-
+                                    
                     int nRows = command.ExecuteNonQuery();
                     Console.ForegroundColor = ConsoleColor.DarkGreen;
                     Console.Out.WriteLine(String.Format("\nInserted {0} transaction",nRows));

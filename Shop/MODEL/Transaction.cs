@@ -1,16 +1,17 @@
 namespace Shop {
     public class Transaction {
-        public string CustomerUid { get; set; }   // Jak przekazać tu Uid customera?
+        
+        public string CustomerUUID {get; set;}
         public float PriceValue { get; set; }
         public string CreditCardNumber{ get; set; }
+        
     
 
-        public Transaction ( string customerUid, float priceValue, string creditCardNumber)
+        public Transaction (string customeruuid, float priceValue, string creditCardNumber)
         {
-            this.CustomerUid = customerUid;
+            this.CustomerUUID = customeruuid;
             this.PriceValue = priceValue;
             this.CreditCardNumber = creditCardNumber;
         }
-        
     }
 }
