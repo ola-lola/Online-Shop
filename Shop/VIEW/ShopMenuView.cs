@@ -217,7 +217,7 @@ namespace Shop {
             ConnectDB connection_DB34 = new ConnectDB();
             string customerUUID = connection_DB34.Find_UUID_Customer(nicpas[0], nicpas[1]);
             string customerCCard = connection_DB34.Find_CCard(nicpas[0], nicpas[1]);
-            Transaction transact = new Transaction(customerUUID, total ,customerCCard);
+            Transaction transact = new Transaction(customerUUID, total,customerCCard);
             ConnectDB connetion_DB33 = new ConnectDB();
             connetion_DB33.AddNewTransactionToDB(transact);
 
@@ -265,30 +265,34 @@ namespace Shop {
                 }
                 else
                 {
-                   string creditName = "";
-            do {
-                Console.Write("Enter credit card owner name: ");
-                creditName = Console.ReadLine();
-            } while (!ShopMenuView.ValidateClientInputData(creditName, "customers", "name"));
+                    string creditName= "";
+                    string nonickName = "anonymous";
+                    nick_and_pass.Add(nonickName);
+                    string nopassword = "anonymous";
+                    nick_and_pass.Add(nopassword);
+                    do {
+                        Console.Write("Enter credit card owner name: ");
+                        creditName = Console.ReadLine();
+                    } while (!ShopMenuView.ValidateClientInputData(creditName, "customers", "name"));
 
 
-            string creditNumber = "";
-            do {
-                Console.Write("Enter credit card number: ");
-                creditNumber = Console.ReadLine();
-            } while (!InputVerifications.IsCreditCardNo(creditNumber));
+                    string creditNumber = "";
+                    do {
+                        Console.Write("Enter credit card number: ");
+                        creditNumber = Console.ReadLine();
+                    } while (!InputVerifications.IsCreditCardNo(creditNumber));
 
-            string creditvalid = "";
-            do {
-                Console.Write("Enter valid throu date: ");
-                creditvalid = Console.ReadLine();
-            } while (!InputVerifications.IsValidThruDate(creditvalid));
+                    string creditvalid = "";
+                    do {
+                        Console.Write("Enter valid throu date: ");
+                        creditvalid = Console.ReadLine();
+                    } while (!InputVerifications.IsValidThruDate(creditvalid));
 
-            string creditCVC = "";
-            do {
-                Console.Write("Enter CVV/CVC: ");
-                creditCVC = Console.ReadLine();
-            } while (!InputVerifications.IsCVC(creditCVC));
+                    string creditCVC = "";
+                    do {
+                        Console.Write("Enter CVV/CVC: ");
+                        creditCVC = Console.ReadLine();
+                    } while (!InputVerifications.IsCVC(creditCVC));
                     Console.Write("Enter shipping address:");
                     string address_ship = Console.ReadLine();
                 }
