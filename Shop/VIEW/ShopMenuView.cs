@@ -27,8 +27,10 @@ namespace Shop {
         
         public static string GetProductUUID() {
             Console.Clear();
-            Console.WriteLine("Find the product (division/brigade/battalion)");
-            Console.WriteLine("==============================================");
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("\nFind the product ( division | brigade | battalion )");
+            Console.ResetColor();
+            Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
             List<string> div_out = new List<string>();
             List<string> bry_out = new List<string>();
             List<string> bat_out = new List<string>();
@@ -42,74 +44,135 @@ namespace Shop {
             int wsk;
             // Choose the division
             ConnectDB conection_DB2 = new ConnectDB();
-            Console.Out.WriteLine("List of available divisions:");
+            Console.Out.WriteLine("Available divisions:\n");
             div_out = conection_DB2.Find_Division();
             View.PrintList(div_out);
-            Console.Write("Enter division number: ");
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.Write("\nEnter division number: ");
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             result = Console.ReadLine();
+            Console.ResetColor();
+            
             while(!View.VerifyListChoiceInput(result, div_out)) {
-                Console.Write("Enter PROPER (!!!) division number: ");
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.Write("wrong input");
+                Console.ResetColor();
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.Write("\n\nEnter PROPER (!!!) division number: ");
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
                 result = Console.ReadLine();
+                Console.ResetColor();
             }
             wsk = Int16.Parse(result);
             outcomeDiv = div_out[wsk-1];
             Console.Clear();
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine("DIVISION: " + outcomeDiv);
+            Console.ResetColor();
             // Choose the brigade
-            Console.WriteLine("Find the product (division/brigade/battalion)");
-            Console.WriteLine("==============================================");
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("\nFind the product ( division | brigade | battalion )");
+            Console.ResetColor();
+            Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
             ConnectDB conection_DB21 = new ConnectDB();
-            Console.Out.WriteLine("List of available brigades:");
+            Console.Out.WriteLine("Available brigades:\n");
             bry_out = conection_DB21.Find_Brigade(outcomeDiv);
             View.PrintList(bry_out);
-            Console.Write("Enter brigade number: ");
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.Write("\nEnter brigade number: ");
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             result = Console.ReadLine();
+            Console.ResetColor();
             while(!View.VerifyListChoiceInput(result, bry_out)) {
-                Console.Write("Enter PROPER (!!!) brigade number: ");
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.Write("wrong input");
+                Console.ResetColor();
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.Write("\n\nEnter PROPER (!!!) brigade number: ");
                 result = Console.ReadLine();
+                Console.ResetColor();
             }
             wsk = Int16.Parse(result);
             outcomeBry = bry_out[wsk-1];
             Console.Clear();
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine("DIVISION: " + outcomeDiv + ", BRIGADE: " + outcomeBry);
+            Console.ResetColor();
             // Choose the battalion
-            Console.WriteLine("Find the product (division/brigade/battalion)");
-            Console.WriteLine("==============================================");
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("\nFind the product ( division | brigade | battalion )");
+            Console.ResetColor();
+            Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
             ConnectDB conection_DB22 = new ConnectDB();
-            Console.Out.WriteLine("List of available battalions:");
+            Console.Out.WriteLine("Available battalions:\n");
             bat_out = conection_DB22.Find_Battalion(outcomeDiv, outcomeBry);
             View.PrintList(bat_out);
-            
-            Console.Write("Enter battalion number: ");
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.Write("\nEnter battalion number: ");
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             result = Console.ReadLine();
+            Console.ResetColor();
             while(!View.VerifyListChoiceInput(result, bat_out)) {
-                Console.Write("Enter PROPER (!!!) battalion number: ");
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.Write("wrong input");
+                Console.ResetColor();
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.Write("\n\nEnter PROPER (!!!) battalion number: ");
                 result = Console.ReadLine();
+                Console.ResetColor();
             }
             wsk = Int16.Parse(result);
             outcomeBat = bat_out[wsk-1];
             Console.WriteLine("----------------------------");
             Console.Clear();
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine("DIVISION: "+ outcomeDiv + ", BRIGADE: " + outcomeBry + ", BATTALION: " + outcomeBat);
+            Console.ResetColor();
             // Choose the product
-            Console.WriteLine("Find the product (division/brigade/battalion)");
-            Console.WriteLine("==============================================");
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("\nFind the product ( division | brigade | battalion )");
+            Console.ResetColor();
+            Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
             ConnectDB conection_DB23 = new ConnectDB();
-            Console.Out.WriteLine("List of available products:");
+            Console.Out.WriteLine("Available products:\n");
             pro_out = conection_DB23.Find_Product(outcomeDiv, outcomeBry, outcomeBat); //list of products
             View.PrintList(pro_out);
-            Console.Write("Enter product number: ");
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.Write("\nEnter product number: ");
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             result = Console.ReadLine();
+            Console.ResetColor();
             while(!View.VerifyListChoiceInput(result, pro_out)) {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.Write("wrong input");
+                Console.ResetColor();
+                Console.BackgroundColor = ConsoleColor.Black;
                 Console.Write("Enter PROPER (!!!) product number: ");
                 result = Console.ReadLine();
+                Console.ResetColor();
             }
             wsk = Int16.Parse(result);
             outName = pro_out[wsk-1];  // jeden product
             Console.Clear();
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine("DIVISION: "+ outcomeDiv + ", BRIGADE: " + outcomeBry + ", BATTALION: " + outcomeBat);
-            // return iiud of product and display         
-            Console.WriteLine("==============================================");
+            Console.ResetColor();
+            // return iiud of product and display     
+            Console.ForegroundColor = ConsoleColor.DarkYellow;    
+            Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
+            Console.ResetColor();
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.WriteLine("                         \n  Your selected product  \n                         ");
+            
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("------------------------------------");
+            Console.ResetColor();
             ConnectDB conection_DB24 = new ConnectDB();
             return prod_uuid = conection_DB24.Find_Selected_Product(outcomeDiv, outcomeBry, outcomeBat, outName);
         }    
@@ -120,8 +183,16 @@ namespace Shop {
             while(continue_Shoping)
             {
                 string pro_discription = GetProductUUID();
-                Console.WriteLine("-----------------------------");
-                Console.Write("P(put into Cart), ENTER (continue shoping) -> Select an option: ");
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("------------------------------------");
+                Console.ResetColor();
+                Console.BackgroundColor = ConsoleColor.DarkGray;
+                Console.Write("\n\n             Next step:            ");
+                Console.ResetColor();
+                Console.Write("\n\n    :: P ::          :: ENTER :: ");
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.Write("\n(put into Cart)  (continue shoping) ");
+                Console.ResetColor();
                 string result1 = Console.ReadLine().ToUpper();
                 if (result1 == "P")
                 {
@@ -135,15 +206,26 @@ namespace Shop {
                     {
                         customer_Cart.Add(pro_discription, 1);
                     }
-                    Console.Write("A(add quantity), ENTER (continue): ");
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("\n\n    :: A ::          :: ENTER :: ");
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.Write("\n(change quantity)  (continue shoping) ");
+                    Console.ResetColor();
                     result1 = Console.ReadLine().ToUpper();
                     if (result1 == "A")
                     {
-                        Console.Write("How many: ");
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.Write("\nHow many: ");
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
                         int x = Int16.Parse(Console.ReadLine());
                         customer_Cart[pro_discription]= x;
+                        Console.ResetColor();
                     }
-                    Console.WriteLine("Your Cart:");
+                    Console.Clear();
+                    Console.BackgroundColor = ConsoleColor.DarkYellow;
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.WriteLine("                                                            \n                         Your Cart:                         \n                                                            \n");
+                    Console.ResetColor();
                     Console.WriteLine("LP| Description                 | price |Quantity|  Value  |");
                     Console.WriteLine("-----------------------------------------------------------");
                     Temp_Display_Cart(customer_Cart);
@@ -154,7 +236,10 @@ namespace Shop {
                 }
             }
             Console.Clear();
-            Console.WriteLine("Your Cart:");
+            Console.BackgroundColor = ConsoleColor.DarkYellow;
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.WriteLine("                                                            \n                         Your Cart:                         \n                                                            \n");
+            Console.ResetColor();
             Console.WriteLine("LP| Description                 | price |Quantity|  Value  |");
             Console.WriteLine("-----------------------------------------------------------");
             Dictionary<Product, int> outcome_prod = new Dictionary<Product, int>();
