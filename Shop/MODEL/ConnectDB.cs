@@ -385,6 +385,24 @@ namespace Shop
             }
             return prod_list;
         }
+        public List<string> CheckNick()
+        {
+            List<string> nick_list = new List<string>();
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                string s = "SELECT DISTINCT nick FROM customers";
+                conn.Open();
+                using (var command = new NpgsqlCommand(s,conn))
+                {
+                    var reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        nick_list.Add(reader.GetString(0));
+                    }
+                }
+            }
+            return nick_list;
+        }
         public List<string> Product_Properties (string ui)
         {
             List<string> prod_properties = new List<string>();

@@ -235,7 +235,16 @@ namespace Shop {
             if (result == "Y")
             {
                 Console.Write("Your Nickname: ");
-                nick_and_pass.Add(Console.ReadLine());
+                string tempnick = Console.ReadLine();
+                // sprawdzić czy nick jest w bazie
+                ConnectDB connection_DB40 = new ConnectDB();
+                List<string> mynicks = connection_DB40.CheckNick();
+                if (mynicks.Contains(tempnick))
+                {
+                    nick_and_pass.Add(tempnick);
+                }
+                else {nick_and_pass.Add("anonymous");}
+                
                 string pass = "";
                 Console.Write("Enter your password: ");
                 ConsoleKeyInfo key;
