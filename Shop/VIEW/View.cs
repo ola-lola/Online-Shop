@@ -22,5 +22,11 @@ namespace Shop {
             if(inputInt > 0 && inputInt <= listCount) {return true;}
             return false;
         }
+
+        public static void PrintError(string text) {
+            Console.ForegroundColor = ConsoleColor.Red;
+            System.Console.WriteLine(text);
+            Console.ResetColor();
+        }
     }
 }

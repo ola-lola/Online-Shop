@@ -10,6 +10,7 @@ namespace Shop {
             this.Content = Content;
         }
         public void CheckCondition() {
+            var background = Console.BackgroundColor;
             if (isChecked) {
                 Console.BackgroundColor = ConsoleColor.White;
                 Console.ForegroundColor = ConsoleColor.Black;
