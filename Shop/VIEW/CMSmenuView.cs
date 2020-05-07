@@ -59,26 +59,32 @@ namespace Shop {
             PrintAvailableOptions("tables", conection_DB.GetTableNamesFromDb());
 
             string table_name1 = CMSmenuView.GetTableName();
-            
-            List<string> newEntryData = CMSmenuView.GetEntryToDbInput(table_name1, new List<string>() { "name", 
-                                                                                                        "division", 
-                                                                                                        "brigade",
-                                                                                                        "battalion",
-                                                                                                        "quantity",
-                                                                                                        "unit",
-                                                                                                        "status",
-                                                                                                        "price"});  
-            
-            Product productToBeAdded = new Product( newEntryData[0],
-                                                    newEntryData[1],
-                                                    newEntryData[2],
-                                                    newEntryData[3],
-                                                    Int16.Parse(newEntryData[4]),
-                                                    newEntryData[5],
-                                                    newEntryData[6].ToUpper(),
-                                                    float.Parse(newEntryData[7]));
+            if (table_name1 != "products") {
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                System.Console.WriteLine(   "\nOPTION NOT AVAILABLE YET - PLEASE CHOOSE ANOTHER DATA TABLE\n\n" +
+                                            "\tThis feature is coming in the release 2.0");
+                Console.ResetColor();
+            } else {
+                List<string> newEntryData = CMSmenuView.GetEntryToDbInput(table_name1, new List<string>() { "name", 
+                                                                                                            "division", 
+                                                                                                            "brigade",
+                                                                                                            "battalion",
+                                                                                                            "quantity",
+                                                                                                            "unit",
+                                                                                                            "status",
+                                                                                                            "price"});  
+                
+                Product productToBeAdded = new Product( newEntryData[0],
+                                                        newEntryData[1],
+                                                        newEntryData[2],
+                                                        newEntryData[3],
+                                                        Int16.Parse(newEntryData[4]),
+                                                        newEntryData[5],
+                                                        newEntryData[6].ToUpper(),
+                                                        float.Parse(newEntryData[7]));
 
-            conection_DB.AddProduct(table_name1, productToBeAdded);
+                conection_DB.AddProduct(table_name1, productToBeAdded);
+            }
             Console.ReadKey();
         }
 
@@ -119,9 +125,9 @@ namespace Shop {
 
             if (dbTableName.ToLower() != "products") {return false;}
             else {
-                if (varchars25.Contains(dataColumnName)) { if (input.Length <= 25) return true; }
-                else if (varchars5 == dataColumnName) {if (input.Length <= 5) return true;}
-                else if (varchars1 == dataColumnName) {if (input.Length == 1) return true;}
+                if (varchars25.Contains(dataColumnName)) { if (input.Length > 0 && input.Length <= 25) return true; }
+                else if (varchars5 == dataColumnName) {if (input.Length > 0 && input.Length <= 5) return true;}
+                else if (varchars1 == dataColumnName) {if (input.Length > 0 && input.Length == 1) return true;}
                 
                 else if (ints == dataColumnName) {
                     try {
