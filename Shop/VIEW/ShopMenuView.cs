@@ -369,7 +369,7 @@ namespace Shop {
             List<string> nick_and_pass = new List<string>();
             if (result == "Y")
             {
-                Console.Write("Your Nickname: ");
+                Console.Write("\n\nNickname: ");
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 string tempnick = Console.ReadLine();
                 Console.ResetColor();
@@ -383,7 +383,7 @@ namespace Shop {
                 else {nick_and_pass.Add("anonymous");}
                 
                 string pass = "";
-                Console.Write("Enter your password: ");
+                Console.Write("\nPassword: ");
                 ConsoleKeyInfo key;
                 do
                 {   
@@ -430,29 +430,44 @@ namespace Shop {
                     string nopassword = "anonymous";
                     nick_and_pass.Add(nopassword);
                     do {
-                        Console.Write("Enter credit card owner name: ");
+                        Console.BackgroundColor = ConsoleColor.White;
+                        Console.ForegroundColor = ConsoleColor.Black;
+                        Console.Write("\n\nEnter credit card owner Name: ");
+                        Console.ResetColor();
                         creditName = Console.ReadLine();
                     } while (!ShopMenuView.ValidateClientInputData(creditName, "customers", "name"));
 
 
                     string creditNumber = "";
                     do {
-                        Console.Write("Enter credit card number: ");
+                        Console.BackgroundColor = ConsoleColor.White;
+                        Console.ForegroundColor = ConsoleColor.Black;
+                        Console.Write("\nEnter credit card number: ");
+                        Console.ResetColor();
                         creditNumber = Console.ReadLine();
                     } while (!InputVerifications.IsCreditCardNo(creditNumber));
 
                     string creditvalid = "";
                     do {
-                        Console.Write("Enter valid throu date: ");
+                        Console.BackgroundColor = ConsoleColor.White;
+                        Console.ForegroundColor = ConsoleColor.Black;
+                        Console.Write("\nEnter valid throu date: ");
+                        Console.ResetColor();
                         creditvalid = Console.ReadLine();
                     } while (!InputVerifications.IsValidThruDate(creditvalid));
 
                     string creditCVC = "";
                     do {
-                        Console.Write("Enter CVV/CVC: ");
+                        Console.BackgroundColor = ConsoleColor.White;
+                        Console.ForegroundColor = ConsoleColor.Black;
+                        Console.Write("\nEnter CVV/CVC: ");
+                        Console.ResetColor();
                         creditCVC = Console.ReadLine();
                     } while (!InputVerifications.IsCVC(creditCVC));
-                    Console.Write("Enter shipping address:");
+                    Console.BackgroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.Write("\nEnter shipping address:");
+                    Console.ResetColor();
                     string address_ship = Console.ReadLine();
                 }
             }
@@ -462,13 +477,18 @@ namespace Shop {
         static void PayAndOut()
         {    
             Console.WriteLine();
-            Console.Write("E (to accept Payment)");
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.Write("\n\n     :: E ::   ");
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.Write("\n(accept payment)  ");
+            Console.ResetColor();
             string result = Console.ReadLine().ToUpper();
             if (result == "E")
             {
-                Console.WriteLine("We verifying your credit card validity - it takes few seconds");
+                Console.WriteLine("\n\nWe verifying your credit card validity - it takes few seconds");
                 System.Threading.Thread.Sleep(2000);
-                Console.WriteLine("We confirmed and finished your payment.");
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                Console.WriteLine("\nWe confirmed and finished your payment.");
                 System.Threading.Thread.Sleep(2000);
                 Console.Clear();
                 ShopMenuView.LogoScreenShop(ScreenAfterShopping.ThankYouMessage);
