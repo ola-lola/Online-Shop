@@ -35,6 +35,25 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: customers; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.customers (
+    customer_uid uuid NOT NULL,
+    name character varying(25),
+    surname character varying(25),
+    email character varying(25),
+    delivery_address character varying(40),
+    tel_number character varying(9),
+    nick character varying(25),
+    password character varying(25),
+    credit_card_number character varying(16)
+);
+
+
+ALTER TABLE public.customers OWNER TO postgres;
+
+--
 -- Name: products; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -54,11 +73,44 @@ CREATE TABLE public.products (
 ALTER TABLE public.products OWNER TO postgres;
 
 --
+-- Name: transactions; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.transactions (
+    transaction_uid uuid NOT NULL,
+    customer_uid uuid,
+    price_value real,
+    credit_card_number character varying(16),
+    order_date timestamp without time zone DEFAULT now()
+);
+
+
+ALTER TABLE public.transactions OWNER TO postgres;
+
+--
+-- Data for Name: customers; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.customers (customer_uid, name, surname, email, delivery_address, tel_number, nick, password, credit_card_number) FROM stdin;
+ec4e3fe3-7192-4438-854b-32d95a9b187a	Anna	Kowalska	annak@gmail.com	ul. Marszalkowska 5, Warszawa	123567432	annak	mypassabc	1234567898765432
+492d1a9e-5845-469e-b0da-a6c04d1531a5	Karolina	Kowalska	kk@gmail.com	ul. Dobra 5, Warszawa	987999000	kk999	karolina78	1234567898765432
+640a8c38-0694-47f9-8bf5-75240ff30bcb	Adam	Nowak	adam.nowak@gmail.com	ul. Grojecka 5, Warszawa	334567123	adamnowy	ul89OO	1234567898765432
+0a9d065f-5657-4380-864a-fe8a7df8d81c	Andrzej	Malik	andrzejkom2016@gmail.com	Alternatywy 4/127, 02-775 Warszawa	23456789	Spiący Lin	drzemkalina	1234567898765432
+63a6932c-237e-413c-bd0e-fd08fa38a6dd	Dorota	Malik	damalik@o2.pl	02-775, Warszawa, il. Alternatywy 4/127	2345555	Dorka	12krokow	1234567898765432
+0fe84b35-2483-4197-9078-fed64610202d	andrzej	Malik	damalik@kkk	sfdfgshshs	w4353663	Lolek	1qa2ws	1234567898765432
+4f6fcc8f-04cb-4db3-86d7-f8bdfa0df368	Agnieszka	Andrzejczak	aagnieszka@o2.pl	Klonowa 2 Warszawa 02775	123456789	Aga	aga2020	1234567898765432
+4dccb61a-85c2-417c-bc7d-97eb9d42a180	\N	\N	\N	\N	\N	anonymous	\N	1234567898765432
+a5ca4bfa-d4eb-43f8-98a9-5c8c7a58e2f5	Stefan	Dąbrowski	sdanrowski@gmail.com	Lazurowa 23 Krakow 87000	987654321	Stefek	s2020	4356237865348649
+50f42f90-a6a4-4c7a-ad52-230e196e4baf	Ola	Lola	alola@o2.pl	szyuczzna 23 WARSZAWA 23888	123456779	Oleńka	32451	9876543212345678
+\.
+
+
+--
 -- Data for Name: products; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.products (product_uid, name, division, brigade, battalion, quantity, unit, status, price) FROM stdin;
-cfedc8d8-56e9-4c2d-839b-c2308f7de1f1	Organic Fair Trade 5 Pack	Fresh Food	Fruits	Bananas	100	item	A	10.5
+1993bf44-23e1-4399-8dd7-f69ad681d1b8	RhubarbCramble	Bakery	Cakes	PiesandTarts	100	item	A	9
 0c62cf4f-ba2d-4973-92b3-7712ab5a6114	Small Ripe 6 Pack	Fresh Food	Fruits	Bananas	100	item	A	9.19999981
 79e7f2fd-dcbb-4cb4-827c-819476b5c445	Organic pears 450G	Fresh Food	Fruits	Apples&Pears	100	item	A	9.19999981
 66ffa954-6182-48f8-813e-0682d7e172e8	Jazz Apple 6 pack	Fresh Food	Fruits	Apples&Pears	100	item	A	9.19999981
@@ -80,13 +132,11 @@ a0827175-16ab-4da2-ad60-93d4d75e9406	Green grapes	Fresh Food	Fruits	Grapes	100	k
 d1556ba7-ea09-4709-9f65-c6fac6e640e7	Pitted Dates	Fresh Food	Fruits	Dried Fruit	100	kg	A	8.5
 ced9b0eb-761b-4dbe-8eec-ce8ddcc1d64b	Cashew 150G	Fresh Food	Fruits	Dried Fruit	100	item	A	9.5
 bf29b7f8-221c-4537-acbd-2a0f67f12e5a	Fruit&Nuts Mix	Fresh Food	Fruits	Dried Fruit	100	kg	A	11.5
-d7e4f339-95af-4ee4-9728-885ae2a0529b	Sweet Bananas	Fresh Food	Fruits	Bananas	999	kg	A	2.5
 c37ac885-44ee-4238-bd15-dcf427bd6af0	WhiteFarmhouseBread	Bakery	Bread	WhiteBread	1	item	A	3.5
 6cd0dece-3494-4e48-94e0-9d3445c5649c	Slicedbread	Bakery	Bread	WhiteBread	1	item	A	4.5
 59501999-7e83-45e5-b0e0-18fcd501ab59	FitBread	Bakery	Bread	WholegrainBread	1	item	A	6
 8bffbc73-5f98-4a2c-9a28-32492c2dde65	Slicedbread	Bakery	Bread	WholegrainBread	1	item	A	4.5
 ed1b6434-abac-4b76-b562-b12f3aeaa4c8	Ciabatta	Bakery	Bread	WhiteBread	1	item	A	2
-f4e7e846-402e-4e53-8623-810c49f4c169	AllButtercroissant	Bakery	Pastries	Croissants	1	item	A	1.5
 5500e553-d5ac-4ab7-ab37-0a7abe0268fe	AlmondCroissant	Bakery	Pastries	Croissants	1	item	A	2.5
 93d22e6c-7256-46a8-ac5a-baabb765a76f	CinammonBun	Bakery	Pastries	Brioche	1	item	A	3
 08dfc461-ffb6-4422-992e-29ac840381c7	CardammonBun	Bakery	Pastries	Brioche	1	item	A	3.5
@@ -94,15 +144,9 @@ f4e7e846-402e-4e53-8623-810c49f4c169	AllButtercroissant	Bakery	Pastries	Croissan
 6a12786e-58c0-4439-88ed-9eab6667e13e	StrawberryIcedDoughnut	Bakery	Cookies	Doughnuts	1	pack	A	2
 5c5efe0b-10d7-4d66-85b1-263db586edb2	BerryIcedDoughnut	Bakery	Cookies	Doughnuts	1	pack	A	2
 939b3549-d7fd-41d7-bc1c-b9c8288205c5	CaramelIcedDoughnut	Bakery	Cookies	Doughnuts	1	pack	A	2
-62f23ff4-515a-4208-880d-b3417a3aff42	TripleChocolateCookie	Bakery	Cookies	AmericanCookies	1	pack	A	19
 83c7ab9c-5c51-4c94-912c-96148c6acf96	WhiteChocolateCookie	Bakery	Cookies	AmericanCookies	1	pack	A	19
-2bac3e2c-6afd-40fd-8798-ae38ce4bda69	CheeseCake	Bakery	Cakes	BirthdayCakes	1	item	A	15
 23493a75-2e7d-4765-9e6c-f4261dfcf1b9	DoubleChocolateCake	Bakery	Cakes	BirthdayCakes	1	item	A	20
-9837d8cd-30b0-491f-aca5-87df8415dc37	ApplePie	Bakery	Cakes	PiesandTarts	1	item	A	9
-1993bf44-23e1-4399-8dd7-f69ad681d1b8	RhubarbCramble	Bakery	Cakes	PiesandTarts	1	item	A	9
-a455676e-7146-4bcb-aff2-da800fb2c2b4	RaspberryPie	Bakery	Cakes	PiesandTarts	1	item	A	10
 e8af37a9-d21c-4c26-a96c-eafac6b503b6	Mango Królewskie	Fresh Food	Fruits	Grapes	233	kg	A	34.5
-d213c883-8e69-4f26-ad0a-adcfe93d60ab	English Breakfast 80 Bags	Drinks	Tea	Black Tea	1	item	A	5
 1456e787-1d48-4789-a434-6fc31af54f9a	Twining Ceylon 50 Bags	Drinks	Tea	Black Tea	1	item	A	3.29999995
 28dd8745-0b47-4168-9e44-b19eeb66c73f	Organic White 26 Bags	Drinks	Tea	White Tea	1	item	A	1.79999995
 dc8ba565-5c5c-411c-9065-222d2e7a2b2a	Twining Loose 46 Bags	Drinks	Tea	Leaf Tea	1	item	A	3
@@ -121,12 +165,17 @@ d6c9b263-1c5b-4251-bd33-4d37fba3ac1d	Nescafe Gold Latte 200g	Drinks	Coffee	Latte
 d416539f-2332-404f-9214-cb0d2f28a051	Lavazza Beans 250g	Drinks	Coffe	Coffe Beans	1	item	A	4.0999999
 5f9e16de-8554-4924-9693-c2b39df8a439	Rossa Ground Coffe 250g	Drinks	Coffe	Ground Coffee	1	item	A	3.5999999
 eb35057c-5af5-4aef-9535-98c2ee7888a2	Nescafe Gold 275g	Drinks	Coffee	Instant Coffee	1	pack	A	8.97999954
+d7e4f339-95af-4ee4-9728-885ae2a0529b	Sweet Bananas	Fresh Food	Fruits	Bananas	998	kg	A	2.5
+cfedc8d8-56e9-4c2d-839b-c2308f7de1f1	Organic Fair Trade 5 Pack	Fresh Food	Fruits	Bananas	100	item	A	10.5
+a455676e-7146-4bcb-aff2-da800fb2c2b4	RaspberryPie	Bakery	Cakes	PiesandTarts	99	item	A	10
+2bac3e2c-6afd-40fd-8798-ae38ce4bda69	CheeseCake	Bakery	Cakes	BirthdayCakes	97	item	A	15
+9837d8cd-30b0-491f-aca5-87df8415dc37	ApplePie	Bakery	Cakes	PiesandTarts	87	item	A	9
+f4e7e846-402e-4e53-8623-810c49f4c169	AllButtercroissant	Bakery	Pastries	Croissants	100	item	A	1.5
+62f23ff4-515a-4208-880d-b3417a3aff42	TripleChocolateCookie	Bakery	Cookies	AmericanCookies	99	pack	A	19
+d213c883-8e69-4f26-ad0a-adcfe93d60ab	English Breakfast 80 Bags	Drinks	Tea	Black Tea	100	item	A	5
 afd2367b-489f-45ee-a96c-6a2b93b71d90	Nescafe Original 200g	Drinks	Coffee	Instant Coffee	1	pack	A	4
 aa151abe-c11f-46e7-bb84-7f4b865a346d	Nescafe Decaffe 200g	Drinks	Coffee	Decaf Coffee	1	pack	A	3.4000001
 dec9ee27-0a88-4056-a71a-7a596713aa73	Nescafe Mocha 200g	Drinks	Coffee	Coffee Latte	1	pack	A	3
-ad3b1876-45b5-4ccf-877d-f95cbf7d35c0	Nescafe Choco Mocha 100g	Drinks	Coffee	Coffee Mocha	1	pack	A	2.5
-aa52d00e-030b-4ea7-b90d-58ba13b7dca1	Pure Apple 1L	Drinks	Juices	Apple Juice	1	pack	A	1
-9168e605-409b-4530-9330-81ada55f5fe9	Pure Apple 0,3L	Drinks	Juices	Apple Juice	1	pack	A	0.400000006
 7056f8bf-803a-4e59-828c-87966eba965f	Sweet Mango 0,5L	Drinks	Juices	Tropical Juice	1	item	A	1.5
 b44b3725-f3e9-4f89-8425-c555203b0a2d	Banana Power 1L	Drinks	Juices	Banana Juice	1	item	A	1
 597fc4ee-ea70-43f7-968a-3583aa3a4e7d	Banana Power 0,3L	Drinks	Juices	Banana Juice	1	item	A	0.400000006
@@ -140,13 +189,12 @@ b1a21434-f6c3-4046-afbe-6d2cc517d374	Pure Orange 0,3L	Drinks	Juices	Orange Juice
 d0768959-0ca8-4e22-a432-b95ca582f34e	Red Patatoes	Fresh Food	Vegetable	Patetoes	10	pack	A	1.45000005
 9d188fdf-4248-49e7-ae1c-ccda09a1adfd	Finest Babies	Fresh Food	Vegetable	Patetoes	60	kg	A	3.25
 3fef440e-ce3e-465a-8309-3b9fd0457cf7	Sweet Onion	Fresh Food	Vegetable	Onions	20	kg	A	10
-9b6972cd-ba0e-4a51-9c90-9578566463c5	Red Onion	Fresh Food	Vegetable	Onions	10	pack	A	3.20000005
 55078652-c0c5-4d62-b003-1738492d0b2c	Rosana Onion	Fresh Food	Vegetable	Onions	40	kg	A	4.19999981
+9168e605-409b-4530-9330-81ada55f5fe9	Pure Apple 0,3L	Drinks	Juices	Apple Juice	79	pack	A	0.400000006
 6f6cdafa-25ce-4c3f-885e-49f4953f2c0b	Scandi Moscato Sweet	Alcohol	Wine	Sweet Wine	1	bot	A	11
 0f065786-79ae-472a-accb-0aa7f1d51dbc	Korbel Sweet Rose	Alcohol	Wine	Sweet Wine	1	bot	A	10.8999996
 46c666c1-fc93-4022-bdef-000ff4ebb9ea	Martini Rossi Sweet	Alcohol	Wine	Sweet Wine	1	bot	A	11.1999998
 adba2254-96d9-4001-bc24-3ed8c0cae206	Mirapiana Maremma Toscana	Alcohol	Wine	Red Dry Wine	1	bot	A	14
-540e5a33-2b81-400e-8591-3cd41b4dd646	La Cupola Pinot Nero	Alcohol	Wine	Red Dry Wine	1	bot	A	15
 8e17d0a1-4bc7-42db-9677-9ddc4415350f	Nos Racines Sauvignon 	Alcohol	Wine	White Dry Wine	1	bot	A	16
 c7b7b225-912c-4dfa-9340-747c676e2ccf	Woodhaven Chardonnay	Alcohol	Wine	White Dry Wine	1	bot	A	16
 3299cdb3-a4a8-44a3-8f4c-1023aef58e3a	Las Chanas Tinto	Alcohol	Wine	Semi Sweet Wine	1	bot	A	15
@@ -159,17 +207,68 @@ f63cf7e3-9ca5-471d-b4ed-eebcaa59bf1c	Kendermanns Riesling Kab	Alcohol	Wine	Semi 
 27105a57-09ce-4745-a2f3-3053a8f3973b	Soplica Szlachecka	Alcohol	Vodka	Polish Vodka	1	bot	A	10
 5aafe2c1-7703-4cdc-8fc0-a34e4fa24389	Absolwent	Alcohol	Vodka	Polish Vodka	1	bot	A	10.5
 36862a8d-3539-4b76-a2a7-4bdd70a357fb	Zytniowka	Alcohol	Vodka	Polish Vodka	1	bot	A	9
-ba5a70d7-39ca-4123-9518-91ee511feada	Wyborowa	Alcohol	Vodka	Polish Vodka	1	bot	A	11
-65ebf455-5d3a-4cc7-b142-5785a4ce156a	Pan Tadeusz	Alcohol	Vodka	Polish Vodka	1	bot	A	12
 bf78eb2d-049b-4935-b62b-c6e7e61db378	Lubelska Lemon	Alcohol	Vodka	Flavoured Vodka	1	bot	A	11.5
-10787fbf-09a5-4760-a8b9-976e75b21a7f	Absolut Miami	Alcohol	Vodka	Flavoured Vodka	1	bot	A	72.5
 3091741e-ed8d-459a-b5cc-ece6eaafb0f4	Zubrowka Apple	Alcohol	Vodka	Flavoured Vodka	1	bot	A	11.5
 ef40161e-731f-4614-b686-5efbda7e2ada	Stumbras Rasberry	Alcohol	Vodka	Flavoured Vodka	1	bot	A	13.5
 0ee36de9-1369-4513-b03f-4b3cb08bd22e	Effen Blood Orange	Alcohol	Vodka	Flavoured Vodka	1	bot	A	27.5
-bc7effbd-987b-40bf-8765-6ec41248a323	Ketel One Grape	Alcohol	Vodka	Flavoured Vodka	1	bot	A	25.5
 292a20be-2548-4962-b8e4-5a88d5a71b93	Moet & Chandon Ice	Alcohol	Wine	Semi Sweet Wine	1	bot	A	37
+ba5a70d7-39ca-4123-9518-91ee511feada	Wyborowa	Alcohol	Vodka	Polish Vodka	100	bot	A	11
 096fe5db-9acb-422c-9255-99540053e4d4	Mango	Fresh Food	Fruits	Greapes	20	kg	A	22
+aa52d00e-030b-4ea7-b90d-58ba13b7dca1	Pure Apple 1L	Drinks	Juices	Apple Juice	45	pack	A	1
+bc7effbd-987b-40bf-8765-6ec41248a323	Ketel One Grape	Alcohol	Vodka	Flavoured Vodka	100	bot	A	25.5
+10787fbf-09a5-4760-a8b9-976e75b21a7f	Absolut Miami	Alcohol	Vodka	Flavoured Vodka	100	bot	A	72.5
+65ebf455-5d3a-4cc7-b142-5785a4ce156a	Pan Tadeusz	Alcohol	Vodka	Polish Vodka	100	bot	A	12
+540e5a33-2b81-400e-8591-3cd41b4dd646	La Cupola Pinot Nero	Alcohol	Wine	Red Dry Wine	76	bot	A	15
+9b6972cd-ba0e-4a51-9c90-9578566463c5	Red Onion	Fresh Food	Vegetable	Onions	46	pack	A	25
+ad3b1876-45b5-4ccf-877d-f95cbf7d35c0	Nescafe Choco Mocha 100g	Drinks	Coffee	Coffee Mocha	100	pack	A	2.5
 \.
+
+
+--
+-- Data for Name: transactions; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.transactions (transaction_uid, customer_uid, price_value, credit_card_number, order_date) FROM stdin;
+6e460ebc-7c03-404c-a199-193b397dacd0	63a6932c-237e-413c-bd0e-fd08fa38a6dd	575	435533	2020-05-06 12:44:18.519042
+aa8b4385-619b-41f0-958f-d3b5f797d59f	0fe84b35-2483-4197-9078-fed64610202d	25	1234567898765432	2020-05-06 12:45:46.672413
+f27246e2-4f6d-45c1-b9fe-54ac66f2d38d	4f6fcc8f-04cb-4db3-86d7-f8bdfa0df368	9	1234567898765432	2020-05-06 12:55:29.591247
+c21d5bdd-31fc-44c9-8b41-b035a71fc3ba	4dccb61a-85c2-417c-bc7d-97eb9d42a180	25	1234567898765432	2020-05-06 13:53:31.497034
+d5565fb2-d261-4314-b7b3-904226e22a1e	63a6932c-237e-413c-bd0e-fd08fa38a6dd	30	1234567898765432	2020-05-06 13:59:28.762131
+69efd329-8c52-46c3-8928-fa78360816b8	0fe84b35-2483-4197-9078-fed64610202d	530	1234567898765432	2020-05-06 14:23:46.570193
+4acf2a59-a056-4414-9671-acaacb920bc3	a5ca4bfa-d4eb-43f8-98a9-5c8c7a58e2f5	222.5	4356237865348649	2020-05-06 14:26:32.943716
+92040289-f3ac-429d-b767-4fcab61847d5	4dccb61a-85c2-417c-bc7d-97eb9d42a180	45	1234567898765432	2020-05-06 14:30:07.509266
+2950e9c2-ad3d-4163-ba4b-c55f92c05f7d	4f6fcc8f-04cb-4db3-86d7-f8bdfa0df368	10	1234567898765432	2020-05-06 19:56:27.170542
+0edada47-1706-4906-b351-668d08af6e0b	4dccb61a-85c2-417c-bc7d-97eb9d42a180	25	1234567898765432	2020-05-07 07:54:09.597899
+6c51e4b0-b3d6-45df-adcf-67bd622ef6db	4f6fcc8f-04cb-4db3-86d7-f8bdfa0df368	25	1234567898765432	2020-05-07 17:53:53.393683
+2183aa3c-0a5d-452d-9c27-dc1bd03bb45b	4dccb61a-85c2-417c-bc7d-97eb9d42a180	850	1234567898765432	2020-05-07 19:40:58.199247
+3e6a8b77-f2d1-464e-a6d5-7ccfbddd45f0	50f42f90-a6a4-4c7a-ad52-230e196e4baf	15	9876543212345678	2020-05-07 19:44:38.114673
+a1f0ba5c-0512-420f-b5fa-6e31fb235e71	4f6fcc8f-04cb-4db3-86d7-f8bdfa0df368	500	1234567898765432	2020-05-07 19:49:44.355997
+694adca4-7581-4cb2-b839-206e60583c8c	0fe84b35-2483-4197-9078-fed64610202d	67.5	1234567898765432	2020-05-07 21:04:10.416732
+\.
+
+
+--
+-- Name: customers customers_nick_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.customers
+    ADD CONSTRAINT customers_nick_key UNIQUE (nick);
+
+
+--
+-- Name: customers pkc; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.customers
+    ADD CONSTRAINT pkc PRIMARY KEY (customer_uid);
+
+
+--
+-- Name: transactions pkt; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.transactions
+    ADD CONSTRAINT pkt PRIMARY KEY (transaction_uid);
 
 
 --
@@ -178,6 +277,14 @@ bc7effbd-987b-40bf-8765-6ec41248a323	Ketel One Grape	Alcohol	Vodka	Flavoured Vod
 
 ALTER TABLE ONLY public.products
     ADD CONSTRAINT products_pkey PRIMARY KEY (product_uid);
+
+
+--
+-- Name: transactions transactions_customer_uid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.transactions
+    ADD CONSTRAINT transactions_customer_uid_fkey FOREIGN KEY (customer_uid) REFERENCES public.customers(customer_uid);
 
 
 --

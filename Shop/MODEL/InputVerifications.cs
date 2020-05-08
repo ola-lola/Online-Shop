@@ -56,5 +56,14 @@ namespace Shop {
             return reg.IsMatch(checkedString) ? true : false;
         }
     
+        public static bool isNumeric(string strToCheck) {
+            Regex rg = new Regex(@"^[0-9\s,]*$");
+            return rg.IsMatch(strToCheck);
+        }
+        public static bool isWord(string strToCheck) {
+            Regex rg = new Regex(@"^[A-Za-z\s]*$");
+            return rg.IsMatch(strToCheck);
+        }
+
     }
 }

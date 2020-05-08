@@ -20,6 +20,16 @@ namespace Shop {
             currentItemIndex = 0;
         }
 
+        public Menu(List<string> menuItems)
+        {
+            menuDisplayed = true;
+            currentItemIndex = 0;
+
+            foreach(string item in menuItems){
+                this.menuItems.Add(new MenuItem(item));
+            }
+        }
+
         public void PrintMenuList() {
             foreach (MenuItem item in this.menuItems) {
                 foreach (char i in item.Content) {
@@ -42,13 +52,11 @@ namespace Shop {
             switch (input) {
                 
                 case ConsoleKey.UpArrow:
-                    Console.BackgroundColor = ConsoleColor.Black;
                     if (this.currentItemIndex != 0 ) this.current = this.menuItems[this.currentItemIndex--];
                     else this.current = this.menuItems[0];
                     break;
 
                 case ConsoleKey.DownArrow:
-                    Console.BackgroundColor = ConsoleColor.Black;
                     if (this.currentItemIndex != this.menuItems.Count-1 ) this.current = this.menuItems[this.currentItemIndex++];
                     else this.current = this.menuItems[this.menuItems.Count-1];
                     break;

@@ -9,17 +9,21 @@ namespace Shop {
 
         private Menu mainMenu = new Menu();
         
-
         ///
         // CMS_Menu_v2 constructor creates a list of menu items from Enum CMSmenuOptions_lvl1
         ///
         public CMSmenuController() {
+            mainMenu.menuContent.Add("                                  CREATE_NEW_RECORD                                     ");
+            mainMenu.menuContent.Add("                                    READ_RECORDS                                        ");
+            mainMenu.menuContent.Add("                               UPDATE_OR_DELETE_RECORD                                  ");
+            mainMenu.menuContent.Add("                              PREVIEW_ALL_ITEMS_IN_STOCK                                ");
+            mainMenu.menuContent.Add("                                      EXIT_CMS                                          ");
 
-            // Save all menu items to list (names = enum CMSmenuOptions_lvl1)
-            foreach(string item in Enum.GetNames(typeof(CMSmenuOptions))){
+            foreach(string item in mainMenu.menuContent){
                 mainMenu.menuItems.Add(new MenuItem(item));
             }
         }
+
 
         public void PrintmainMenu() {
             
