@@ -52,33 +52,14 @@ namespace Shop {
         }
 
         public static void MainAddNewProduct() {
-            Console.Clear();
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine("Please follow the next instructions to add a new record to Shop's Database.\n");
-            ConnectDB conection_DB = new ConnectDB();
-            PrintAvailableOptions("tables", conection_DB.GetTableNamesFromDb());
 
-            string table_name1 = CMSmenuView.GetTableName();
+            Product added = CMSaddController.PrintCMSaddController();
             
-            List<string> newEntryData = CMSmenuView.GetEntryToDbInput(table_name1, new List<string>() { "name", 
-                                                                                                        "division", 
-                                                                                                        "brigade",
-                                                                                                        "battalion",
-                                                                                                        "quantity",
-                                                                                                        "unit",
-                                                                                                        "status",
-                                                                                                        "price"});  
+            if (added != null) {
+                ConnectDB conection_DB = new ConnectDB();
+                conection_DB.AddProduct("products", added);
+            }
             
-            Product productToBeAdded = new Product( newEntryData[0],
-                                                    newEntryData[1],
-                                                    newEntryData[2],
-                                                    newEntryData[3],
-                                                    Int16.Parse(newEntryData[4]),
-                                                    newEntryData[5],
-                                                    newEntryData[6].ToUpper(),
-                                                    float.Parse(newEntryData[7]));
-
-            conection_DB.AddProduct(table_name1, productToBeAdded);
             Console.ReadKey();
         }
 
@@ -95,12 +76,14 @@ namespace Shop {
             Console.ResetColor();
             foreach (string column in requiredColumns) {
                 string userInput;
+                bool flag = false;
                 do {
+                    if (flag) { View.PrintError("Please give valid input"); }
                     Console.Write($"{column.ToUpper()}:  ");
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
                     userInput = Console.ReadLine();
                     Console.ResetColor();
-                } while (!CMSmenuView.ValidateInputData(userInput, dbTableName, column));
+                } while (flag = !CMSmenuView.ValidateInputData(userInput, dbTableName, column));
                 dataRowInput.Add(userInput);
             }
 
@@ -119,9 +102,11 @@ namespace Shop {
 
             if (dbTableName.ToLower() != "products") {return false;}
             else {
-                if (varchars25.Contains(dataColumnName)) { if (input.Length <= 25) return true; }
-                else if (varchars5 == dataColumnName) {if (input.Length <= 5) return true;}
-                else if (varchars1 == dataColumnName) {if (input.Length == 1) return true;}
+                if (varchars25.Contains(dataColumnName)) { if (input.Length > 0 && input.Length <= 25 && InputVerifications.isWord(input)) return true; }
+                // unit
+                else if (varchars5 == dataColumnName) {if (input.Length > 0 && input.Length <= 5 && InputVerifications.isWord(input)) return true;}
+                // status
+                else if (varchars1 == dataColumnName) {if (input.Length > 0 && input.Length == 1 && InputVerifications.isWord(input)) return true;}
                 
                 else if (ints == dataColumnName) {
                     try {
@@ -283,7 +268,7 @@ namespace Shop {
                     Console.Write("\n*If a new price includes cents/pounds - please use dots between numbers e.g. 2.4):\n");
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
                     result = Console.ReadLine();
-                        while (!(isNumeric(result)))
+                        while (!(InputVerifications.isNumeric(result)))
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.Write("Invalid input.\n\n Try again:  ");
@@ -303,7 +288,7 @@ namespace Shop {
                     Console.Write("\n\nEnter NEW quantity value: ");
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
                     result = Console.ReadLine();
-                        while (!(isNumeric(result)))
+                        while (!(InputVerifications.isNumeric(result)))
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.Write("Quantity column accept only numbers. Do not use letters.\n\n Try again:  ");
@@ -378,10 +363,6 @@ namespace Shop {
                 Console.Write($":: {name} :: ");
             }
             System.Console.WriteLine();
-        }
-        public static bool isNumeric(string strToCheck) {
-            Regex rg = new Regex(@"^[0-9\s,]*$");
-            return rg.IsMatch(strToCheck);
         }
     }
 }

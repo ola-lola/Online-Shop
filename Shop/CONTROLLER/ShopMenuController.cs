@@ -34,7 +34,6 @@ namespace Shop {
                 if (pressedKey == ConsoleKey.Enter) {
 
                     // Parse current menu item content (string) to defined enum
-                    
                     switch (shopMainMenu.current.Content) {
                         case "//\\\\//                        = =   START_SHOPPING   = =                          \\\\//\\\\": // START_SHOPPING
                             ShopMenuView.PutToCart();
