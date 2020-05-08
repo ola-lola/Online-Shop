@@ -207,9 +207,9 @@ namespace Shop {
                         customer_Cart.Add(pro_discription, 1);
                     }
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
-                    Console.WriteLine("\n\n     :: A ::           :: ENTER :: ");
+                    Console.WriteLine("\n\n    :: A ::           :: ENTER ::           :: C ::   ");
                     Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.Write("\n(change quantity)  (continue shoping) ");
+                    Console.Write("\n(change quantity)  (continue shoping)  (check your cart)");
                     Console.ResetColor();
                     result1 = Console.ReadLine().ToUpper();
                     if (result1 == "A")
@@ -254,7 +254,7 @@ namespace Shop {
             Console.WriteLine();
             Console.Write("\n\n    :: C ::          :: ENTER :: ");
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write("\n  (update cart)   (continue shoping) ");
+            Console.Write("\n  (update cart)   (approve and pay) ");
             Console.ResetColor();
             string result = Console.ReadLine().ToUpper();
             if (result == "C")
@@ -271,31 +271,58 @@ namespace Shop {
                     Console.ResetColor();
                     result = Console.ReadLine().ToUpper();
                     if (result == "D")
-                    {
-                        Console.Write("Enter the Lp of product: ");
+                    {   
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.Write("\nEnter the Lp of product: ");
+                        Console.ResetColor();
                         int k = Int16.Parse(Console.ReadLine());
                         customer_Cart.Remove(customer_Cart.ElementAt(k-1).Key);
+                        System.Threading.Thread.Sleep(1000);
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("\nProduct has been removed.");
+                        Console.ResetColor();
+                        System.Threading.Thread.Sleep(2000);
                     }
                     else if (result == "U")
-                    {
-                        Console.Write("Enter the Lp of product: ");
+                    {   
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.Write("\nEnter the Lp of product: ");
+                        Console.ResetColor();
                         int k = Int16.Parse(Console.ReadLine());
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
                         Console.Write("Enter the corrected quantity: ");
+                        Console.ResetColor();
                         int q = Int16.Parse(Console.ReadLine());
                         string ind = customer_Cart.ElementAt(k-1).Key;
                         customer_Cart[ind] = q;
+                        System.Threading.Thread.Sleep(1000);
+                        Console.ForegroundColor = ConsoleColor.DarkGreen;
+                        Console.WriteLine("\nProduct has been updated.");
+                        Console.ResetColor();
+                        System.Threading.Thread.Sleep(1000);
                     }
                     Console.Clear();
+                    Console.BackgroundColor = ConsoleColor.DarkYellow;
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.WriteLine("                                                            \n                         Your Cart:                         \n                                                            \n");
+                    Console.ResetColor();
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
                     Console.WriteLine("LP| Description               | price | Quantity |  Value  |");
+                    Console.ResetColor();
                     Console.WriteLine("-----------------------------------------------------------");
                     Temp_Display_Cart(customer_Cart);
                     Console.WriteLine();
-                    Console.Write("Q(quit Cart correction), ENTER (continue correction): ");
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.Write("\n\n    :: Q ::          :: ENTER :: ");
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.Write("\n(approve cart) (continue shoping) ");
+                    Console.ResetColor();
                     result = Console.ReadLine().ToUpper();
                     if (result == "Q") {break;}
                 }
             
             }
+            Console.Clear();
             List<string> nicpas = PaymentProcedure();
             PayAndOut();
             string ui;
@@ -327,8 +354,15 @@ namespace Shop {
         static List<string> PaymentProcedure()
         {
             Console.WriteLine();
-            Console.WriteLine("Payment Procedures");
-            Console.WriteLine("---------------------------");
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("------------------------------------------------------------");
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.WriteLine("                                                            \n                     Payment Procedures                     \n                                                            ");
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("------------------------------------------------------------\n");
+            Console.ResetColor();
             
             Console.Write("Are you registered client (Y/N): ");
             string result = Console.ReadLine().ToUpper();
@@ -336,7 +370,9 @@ namespace Shop {
             if (result == "Y")
             {
                 Console.Write("Your Nickname: ");
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 string tempnick = Console.ReadLine();
+                Console.ResetColor();
                 // sprawdzić czy nick jest w bazie
                 ConnectDB connection_DB40 = new ConnectDB();
                 List<string> mynicks = connection_DB40.CheckNick();
@@ -350,7 +386,8 @@ namespace Shop {
                 Console.Write("Enter your password: ");
                 ConsoleKeyInfo key;
                 do
-                {
+                {   
+                    Console.ForegroundColor = ConsoleColor.Yellow;
                     key = Console.ReadKey(true);
                     if (key.Key != ConsoleKey.Backspace)
                     {
@@ -361,12 +398,24 @@ namespace Shop {
                     {
                         Console.Write("\b");
                     }
+                    Console.ResetColor();
                 }
                 while (key.Key != ConsoleKey.Enter);
                 nick_and_pass.Add(pass);
             }
             else
-            {
+            {   
+                Console.Clear();
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("------------------------------------------------------------");
+                Console.BackgroundColor = ConsoleColor.White;
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.WriteLine("                                                            \n                     Payment Procedures                     \n                                                            ");
+                Console.ResetColor();
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("------------------------------------------------------------\n");
+                Console.ResetColor();
                 Console.WriteLine("Would You like to register (gaining 5% discount) (Y/N): ");
                 string result1 = Console.ReadLine().ToUpper();
                 if (result1 == "Y")
