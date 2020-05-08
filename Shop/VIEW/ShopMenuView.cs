@@ -315,7 +315,7 @@ namespace Shop {
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
                     Console.Write("\n\n    :: Q ::          :: ENTER :: ");
                     Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.Write("\n(approve cart) (continue shoping) ");
+                    Console.Write("\n(approve cart)    (continue shoping) ");
                     Console.ResetColor();
                     result = Console.ReadLine().ToUpper();
                     if (result == "Q") {break;}
@@ -442,7 +442,7 @@ namespace Shop {
                     do {
                         Console.BackgroundColor = ConsoleColor.White;
                         Console.ForegroundColor = ConsoleColor.Black;
-                        Console.Write("\nEnter credit card number: ");
+                        Console.Write("\nEnter credit card number:     ");
                         Console.ResetColor();
                         creditNumber = Console.ReadLine();
                     } while (!InputVerifications.IsCreditCardNo(creditNumber));
@@ -451,7 +451,7 @@ namespace Shop {
                     do {
                         Console.BackgroundColor = ConsoleColor.White;
                         Console.ForegroundColor = ConsoleColor.Black;
-                        Console.Write("\nEnter valid throu date: ");
+                        Console.Write("\nEnter valid date (03 21):      ");
                         Console.ResetColor();
                         creditvalid = Console.ReadLine();
                     } while (!InputVerifications.IsValidThruDate(creditvalid));
@@ -460,13 +460,13 @@ namespace Shop {
                     do {
                         Console.BackgroundColor = ConsoleColor.White;
                         Console.ForegroundColor = ConsoleColor.Black;
-                        Console.Write("\nEnter CVV/CVC: ");
+                        Console.Write("\nEnter CVV/CVC:                ");
                         Console.ResetColor();
                         creditCVC = Console.ReadLine();
                     } while (!InputVerifications.IsCVC(creditCVC));
                     Console.BackgroundColor = ConsoleColor.White;
                     Console.ForegroundColor = ConsoleColor.Black;
-                    Console.Write("\nEnter shipping address:");
+                    Console.Write("\nEnter shipping address:       ");
                     Console.ResetColor();
                     string address_ship = Console.ReadLine();
                 }
