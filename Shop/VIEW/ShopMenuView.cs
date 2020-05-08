@@ -207,7 +207,7 @@ namespace Shop {
                         customer_Cart.Add(pro_discription, 1);
                     }
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
-                    Console.WriteLine("\n\n    :: A ::          :: ENTER :: ");
+                    Console.WriteLine("\n\n     :: A ::           :: ENTER :: ");
                     Console.ForegroundColor = ConsoleColor.DarkGray;
                     Console.Write("\n(change quantity)  (continue shoping) ");
                     Console.ResetColor();
@@ -226,33 +226,49 @@ namespace Shop {
                     Console.ForegroundColor = ConsoleColor.Black;
                     Console.WriteLine("                                                            \n                         Your Cart:                         \n                                                            \n");
                     Console.ResetColor();
-                    Console.WriteLine("LP| Description                 | price |Quantity|  Value  |");
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("LP| Description               | price | Quantity |  Value  |");
+                    Console.ResetColor();
                     Console.WriteLine("-----------------------------------------------------------");
                     Temp_Display_Cart(customer_Cart);
                     Console.WriteLine();
-                    Console.Write("S(to stop shoping), ENTER (continue shoping) -> Select an option: ");
+                    Console.Write("\n\n    :: S ::          :: ENTER :: ");
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.Write("\n  (go to cash)   (continue shoping) ");
+                    Console.ResetColor();
                     result1 = Console.ReadLine().ToUpper();
                     if (result1 == "S") {break;}
                 }
             }
             Console.Clear();
-            Console.BackgroundColor = ConsoleColor.DarkYellow;
-            Console.ForegroundColor = ConsoleColor.Black;
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("                                                            \n                         Your Cart:                         \n                                                            \n");
             Console.ResetColor();
-            Console.WriteLine("LP| Description                 | price |Quantity|  Value  |");
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("LP| Description               | price | Quantity |  Value  |");
+            Console.ResetColor();
             Console.WriteLine("-----------------------------------------------------------");
             Dictionary<Product, int> outcome_prod = new Dictionary<Product, int>();
             outcome_prod = Temp_Display_Cart(customer_Cart);
             Console.WriteLine();
-            Console.Write("C(Corect Cart content), ENTER (go to payment) -> Select an option:: ");
+            Console.Write("\n\n    :: C ::          :: ENTER :: ");
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.Write("\n  (update cart)   (continue shoping) ");
+            Console.ResetColor();
             string result = Console.ReadLine().ToUpper();
             if (result == "C")
             {
                 bool correction = true;
                 while(correction)
-                {
-                    Console.Write("D(delete product), U(update quantity -> Select an option: ");
+                {   
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
+                    Console.Write("\n\n             Next step:            ");
+                    Console.ResetColor();
+                    Console.Write("\n\n     :: D ::          :: U :: ");
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.Write("\n(update product)  (delete product) ");
+                    Console.ResetColor();
                     result = Console.ReadLine().ToUpper();
                     if (result == "D")
                     {
@@ -270,7 +286,7 @@ namespace Shop {
                         customer_Cart[ind] = q;
                     }
                     Console.Clear();
-                    Console.WriteLine("LP| Description                 | price |Quantity|  Value  |");
+                    Console.WriteLine("LP| Description               | price | Quantity |  Value  |");
                     Console.WriteLine("-----------------------------------------------------------");
                     Temp_Display_Cart(customer_Cart);
                     Console.WriteLine();
@@ -435,7 +451,10 @@ namespace Shop {
                     Int16.Parse(mojeproperties[4]),mojeproperties[5],mojeproperties[6], float.Parse(mojeproperties[7])));
             }
             Console.WriteLine("-----------------------------------------------------------");
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("                                        Total price: " + total + " Euro");
+            Console.ResetColor();
             for (int i = 0; i < contentCart.Count; i++)
             {
                 product_dict[product_list[i]] = contentCart.ElementAt(i).Value;
